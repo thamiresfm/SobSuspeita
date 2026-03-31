@@ -6,6 +6,9 @@
       "titulo": "O silêncio da Fazenda Holden",
       "descricao": "Assassinato numa propriedade isolada: álibis frágeis, laudo incoerente e um segredo de família.",
       "dificuldade": "Médio",
+      "nivel": "Intermediário",
+      "capitulo": 1,
+      "categoria": "Assassinato",
       "duracaoEstimada": "25–35 min",
       "imagemCapa": "cases/fazenda-holden/images/capa.png"
     },
@@ -15,8 +18,95 @@
       "titulo": "Galeria Nocturna",
       "descricao": "Roubo de obra valiosa na abertura: câmeras, coturnos e um depoimento que não fecha.",
       "dificuldade": "Fácil",
+      "nivel": "Iniciante",
+      "capitulo": 2,
+      "categoria": "Roubo",
       "duracaoEstimada": "15–20 min",
       "imagemCapa": "cases/galeria-nocturna/images/capa.png"
+    },
+    {
+      "id": "ultimo-trem-aurora",
+      "arquivo": "ultimo-trem-aurora/caso.json",
+      "titulo": "O Último Trem de Aurora",
+      "descricao": "Um passageiro desaparece entre duas estações em uma noite de neblina.",
+      "dificuldade": "Fácil",
+      "nivel": "Iniciante",
+      "capitulo": 3,
+      "categoria": "Desaparecimento",
+      "duracaoEstimada": "15–20 min",
+      "imagemCapa": ""
+    },
+    {
+      "id": "apartamento-302",
+      "arquivo": "apartamento-302/caso.json",
+      "titulo": "O Apartamento 302",
+      "descricao": "Vizinhos escutam barulhos estranhos, mas o morador jura que estava viajando.",
+      "dificuldade": "Fácil",
+      "nivel": "Iniciante",
+      "capitulo": 4,
+      "categoria": "Intrusão",
+      "duracaoEstimada": "15–20 min",
+      "imagemCapa": ""
+    },
+    {
+      "id": "restaurante-vazio",
+      "arquivo": "restaurante-vazio/caso.json",
+      "titulo": "O Caso do Restaurante Vazio",
+      "descricao": "Todas as mesas reservadas, nenhuma testemunha presente quando o crime acontece.",
+      "dificuldade": "Médio",
+      "nivel": "Intermediário",
+      "capitulo": 5,
+      "categoria": "Assassinato",
+      "duracaoEstimada": "25–35 min",
+      "imagemCapa": ""
+    },
+    {
+      "id": "vozes-madrugada",
+      "arquivo": "vozes-madrugada/caso.json",
+      "titulo": "Vozes na Madrugada",
+      "descricao": "Chamadas anônimas avisam de um crime minutos antes dele acontecer.",
+      "dificuldade": "Médio",
+      "nivel": "Intermediário",
+      "capitulo": 6,
+      "categoria": "Ameaça",
+      "duracaoEstimada": "25–35 min",
+      "imagemCapa": ""
+    },
+    {
+      "id": "testemunha-invisivel",
+      "arquivo": "testemunha-invisivel/caso.json",
+      "titulo": "A Testemunha Invisível",
+      "descricao": "Uma pessoa afirma ter visto tudo, mas não aparece em nenhuma gravação.",
+      "dificuldade": "Difícil",
+      "nivel": "Avançado",
+      "capitulo": 7,
+      "categoria": "Conspiração",
+      "duracaoEstimada": "35–45 min",
+      "imagemCapa": ""
+    },
+    {
+      "id": "relatorio-17b",
+      "arquivo": "relatorio-17b/caso.json",
+      "titulo": "O Relatório 17-B",
+      "descricao": "Um dossiê interno some do arquivo e reaparece com páginas alteradas.",
+      "dificuldade": "Difícil",
+      "nivel": "Avançado",
+      "capitulo": 8,
+      "categoria": "Fraude",
+      "duracaoEstimada": "35–45 min",
+      "imagemCapa": ""
+    },
+    {
+      "id": "eco-da-verdade",
+      "arquivo": "eco-da-verdade/caso.json",
+      "titulo": "O Eco da Verdade",
+      "descricao": "Um caso antigo volta à tona quando novos áudios contradizem o processo original.",
+      "dificuldade": "Difícil",
+      "nivel": "Especial",
+      "capitulo": 9,
+      "categoria": "Revisão de caso",
+      "duracaoEstimada": "40+ min",
+      "imagemCapa": ""
     }
   ]
 }
