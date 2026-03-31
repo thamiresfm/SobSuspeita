@@ -667,11 +667,23 @@ function renderHomeList() {
   const diffFilter = el("case-filter-difficulty")?.value || "";
 
   const inProgressList = el("case-list-inprogress");
+  const beginnerList = el("case-list-beginner");
+  const intermediateList = el("case-list-intermediate");
+  const advancedList = el("case-list-advanced");
+  const specialList = el("case-list-special");
   const allList = el("case-list");
   const contBtn = el("btn-home-continue");
   const contSection = el("home-continue-section");
+  const secBeginner = el("home-level-beginner");
+  const secIntermediate = el("home-level-intermediate");
+  const secAdvanced = el("home-level-advanced");
+  const secSpecial = el("home-level-special");
 
   if (inProgressList) inProgressList.innerHTML = "";
+  if (beginnerList) beginnerList.innerHTML = "";
+  if (intermediateList) intermediateList.innerHTML = "";
+  if (advancedList) advancedList.innerHTML = "";
+  if (specialList) specialList.innerHTML = "";
   if (allList) allList.innerHTML = "";
 
   const withMeta = registry.map((c) => ({ entry: c, meta: getCaseMeta(c) }));
@@ -715,6 +727,42 @@ function renderHomeList() {
       allList.appendChild(card);
     });
   }
+
+  function pushToLevel(entry, meta) {
+    const nivel = (entry.nivel || "").toLowerCase();
+    const isInProgress = meta.inProgress;
+    const label = isInProgress ? "Em andamento" : "Novo caso";
+    const card = createCaseCard(entry, { showStatus: true, statusLabel: label });
+
+    if (nivel === "iniciante" && beginnerList) {
+      beginnerList.appendChild(card);
+      if (secBeginner) secBeginner.hidden = false;
+      return;
+    }
+    if (nivel === "intermediario" && intermediateList) {
+      intermediateList.appendChild(card);
+      if (secIntermediate) secIntermediate.hidden = false;
+      return;
+    }
+    if (nivel === "avancado" && advancedList) {
+      advancedList.appendChild(card);
+      if (secAdvanced) secAdvanced.hidden = false;
+      return;
+    }
+    if (nivel === "especial" && specialList) {
+      specialList.appendChild(card);
+      if (secSpecial) secSpecial.hidden = false;
+    }
+  }
+
+  if (beginnerList && secBeginner) secBeginner.hidden = true;
+  if (intermediateList && secIntermediate) secIntermediate.hidden = true;
+  if (advancedList && secAdvanced) secAdvanced.hidden = true;
+  if (specialList && secSpecial) secSpecial.hidden = true;
+
+  filtered.forEach(({ entry, meta }) => {
+    pushToLevel(entry, meta);
+  });
 }
 
 function createCaseCard(entry, opts = {}) {
