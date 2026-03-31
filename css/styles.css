@@ -288,7 +288,6 @@ body {
   display: block;
   width: 100%;
   text-align: left;
-  padding: 1rem 1.1rem;
   background: var(--bg-elevated);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -301,7 +300,6 @@ body {
 
 .case-card--large {
   grid-column: 1 / -1;
-  padding: 1.1rem 1.25rem;
 }
 
 .case-card--large .case-card__cover {
@@ -313,6 +311,22 @@ body {
   border-color: var(--accent-dim);
   background: var(--bg-hover);
   outline: none;
+}
+
+.case-card__inner {
+  display: block;
+  width: 100%;
+  padding: 1rem 1.1rem;
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.case-card--large .case-card__inner {
+  padding: 1.1rem 1.25rem;
 }
 
 .case-card__title {
