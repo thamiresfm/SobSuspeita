@@ -11,6 +11,7 @@
   --accent-dim: #8a7020;
   --danger: #c45c5c;
   --ok: #6b9e7a;
+  --font-ui: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-body: "Newsreader", Georgia, serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
   --radius: 10px;
@@ -37,7 +38,7 @@ body {
   min-height: 100dvh;
   background: radial-gradient(ellipse 120% 80% at 50% -20%, #1a1814 0%, var(--bg) 55%);
   color: var(--text);
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-size: var(--text-base);
   line-height: var(--line-reading);
 }
@@ -136,6 +137,7 @@ body {
   font-weight: 600;
   margin: 0 0 0.75rem;
   line-height: 1.15;
+  font-family: var(--font-body);
 }
 
 .hero__lead {
@@ -249,6 +251,7 @@ body {
 .home-section__title {
   font-size: 1.1rem;
   margin: 0 0 0.1rem;
+  font-family: var(--font-body);
 }
 
 .home-section__subtitle {
@@ -327,6 +330,68 @@ body {
 
 .case-card--large .case-card__inner {
   padding: 1.1rem 1.25rem;
+}
+
+.case-card__media {
+  position: relative;
+  border-radius: calc(var(--radius) - 2px);
+  overflow: hidden;
+  margin-bottom: 0.7rem;
+}
+
+.case-card__cover {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 180px;
+  object-fit: cover;
+}
+
+.case-card__overlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 0.6rem 0.7rem 0.7rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.1));
+}
+
+.case-card__title {
+  font-size: 1.08rem;
+  font-weight: 600;
+  margin: 0 0 0.15rem;
+  font-family: var(--font-body);
+}
+
+.case-card__desc {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+.case-card__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.case-card__status {
+  margin-left: auto;
+}
+
+.case-card__progress {
+  margin-top: 0.55rem;
+  height: 4px;
+  border-radius: 999px;
+  background: #23222e;
+  overflow: hidden;
+}
+
+.case-card__progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #f1d086, #c9a227);
+  width: 0%;
 }
 
 .case-card__title {

@@ -726,6 +726,17 @@ function createCaseCard(entry, opts = {}) {
   const btn = document.createElement("button");
   btn.type = "button";
   btn.className = "case-card__inner";
+  const st = loadCaseState(entry.id) || {};
+  const progress =
+    st && st.resolutionSubmitted
+      ? 100
+      : st && st.notes && st.notes.length
+      ? 40
+      : st && st.timelineOrder && st.timelineOrder.length
+      ? 25
+      : st && st.startedAt
+      ? 10
+      : 0;
   const capa = entry.imagemCapa
     ? `<img class="case-card__cover" src="${escapeHtml(entry.imagemCapa)}" alt="" loading="lazy" />`
     : "";
@@ -734,13 +745,20 @@ function createCaseCard(entry, opts = {}) {
       ? `<span class="pill pill--muted case-card__status">${escapeHtml(opts.statusLabel)}</span>`
       : "";
   btn.innerHTML = `
-    ${capa}
-    <h2 class="case-card__title">${escapeHtml(entry.titulo)}</h2>
-    <p class="case-card__desc">${escapeHtml(entry.descricao)}</p>
+    <div class="case-card__media">
+      ${capa}
+      <div class="case-card__overlay">
+        <h2 class="case-card__title">${escapeHtml(entry.titulo)}</h2>
+        <p class="case-card__desc">${escapeHtml(entry.descricao)}</p>
+      </div>
+    </div>
     <div class="case-card__row">
       <span class="pill">${escapeHtml(entry.dificuldade)}</span>
       <span class="pill pill--muted">${escapeHtml(entry.duracaoEstimada)}</span>
       ${statusBadge}
+    </div>
+    <div class="case-card__progress" aria-label="Progresso no caso">
+      <div class="case-card__progress-fill" style="width: ${progress}%;"></div>
     </div>
   `;
   btn.addEventListener("click", () => {
