@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0d0d0f" />
-  <title>Arquivo Frio — Investigação Narrativa</title>
+  <title>Sob Suspeita — Cena do Crime</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
@@ -15,7 +15,7 @@
     <header class="topbar" role="banner">
       <button type="button" id="btn-home" class="topbar__brand" aria-label="Voltar ao início">
         <span class="topbar__logo">◆</span>
-        <span class="topbar__title">Arquivo Frio</span>
+        <span class="topbar__title">Sob Suspeita</span>
       </button>
       <div class="topbar__meta" id="case-meta" hidden>
         <span class="pill pill--time" id="timer-display" aria-live="polite">00:00</span>
@@ -27,8 +27,9 @@
       <!-- Home -->
       <section id="view-home" class="view view--home" aria-labelledby="home-heading">
         <div class="hero">
-          <p class="kicker">Simulador de caso criminal</p>
-          <h1 id="home-heading" class="hero__title">Investigação narrativa</h1>
+          <img src="assets/logo-sob-suspeita.png" alt="Sob Suspeita — Cena do Crime" class="hero__logo" width="640" height="360" />
+          <p class="kicker">Investigação narrativa</p>
+          <h1 id="home-heading" class="hero__title">Cena do Crime</h1>
           <p class="hero__lead">
             Leia, cruze dados, marque contradições e feche o caso com uma hipótese consistente —
             não há atalhos por múltipla escolha fácil.
@@ -169,6 +170,7 @@
       <header class="modal__head">
         <span class="modal__badge" id="modal-type"></span>
         <h2 id="modal-title" class="modal__title"></h2>
+        <button type="button" id="modal-tts-btn" class="btn btn--ghost btn--sm modal__tts" hidden aria-pressed="false">🔊 Ler</button>
         <button type="button" class="modal__close" data-close-modal aria-label="Fechar">×</button>
       </header>
       <div id="modal-body" class="modal__body"></div>

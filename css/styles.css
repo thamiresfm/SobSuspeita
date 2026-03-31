@@ -104,6 +104,14 @@ body {
   padding: 1.25rem 0 1.5rem;
 }
 
+.hero__logo {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  display: block;
+  margin: 0 auto 0.75rem;
+}
+
 .kicker {
   font-family: var(--font-mono);
   font-size: 0.8rem;
@@ -864,7 +872,7 @@ textarea {
 
 .modal__head {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr auto auto;
   grid-template-rows: auto auto;
   gap: 0.25rem 0.5rem;
   padding: 1rem 1rem 0.5rem;
@@ -887,6 +895,14 @@ textarea {
   line-height: 1.25;
   margin: 0;
   padding-right: 2rem;
+}
+
+.modal__tts {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  justify-self: end;
+  font-size: 0.8rem;
 }
 
 .modal__close {

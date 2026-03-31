@@ -9,6 +9,7 @@ let currentCaseId = null;
 let state = null;
 let timerInterval = null;
 let currentUtterance = null;
+let currentDocForSpeech = null;
 
 const el = (id) => document.getElementById(id);
 
@@ -118,6 +119,17 @@ function speakText(text, heading) {
   window.speechSynthesis.speak(utter);
 }
 
+function setDocForSpeech(doc) {
+  currentDocForSpeech = doc || null;
+  const btn = el("modal-tts-btn");
+  if (!btn) return;
+  const supported = "speechSynthesis" in window;
+  const hasContent = !!(doc && doc.conteudo && String(doc.conteudo).trim());
+  btn.hidden = !(supported && hasContent);
+  btn.setAttribute("aria-pressed", "false");
+  btn.textContent = "🔊 Ler";
+}
+
 function appendDocVisual(body, doc) {
   if (doc.imagem) {
     const fig = document.createElement("figure");
@@ -149,25 +161,7 @@ function openModal(doc) {
   content.className = "doc-content";
   content.textContent = doc.conteudo || "";
   body.appendChild(content);
-  const controls = document.createElement("div");
-  controls.className = "doc-tts";
-  controls.innerHTML = `
-    <button type="button" class="btn btn--ghost btn--sm doc-tts__btn" data-tts=\"play\">Ouvir documento</button>
-    <button type="button" class="btn btn--ghost btn--sm doc-tts__btn" data-tts=\"stop\">Parar</button>
-  `;
-  controls.querySelectorAll(".doc-tts__btn").forEach((btn) => {
-    const mode = btn.dataset.tts;
-    btn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      if (mode === "play") {
-        const heading = doc.titulo || tipoLabel(doc.tipo);
-        speakText(doc.conteudo, heading);
-      } else {
-        stopSpeech();
-      }
-    });
-  });
-  body.appendChild(controls);
+  setDocForSpeech({ titulo: doc.titulo || tipoLabel(doc.tipo), conteudo: doc.conteudo || "" });
   modal.hidden = false;
   document.body.style.overflow = "hidden";
 }
@@ -184,8 +178,10 @@ async function openRoteiroModal(url) {
     if (!res.ok) throw new Error(String(res.status));
     const text = await res.text();
     body.textContent = text;
+    setDocForSpeech({ titulo: "Roteiro do caso", conteudo: text });
   } catch (e) {
     body.textContent = "Não foi possível carregar o roteiro. Verifique o servidor local.";
+    setDocForSpeech(null);
   }
   modal.hidden = false;
   document.body.style.overflow = "hidden";
@@ -193,6 +189,7 @@ async function openRoteiroModal(url) {
 }
 
 function closeModal() {
+  stopSpeech();
   el("modal-root").hidden = true;
   document.body.style.overflow = "";
 }
@@ -645,6 +642,27 @@ async function init() {
     playClick();
     showHome();
   });
+
+  const modalTtsBtn = el("modal-tts-btn");
+  if (modalTtsBtn) {
+    modalTtsBtn.addEventListener("click", () => {
+      if (!currentDocForSpeech) {
+        toast("Nada para ler neste documento.");
+        return;
+      }
+      const pressed = modalTtsBtn.getAttribute("aria-pressed") === "true";
+      if (pressed) {
+        stopSpeech();
+        modalTtsBtn.setAttribute("aria-pressed", "false");
+        modalTtsBtn.textContent = "🔊 Ler";
+      } else {
+        const { titulo, conteudo } = currentDocForSpeech;
+        speakText(conteudo, titulo);
+        modalTtsBtn.setAttribute("aria-pressed", "true");
+        modalTtsBtn.textContent = "⏹ Parar";
+      }
+    });
+  }
 
   el("btn-sound").addEventListener("click", () => {
     const next = !isEnabled();
