@@ -1,0 +1,143 @@
+{
+  "titulo": "O silêncio da Fazenda Holden",
+  "descricao": "Arnaldo Holden é encontrado sem vida na cozinha da sede. A região não tem sinal confiável; testemunhos se sobrepõem e o laudo traz um detalhe que ninguém mencionou em voz alta.",
+  "dificuldade": "Médio",
+  "duracaoEstimada": "25–35 min",
+  "fatos": [
+    "A morte ocorreu entre 05:20 e 06:10, segundo janela do laudo toxicológico.",
+    "Há traços compatíveis com ingestão de uma toxina vegetal potente, não acidental em dosagem.",
+    "O pacote de sementes importadas tinha assinatura de recebimento: H. Holden.",
+    "A câmera do portão registra o veículo do filho saindo às 06:47, não às 06:00 como declarado.",
+    "O capataz Raul alega ter consertado cerca à luz do dia, mas a umidade do barro no capacete indica trabalho noturno recente."
+  ],
+  "fases": [
+    {
+      "nome": "Fase 1 — Contexto",
+      "resumo": "Cena inicial, primeiros relatos e laudo preliminar.",
+      "documentos": [
+        {
+          "id": "laudo-1",
+          "tipo": "laudo",
+          "titulo": "Relatório preliminar (IML)",
+          "conteudo": "LOCAL: sede da Fazenda Holden, cozinha.\nVÍTIMA: Arnaldo Holden, 58 anos.\n\nACHADOS: sinais de intensa gastroenterite hemorrágica, pupilas midriáticas. Material biológico coletado para painel toxicológico expandido.\n\nHIPÓTESE DO PERITO DE CAMPO: intoxicação exógena — não parece intoxicação alimentar comum por contaminação leve. Solicitada busca por toxinas de origem vegetal (ricina e análogos).\n\nOBSERVAÇÃO CRÍTICA: no lixo da despensa, embalagem externa de envelope internacional com remetente obscuro. Etiqueta de recebimento rasgada, mas legível: destinatária Helena Holden, há 11 dias."
+        },
+        {
+          "id": "foto-1",
+          "tipo": "foto",
+          "titulo": "Vista da cozinha (lacrada)",
+          "imagemPlaceholder": "Bancada com xícara tombada — flash forense",
+          "conteudo": "Marcas de arraste leves no piso; não há sinais de luta intensa. A fechadura da porta dos fundos não apresenta arrombamento. A hipótese de invasão forçada é improvável no momento da fotografia."
+        },
+        {
+          "id": "noticia-1",
+          "tipo": "noticia",
+          "titulo": "Gazeta do Vale — 'Tragédia na Holden'",
+          "conteudo": "A comunidade chocou-se com a morte do produtor Arnaldo Holden. Familiares pedem privacidade. A delegacia local confirmou inquérito aberto e disse não haver, até o momento, 'linha única'.\n\nEm meio às homenagens, surgem rumores sobre dívidas do filho, Lucas Holden, com fornecedores de insumos. A reportagem não confirma valores."
+        }
+      ]
+    },
+    {
+      "nome": "Fase 2 — Conflito",
+      "resumo": "Depoimentos que não se encaixam e novas linhas.",
+      "documentos": [
+        {
+          "id": "dep-lucas",
+          "tipo": "depoimento",
+          "titulo": "Depoimento: Lucas Holden (filho)",
+          "conteudo": "Eu saí cedo. Por volta das 6h já estava na estrada para a cidade — tinha reunião. Meu pai estava bem, tomando café, quando eu despedi.\n\n(NOTA DO ESCRIVÃO) Conferência com registro de tráfego: o veículo de Lucas Holden atravessa o portão principal às 06h47. Lucas insiste que '6h é aproximado'."
+        },
+        {
+          "id": "dep-helena",
+          "tipo": "depoimento",
+          "titulo": "Depoimento: Helena Holden (esposa)",
+          "conteudo": "Arnaldo acordou às cinco e meia como sempre. Eu estava no quarto porque não dormi bem. Quando desci, o Lucas já tinha ido. Eu encontrei meu marido caído perto da mesa — liguei para o posto de saúde e para o Raul.\n\n(NOTA DO ESCRIVÃO) Helena evita detalhar o conteúdo da despensa. Afirma não saber de 'pacotes estranhos'."
+        },
+        {
+          "id": "dep-raul",
+          "tipo": "depoimento",
+          "titulo": "Depoimento: Raul Prado (capataz)",
+          "conteudo": "Eu comecei a consertar a cerca leste logo depois do amanhecer. Vi o Lucas sair com o carro. Não entrei na sede. Só fui chamado quando a Helena gritou.\n\n(NOTA DO ESCRIVÃO) Funcionário auxiliar relata que viu Raul com a lanterna na cerca leste ainda de noite, não ao amanhecer."
+        },
+        {
+          "id": "video-1",
+          "tipo": "video",
+          "titulo": "Simulação: vídeo do portão (trecho)",
+          "conteudo": "[TRANSCRIÇÃO DO OPERADOR]\n\n00:00 — gravação em baixa resolução; placa parcialmente legível.\n00:12 — automóvel escuro passa pelo portão. Timestamp do sistema: 06:47:09.\n\nOBSERVAÇÃO: o sistema não registra entrada correspondente às 06:00. A saída de Lucas é única na manhã."
+        }
+      ]
+    },
+    {
+      "nome": "Fase 3 — Validação",
+      "resumo": "Provas finais e checagem de álibis.",
+      "documentos": [
+        {
+          "id": "laudo-2",
+          "tipo": "laudo",
+          "titulo": "Laudo toxicológico definitivo",
+          "conteudo": "CONFIRMADO: exposição a ricina por via oral.\n\nA toxina é compatível com material de sementes de mamona processadas de forma imprópria — não há indício de contaminação acidental em escala doméstica sem manuseio deliberado.\n\nCorrelação: fragmentos de embalagem encontrados no lixo doméstico batem com importação registrada em nome de Helena Holden. O preparo exige tempo e privacidade na cozinha.\n\nConclusão: cenário de administração voluntária em alimento ou bebida, não necessariamente com conhecimento da vítima."
+        },
+        {
+          "id": "extrato",
+          "tipo": "noticia",
+          "titulo": "Nota interna — vínculo financeiro",
+          "conteudo": "RELATÓRIO CONFIDENCIAL (SIMULADO):\n\nHelena Holden é beneficiária principal de apólice de vida de Arnaldo. Há aumento de prêmio há 6 meses.\n\nLucas Holden possui dívidas, mas não há transferências suspeitas recentes para terceiros.\n\nRaul Prado recebeu pagamentos informais não contabilizados em três ocasiões, sempre após visitas noturnas à sede — correlaciona-se com ausência de Arnaldo em viagens."
+        }
+      ]
+    }
+  ],
+  "eventosLinhaDoTempo": [
+    {
+      "id": "ev-1",
+      "texto": "05:30 — Arnaldo toma café na cozinha; última rotina relatada.",
+      "ordemCorreta": 1
+    },
+    {
+      "id": "ev-2",
+      "texto": "05:30–06:00 — Início dos sintomas graves (janela do laudo).",
+      "ordemCorreta": 2
+    },
+    {
+      "id": "ev-3",
+      "texto": "06:12 — Helena liga para buscar ajuda; corpo encontrado.",
+      "ordemCorreta": 3
+    },
+    {
+      "id": "ev-4",
+      "texto": "06:47 — Carro de Lucas registra saída pelo portão (vídeo).",
+      "ordemCorreta": 4
+    }
+  ],
+  "suspeitos": [
+    {
+      "nome": "Helena Holden",
+      "motivo": "Beneficiária de seguro; acesso à cozinha e à despensa; recebimento de material suspeito.",
+      "alibi": "Estava no quarto e depois desceu; não viu o momento exato.",
+      "contradicoes": "Nega pacotes, mas a etiqueta aponta para ela; narrativa minimiza oportunidade de preparo."
+    },
+    {
+      "nome": "Lucas Holden",
+      "motivo": "Dívidas e tensão familiar; horário de saída inconsistente.",
+      "alibi": "Alega saída às 6h para reunião.",
+      "contradicoes": "Portão registra 06:47; não explica por que insistiu no horário."
+    },
+    {
+      "nome": "Raul Prado",
+      "motivo": "Acesso à propriedade; relação não declarada com a família; pagamentos paralelos.",
+      "alibi": "Conserto da cerca ao amanhecer.",
+      "contradicoes": "Testemunha coloca trabalho noturno; barro úmido no equipamento."
+    }
+  ],
+  "solucao": {
+    "culpado": "Helena Holden",
+    "motivo": "Beneficiária de seguro e envolvimento emocional com o capataz; eliminar Arnaldo liberava recursos e encerrava controle conjugal.",
+    "metodo": "Ricina preparada a partir de material recebido por ela, administrada no café da manhã sem confronto físico.",
+    "mentiras": ["Lucas Holden", "Raul Prado"],
+    "palavrasChaveMotivo": ["seguro", "liberar", "capataz", "raúl", "raul", "beneficiária", "beneficiaria"],
+    "palavrasChaveMetodo": ["ricina", "café", "cozinha", "ingestão", "material"],
+    "pistasIgnoradas": [
+      "Etiqueta de recebimento com nome H. Holden no laudo inicial.",
+      "Aumento de prêmio do seguro de vida há 6 meses.",
+      "Pagamentos paralelos ao capataz após visitas noturnas."
+    ]
+  }
+}

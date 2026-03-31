@@ -1,0 +1,20 @@
+{
+  "casos": [
+    {
+      "id": "fazenda-holden",
+      "arquivo": "fazenda-holden.json",
+      "titulo": "O silêncio da Fazenda Holden",
+      "descricao": "Assassinato numa propriedade isolada: álibis frágeis, laudo incoerente e um segredo de família.",
+      "dificuldade": "Médio",
+      "duracaoEstimada": "25–35 min"
+    },
+    {
+      "id": "galeria-nocturna",
+      "arquivo": "galeria-nocturna.json",
+      "titulo": "Galeria Nocturna",
+      "descricao": "Roubo de obra valiosa na abertura: câmeras, coturnos e um depoimento que não fecha.",
+      "dificuldade": "Fácil",
+      "duracaoEstimada": "15–20 min"
+    }
+  ]
+}

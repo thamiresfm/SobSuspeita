@@ -1,0 +1,9 @@
+{
+  "name": "arquivo-frio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node tests/resolution.test.mjs",
+    "start": "npx serve ."
+  }
+}

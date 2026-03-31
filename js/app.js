@@ -1,0 +1,618 @@
+import { loadRegistry, loadCase } from "./case-loader.js";
+import { mergeDefaultState, saveCaseState } from "./storage.js";
+import { evaluateResolution } from "./resolution.js";
+import { playClick, setSoundOn, isEnabled } from "./audio.js";
+
+let registry = [];
+let currentCase = null;
+let currentCaseId = null;
+let state = null;
+let timerInterval = null;
+
+const el = (id) => document.getElementById(id);
+
+function toast(msg) {
+  const t = el("toast");
+  t.textContent = msg;
+  t.hidden = false;
+  clearTimeout(toast._tid);
+  toast._tid = setTimeout(() => {
+    t.hidden = true;
+  }, 1600);
+}
+
+function persist() {
+  if (!currentCaseId || !state) return;
+  saveCaseState(currentCaseId, state);
+}
+
+function formatMs(ms) {
+  const s = Math.floor(ms / 1000);
+  const m = Math.floor(s / 60);
+  const r = s % 60;
+  return `${String(m).padStart(2, "0")}:${String(r).padStart(2, "0")}`;
+}
+
+function startTimer() {
+  if (timerInterval) clearInterval(timerInterval);
+  const start = state.startedAt || Date.now();
+  state.startedAt = start;
+  const display = el("timer-display");
+  const tick = () => {
+    display.textContent = formatMs(Date.now() - start);
+  };
+  tick();
+  timerInterval = setInterval(tick, 1000);
+}
+
+function stopTimer() {
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+}
+
+function showHome() {
+  stopTimer();
+  el("view-home").hidden = false;
+  el("view-case").hidden = true;
+  el("case-meta").hidden = true;
+  currentCase = null;
+  currentCaseId = null;
+  state = null;
+}
+
+function setActivePanel(name) {
+  document.querySelectorAll(".case-nav__btn").forEach((b) => {
+    b.classList.toggle("is-active", b.dataset.panel === name);
+  });
+  const map = {
+    documentos: el("panel-documentos"),
+    anotacoes: el("panel-anotacoes"),
+    timeline: el("panel-timeline"),
+    suspeitos: el("panel-suspeitos"),
+    resolucao: el("panel-resolucao"),
+  };
+  Object.entries(map).forEach(([k, node]) => {
+    if (!node) return;
+    node.hidden = k !== name;
+    node.classList.toggle("is-visible", k === name);
+  });
+}
+
+function tipoLabel(tipo) {
+  const m = {
+    laudo: "Laudo",
+    foto: "Foto",
+    noticia: "Notícia",
+    depoimento: "Depoimento",
+    video: "Vídeo",
+  };
+  return m[tipo] || tipo || "Doc";
+}
+
+function appendDocVisual(body, doc) {
+  if (doc.imagem) {
+    const fig = document.createElement("figure");
+    fig.className = "doc-figure";
+    const img = document.createElement("img");
+    img.src = doc.imagem;
+    img.alt = doc.titulo || "Evidência";
+    img.className = "doc-figure__img";
+    img.loading = "lazy";
+    fig.appendChild(img);
+    body.appendChild(fig);
+  } else if (doc.tipo === "foto") {
+    const ph = document.createElement("div");
+    ph.className = "photo-placeholder";
+    ph.textContent = doc.imagemPlaceholder || "Evidência fotográfica — arquivo selado";
+    body.appendChild(ph);
+  }
+}
+
+function openModal(doc) {
+  const modal = el("modal-root");
+  el("modal-type").textContent = tipoLabel(doc.tipo);
+  el("modal-title").textContent = doc.titulo || "Documento";
+  const body = el("modal-body");
+  body.innerHTML = "";
+  body.classList.remove("modal__body--roteiro");
+  appendDocVisual(body, doc);
+  const content = document.createElement("div");
+  content.className = "doc-content";
+  content.textContent = doc.conteudo || "";
+  body.appendChild(content);
+  modal.hidden = false;
+  document.body.style.overflow = "hidden";
+}
+
+async function openRoteiroModal(url) {
+  const modal = el("modal-root");
+  const body = el("modal-body");
+  body.innerHTML = "";
+  body.classList.add("modal__body--roteiro");
+  el("modal-type").textContent = "Roteiro";
+  el("modal-title").textContent = "Roteiro do caso";
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(String(res.status));
+    const text = await res.text();
+    body.textContent = text;
+  } catch (e) {
+    body.textContent = "Não foi possível carregar o roteiro. Verifique o servidor local.";
+  }
+  modal.hidden = false;
+  document.body.style.overflow = "hidden";
+  playClick();
+}
+
+function closeModal() {
+  el("modal-root").hidden = true;
+  document.body.style.overflow = "";
+}
+
+let activePhaseIndex = 0;
+
+function renderDocuments(caso) {
+  const fases = caso.fases || [];
+  const tabs = el("phase-tabs");
+  tabs.innerHTML = "";
+  fases.forEach((f, i) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "phase-tab" + (i === activePhaseIndex ? " is-active" : "");
+    btn.setAttribute("role", "tab");
+    btn.setAttribute("aria-selected", i === activePhaseIndex ? "true" : "false");
+    btn.dataset.phaseIndex = String(i);
+    btn.innerHTML = `
+      <span class="phase-tab__num">Fase ${i + 1}</span>
+      <span>
+        <span class="phase-tab__name">${escapeHtml(f.nome || `Fase ${i + 1}`)}</span>
+        <span class="phase-tab__desc">${escapeHtml(f.resumo || "")}</span>
+      </span>
+    `;
+    btn.addEventListener("click", () => {
+      activePhaseIndex = i;
+      renderDocuments(caso);
+    });
+    tabs.appendChild(btn);
+  });
+
+  const list = el("doc-list");
+  list.innerHTML = "";
+  const phase = fases[activePhaseIndex];
+  const docs = phase && Array.isArray(phase.documentos) ? phase.documentos : [];
+  docs.forEach((d, di) => {
+    const doc = { ...d, id: d.id || `p${activePhaseIndex}-d${di}` };
+    const li = document.createElement("li");
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "doc-item";
+    if (doc.imagem) {
+      const th = document.createElement("img");
+      th.className = "doc-item__thumb";
+      th.src = doc.imagem;
+      th.alt = "";
+      th.loading = "lazy";
+      b.appendChild(th);
+    }
+    const icon = document.createElement("span");
+    icon.className = "doc-item__icon";
+    icon.textContent = tipoLabel(doc.tipo);
+    const bodySpan = document.createElement("span");
+    bodySpan.className = "doc-item__body";
+    const peek = (doc.conteudo || "").slice(0, 140);
+    bodySpan.innerHTML = `
+      <span class="doc-item__title">${escapeHtml(doc.titulo || "Sem título")}</span>
+      <p class="doc-item__peek">${escapeHtml(peek)}${(doc.conteudo || "").length > 140 ? "…" : ""}</p>
+    `;
+    b.appendChild(icon);
+    b.appendChild(bodySpan);
+    b.addEventListener("click", () => {
+      playClick();
+      openModal(doc);
+    });
+    li.appendChild(b);
+    list.appendChild(li);
+  });
+}
+
+function escapeHtml(s) {
+  const d = document.createElement("div");
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+function renderFacts(caso) {
+  const ul = el("facts-list");
+  ul.innerHTML = "";
+  const fatos = Array.isArray(caso.fatos) ? caso.fatos : [];
+  if (fatos.length === 0) {
+    const li = document.createElement("li");
+    li.textContent = "Nenhum fato pré-listado — extraia dos documentos acima.";
+    ul.appendChild(li);
+    return;
+  }
+  fatos.forEach((f) => {
+    const li = document.createElement("li");
+    li.textContent = f;
+    ul.appendChild(li);
+  });
+}
+
+function renderNotes() {
+  const ul = el("notes-list");
+  ul.innerHTML = "";
+  state.notes.forEach((n) => {
+    const li = document.createElement("li");
+    li.className = `note-card note-card--${n.tipo}`;
+    li.innerHTML = `
+      <span class="note-card__tag">${n.tipo}</span>
+      <button type="button" class="note-card__del" data-id="${escapeHtml(n.id)}" aria-label="Remover">×</button>
+      <p class="note-card__text">${escapeHtml(n.texto)}</p>
+    `;
+    li.querySelector(".note-card__del").addEventListener("click", () => {
+      state.notes = state.notes.filter((x) => x.id !== n.id);
+      persist();
+      renderNotes();
+      playClick();
+    });
+    ul.appendChild(li);
+  });
+}
+
+function renderTimeline(caso) {
+  const ol = el("timeline-list");
+  ol.innerHTML = "";
+  const events = caso.eventosLinhaDoTempo || [];
+  const order = state.timelineOrder.filter((id) => events.some((e) => e.id === id));
+  events.forEach((e) => {
+    if (!order.includes(e.id)) order.push(e.id);
+  });
+  state.timelineOrder = order;
+  persist();
+
+  function moveEvent(id, dir) {
+    const arr = [...state.timelineOrder];
+    const i = arr.indexOf(id);
+    const j = i + dir;
+    if (i < 0 || j < 0 || j >= arr.length) return;
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+    state.timelineOrder = arr;
+    persist();
+    renderTimeline(caso);
+    playClick();
+  }
+
+  order.forEach((id, idx) => {
+    const ev = events.find((e) => e.id === id);
+    if (!ev) return;
+    const li = document.createElement("li");
+    li.className = "timeline-item";
+    li.draggable = true;
+    li.dataset.id = id;
+    li.innerHTML = `
+      <span class="timeline-item__handle">${String(idx + 1).padStart(2, "0")}</span>
+      <p class="timeline-item__text">${escapeHtml(ev.texto)}</p>
+      <div class="timeline-controls">
+        <button type="button" class="btn btn--ghost btn--sm" data-move="-1" aria-label="Mover para cima">↑</button>
+        <button type="button" class="btn btn--ghost btn--sm" data-move="1" aria-label="Mover para baixo">↓</button>
+      </div>
+    `;
+    li.querySelectorAll(".timeline-controls button").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        moveEvent(id, Number(btn.dataset.move));
+      });
+    });
+    li.addEventListener("dragstart", (e) => {
+      e.dataTransfer.setData("text/plain", id);
+      li.classList.add("is-dragging");
+    });
+    li.addEventListener("dragend", () => li.classList.remove("is-dragging"));
+    li.addEventListener("dragover", (e) => e.preventDefault());
+    li.addEventListener("drop", (e) => {
+      e.preventDefault();
+      const from = e.dataTransfer.getData("text/plain");
+      const to = id;
+      const arr = [...state.timelineOrder];
+      const fi = arr.indexOf(from);
+      const ti = arr.indexOf(to);
+      if (fi < 0 || ti < 0) return;
+      arr.splice(fi, 1);
+      arr.splice(ti, 0, from);
+      state.timelineOrder = arr;
+      persist();
+      renderTimeline(caso);
+      playClick();
+    });
+    ol.appendChild(li);
+  });
+}
+
+function renderSuspects(caso) {
+  const grid = el("suspects-grid");
+  grid.innerHTML = "";
+  (caso.suspeitos || []).forEach((s) => {
+    const nome = s.nome;
+    const card = document.createElement("article");
+    card.className = "suspect-card";
+    const st = state.suspectStatus[nome] || "neutro";
+    const foto = s.retrato
+      ? `<img class="suspect-card__photo" src="${escapeHtml(s.retrato)}" alt="" loading="lazy" />`
+      : "";
+    card.innerHTML = `
+      ${foto}
+      <h3 class="suspect-card__name">${escapeHtml(nome)}</h3>
+      <dl>
+        <dt>Motivo para suspeita</dt><dd>${escapeHtml(s.motivo || "—")}</dd>
+        <dt>Álibi</dt><dd>${escapeHtml(s.alibi || "—")}</dd>
+        <dt>Contradições</dt><dd>${escapeHtml(s.contradicoes || "—")}</dd>
+      </dl>
+      <div class="suspect-card__status">
+        <label for="st-${hash(nome)}">Classificação</label>
+        <select id="st-${hash(nome)}" data-nome="${escapeHtml(nome)}">
+          <option value="neutro" ${st === "neutro" ? "selected" : ""}>Em análise</option>
+          <option value="principal" ${st === "principal" ? "selected" : ""}>Principal</option>
+          <option value="observacao" ${st === "observacao" ? "selected" : ""}>Sob observação</option>
+          <option value="descartado" ${st === "descartado" ? "selected" : ""}>Descartado</option>
+        </select>
+      </div>
+    `;
+    card.querySelector("select").addEventListener("change", (e) => {
+      state.suspectStatus[nome] = e.target.value;
+      persist();
+      playClick();
+    });
+    grid.appendChild(card);
+  });
+}
+
+function hash(str) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) h = (h << 5) - h + str.charCodeAt(i);
+  return Math.abs(h).toString(36);
+}
+
+function renderResolutionForm(caso) {
+  const sel = el("res-culpado");
+  sel.innerHTML = '<option value="">Selecione…</option>';
+  (caso.suspeitos || []).forEach((s) => {
+    const o = document.createElement("option");
+    o.value = s.nome;
+    o.textContent = s.nome;
+    sel.appendChild(o);
+  });
+  const ment = el("res-mentiras");
+  ment.innerHTML = "";
+  (caso.suspeitos || []).forEach((s) => {
+    const row = document.createElement("label");
+    row.className = "checkbox-row";
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.value = s.nome;
+    cb.dataset.nome = s.nome;
+    row.appendChild(cb);
+    row.appendChild(document.createTextNode(` ${s.nome}`));
+    ment.appendChild(row);
+  });
+
+  const result = el("resolution-result");
+  result.hidden = true;
+}
+
+function showResolutionResult(evalRes, elapsedMs) {
+  const box = el("resolution-result");
+  box.hidden = false;
+  const sol = evalRes.solucao;
+  const erros = [];
+  if (!evalRes.culpadoOk) erros.push(`Culpado: esperado "${sol.culpado}".`);
+  if (evalRes.motivoSc.missing && evalRes.motivoSc.missing.length) {
+    erros.push(`Motivo: faltaram ideias-chave: ${evalRes.motivoSc.missing.join(", ")}.`);
+  }
+  if (evalRes.metodoSc.missing && evalRes.metodoSc.missing.length) {
+    erros.push(`Método: faltaram ideias-chave: ${evalRes.metodoSc.missing.join(", ")}.`);
+  }
+  if (evalRes.liesSc.expected > 0 && evalRes.liesSc.ratio < 1) {
+    erros.push("Mentiras: revise quem omitiu ou distorceu fatos nos depoimentos.");
+  }
+
+  const pistas = Array.isArray(sol.pistasIgnoradas) ? sol.pistasIgnoradas : [];
+  const tempoStr = formatMs(elapsedMs);
+
+  box.innerHTML = `
+    <p class="resolution-result__score">Pontuação: ${evalRes.total} / ${evalRes.max}</p>
+    <p class="hint">Tempo de investigação: ${tempoStr}</p>
+    <p class="${evalRes.culpadoOk ? "resolution-result__ok" : "resolution-result__err"}">
+      ${evalRes.culpadoOk ? "Culpado identificado corretamente." : "Culpado incorreto ou incompleto."}
+    </p>
+    <p><strong>Coerência do relatório</strong></p>
+    <ul class="resolution-result__list">
+      <li>Motivo (palavras-chave): ${evalRes.motivoPts} / ${evalRes.weights.motivo}</li>
+      <li>Método (palavras-chave): ${evalRes.metodoPts} / ${evalRes.weights.metodo}</li>
+      <li>Mentiras detectadas: ${evalRes.mentirasPts} / ${evalRes.weights.mentiras}</li>
+      <li>Bônus linha do tempo: +${evalRes.tBonus.points} (ordem parcialmente correta)</li>
+    </ul>
+    ${erros.length ? `<p class="resolution-result__err"><strong>Pontos fracos</strong></p><ul class="resolution-result__list">${erros.map((e) => `<li>${escapeHtml(e)}</li>`).join("")}</ul>` : ""}
+    ${pistas.length ? `<p><strong>Pistas facilmente ignoradas</strong></p><ul class="resolution-result__list">${pistas.map((p) => `<li>${escapeHtml(p)}</li>`).join("")}</ul>` : ""}
+    <p class="hint"><strong>Gabarito resumido:</strong> ${escapeHtml(sol.culpado)} — ${escapeHtml(sol.metodo)} Motivo: ${escapeHtml(sol.motivo)}</p>
+  `;
+}
+
+function bindCaseUi(caso) {
+  el("case-title").textContent = caso.titulo || "Caso";
+  el("case-desc").textContent = caso.descricao || "";
+  el("case-diff").textContent = caso.dificuldade || "—";
+  el("case-duration").textContent = caso.duracaoEstimada || "—";
+
+  const coverWrap = el("case-header-cover-wrap");
+  const coverImg = el("case-header-cover");
+  if (caso.imagemCapa) {
+    coverWrap.hidden = false;
+    coverImg.src = caso.imagemCapa;
+    coverImg.alt = caso.titulo || "";
+  } else {
+    coverWrap.hidden = true;
+    coverImg.removeAttribute("src");
+    coverImg.alt = "";
+  }
+
+  const roteiroBtn = el("btn-roteiro");
+  if (caso.roteiro) {
+    roteiroBtn.hidden = false;
+    roteiroBtn.onclick = () => openRoteiroModal(caso.roteiro);
+  } else {
+    roteiroBtn.hidden = true;
+    roteiroBtn.onclick = null;
+  }
+
+  activePhaseIndex = 0;
+  renderDocuments(caso);
+  renderFacts(caso);
+  el("hypothesis-draft").value = state.hypothesisDraft || "";
+  el("hypothesis-draft").oninput = (e) => {
+    state.hypothesisDraft = e.target.value;
+    persist();
+  };
+
+  renderNotes();
+  renderTimeline(caso);
+  renderSuspects(caso);
+  renderResolutionForm(caso);
+
+  el("note-form").onsubmit = (e) => {
+    e.preventDefault();
+    const texto = el("note-text").value.trim();
+    if (!texto) return;
+    const tipo = el("note-tag").value;
+    state.notes.push({
+      id: `n-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+      texto,
+      tipo,
+    });
+    el("note-text").value = "";
+    persist();
+    renderNotes();
+    playClick();
+  };
+
+  el("resolution-form").onsubmit = (e) => {
+    e.preventDefault();
+    const mentiras = [];
+    el("res-mentiras").querySelectorAll('input[type="checkbox"]').forEach((cb) => {
+      if (cb.checked) mentiras.push(cb.value);
+    });
+    const answers = {
+      culpado: el("res-culpado").value,
+      metodo: el("res-metodo").value,
+      motivo: el("res-motivo").value,
+      mentiras,
+    };
+    const evalRes = evaluateResolution(caso, answers, state.timelineOrder);
+    const elapsed = Date.now() - (state.startedAt || Date.now());
+    state.resolutionSubmitted = true;
+    persist();
+    showResolutionResult(evalRes, elapsed);
+    playClick();
+    toast("Hipótese registrada.");
+  };
+}
+
+async function openCase(entry) {
+  try {
+    const caso = await loadCase(entry.arquivo);
+    currentCase = caso;
+    currentCaseId = entry.id;
+    const evs = caso.eventosLinhaDoTempo || [];
+    const defaultOrder = evs.map((e) => e.id);
+    const suspectStatus = {};
+    (caso.suspeitos || []).forEach((s) => {
+      suspectStatus[s.nome] = "neutro";
+    });
+    state = mergeDefaultState(entry.id, {
+      notes: [],
+      timelineOrder: defaultOrder,
+      suspectStatus,
+      hypothesisDraft: "",
+      resolutionSubmitted: false,
+      startedAt: Date.now(),
+    });
+    el("view-home").hidden = true;
+    el("view-case").hidden = false;
+    el("case-meta").hidden = false;
+    bindCaseUi(caso);
+    startTimer();
+    setActivePanel("documentos");
+    document.querySelectorAll(".case-nav__btn").forEach((b) => {
+      b.onclick = () => {
+        setActivePanel(b.dataset.panel);
+        playClick();
+      };
+    });
+  } catch (err) {
+    console.error(err);
+    toast("Erro ao abrir caso.");
+  }
+}
+
+function renderHomeList() {
+  const list = el("case-list");
+  list.innerHTML = "";
+  registry.forEach((c) => {
+    const li = document.createElement("li");
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "case-card";
+    const capa = c.imagemCapa
+      ? `<img class="case-card__cover" src="${escapeHtml(c.imagemCapa)}" alt="" loading="lazy" />`
+      : "";
+    btn.innerHTML = `
+      ${capa}
+      <h2 class="case-card__title">${escapeHtml(c.titulo)}</h2>
+      <p class="case-card__desc">${escapeHtml(c.descricao)}</p>
+      <div class="case-card__row">
+        <span class="pill">${escapeHtml(c.dificuldade)}</span>
+        <span class="pill pill--muted">${escapeHtml(c.duracaoEstimada)}</span>
+      </div>
+    `;
+    btn.addEventListener("click", () => {
+      playClick();
+      openCase(c);
+    });
+    li.appendChild(btn);
+    list.appendChild(li);
+  });
+}
+
+async function init() {
+  try {
+    const data = await loadRegistry();
+    registry = data.casos || [];
+    renderHomeList();
+  } catch (e) {
+    console.error(e);
+    el("case-list").innerHTML =
+      "<li><p>Não foi possível carregar os casos. Use um servidor local (ex.: <code>npx serve .</code>).</p></li>";
+  }
+
+  el("btn-home").addEventListener("click", () => {
+    playClick();
+    showHome();
+  });
+
+  el("btn-sound").addEventListener("click", () => {
+    const next = !isEnabled();
+    setSoundOn(next);
+    el("btn-sound").textContent = next ? "🔊" : "🔇";
+    el("btn-sound").setAttribute("aria-pressed", next ? "true" : "false");
+  });
+
+  document.querySelectorAll("[data-close-modal]").forEach((n) => {
+    n.addEventListener("click", closeModal);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeModal();
+  });
+}
+
+init();

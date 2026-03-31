@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0d0d0f" />
+  <title>Arquivo Frio — Investigação Narrativa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="app" class="app">
+    <header class="topbar" role="banner">
+      <button type="button" id="btn-home" class="topbar__brand" aria-label="Voltar ao início">
+        <span class="topbar__logo">◆</span>
+        <span class="topbar__title">Arquivo Frio</span>
+      </button>
+      <div class="topbar__meta" id="case-meta" hidden>
+        <span class="pill pill--time" id="timer-display" aria-live="polite">00:00</span>
+        <button type="button" class="btn btn--ghost btn--sm" id="btn-sound" aria-pressed="false" title="Som ambiente">🔇</button>
+      </div>
+    </header>
+
+    <main class="main" id="main" role="main">
+      <!-- Home -->
+      <section id="view-home" class="view view--home" aria-labelledby="home-heading">
+        <div class="hero">
+          <p class="kicker">Simulador de caso criminal</p>
+          <h1 id="home-heading" class="hero__title">Investigação narrativa</h1>
+          <p class="hero__lead">
+            Leia, cruze dados, marque contradições e feche o caso com uma hipótese consistente —
+            não há atalhos por múltipla escolha fácil.
+          </p>
+        </div>
+        <div id="case-list" class="case-list" role="list"></div>
+        <p class="footnote">Progresso e anotações salvam neste dispositivo.</p>
+      </section>
+
+      <!-- Caso -->
+      <section id="view-case" class="view view--case" hidden aria-labelledby="case-title">
+        <div class="case-header">
+          <div id="case-header-cover-wrap" class="case-header__cover-wrap" hidden>
+            <img id="case-header-cover" class="case-header__cover-img" src="" alt="" width="640" height="360" loading="lazy" />
+          </div>
+          <div class="case-header__topline">
+            <h1 id="case-title" class="case-header__title"></h1>
+            <button type="button" id="btn-roteiro" class="btn btn--ghost btn--roteiro" hidden>Ver roteiro</button>
+          </div>
+          <p id="case-desc" class="case-header__desc"></p>
+          <div class="case-header__tags">
+            <span class="pill" id="case-diff"></span>
+            <span class="pill pill--muted" id="case-duration"></span>
+          </div>
+        </div>
+
+        <nav class="case-nav" aria-label="Seções do caso">
+          <button type="button" class="case-nav__btn is-active" data-panel="documentos">Documentos</button>
+          <button type="button" class="case-nav__btn" data-panel="anotacoes">Anotações</button>
+          <button type="button" class="case-nav__btn" data-panel="timeline">Linha do tempo</button>
+          <button type="button" class="case-nav__btn" data-panel="suspeitos">Suspeitos</button>
+          <button type="button" class="case-nav__btn" data-panel="resolucao">Resolução</button>
+        </nav>
+
+        <div class="panels">
+          <div id="panel-documentos" class="panel is-visible" role="tabpanel">
+            <h2 class="sr-only">Documentos e evidências</h2>
+            <div class="phase-tabs" id="phase-tabs" role="tablist" aria-label="Fases"></div>
+            <ul id="doc-list" class="doc-list"></ul>
+          </div>
+
+          <div id="panel-anotacoes" class="panel" hidden role="tabpanel">
+            <h2 class="panel__heading">Camadas lógicas</h2>
+            <div class="layers">
+              <div class="layer">
+                <h3 class="layer__title">Fatos (dos arquivos)</h3>
+                <ul id="facts-list" class="facts-list"></ul>
+              </div>
+              <div class="layer">
+                <h3 class="layer__title">Inferências (suas)</h3>
+                <form id="note-form" class="note-form">
+                  <label class="field">
+                    <span class="field__label">Nova anotação</span>
+                    <textarea id="note-text" rows="3" placeholder="Ex.: o álibi de X conflita com o laudo…"></textarea>
+                  </label>
+                  <div class="field field--row">
+                    <label class="field">
+                      <span class="field__label">Marcação</span>
+                      <select id="note-tag">
+                        <option value="fato">Fato confirmado</option>
+                        <option value="suspeita">Suspeita</option>
+                        <option value="duvida">Dúvida</option>
+                      </select>
+                    </label>
+                    <button type="submit" class="btn btn--primary">Adicionar</button>
+                  </div>
+                </form>
+                <ul id="notes-list" class="notes-list"></ul>
+              </div>
+              <div class="layer">
+                <h3 class="layer__title">Hipótese final (rascunho)</h3>
+                <label class="field">
+                  <span class="field__label">Síntese antes de enviar na aba Resolução</span>
+                  <textarea id="hypothesis-draft" rows="4" placeholder="Quem, como e por quê, em suas palavras…"></textarea>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div id="panel-timeline" class="panel" hidden role="tabpanel">
+            <h2 class="panel__heading">Ordene os eventos</h2>
+            <p class="hint">Arraste para reorganizar. A ordem ajuda a expor contradições nos depoimentos.</p>
+            <ol id="timeline-list" class="timeline-list"></ol>
+          </div>
+
+          <div id="panel-suspeitos" class="panel" hidden role="tabpanel">
+            <h2 class="panel__heading">Painel de suspeitos</h2>
+            <p class="hint">Classifique cada pessoa conforme sua análise.</p>
+            <div id="suspects-grid" class="suspects-grid"></div>
+          </div>
+
+          <div id="panel-resolucao" class="panel" hidden role="tabpanel">
+            <h2 class="panel__heading">Encerramento do caso</h2>
+            <form id="resolution-form" class="resolution-form">
+              <fieldset class="fieldset">
+                <legend>Quem cometeu o crime?</legend>
+                <label class="field">
+                  <span class="field__label">Culpado</span>
+                  <select id="res-culpado" required></select>
+                </label>
+              </fieldset>
+              <fieldset class="fieldset">
+                <legend>Como aconteceu?</legend>
+                <label class="field">
+                  <span class="field__label">Descrição do método (livre)</span>
+                  <textarea id="res-metodo" rows="4" required placeholder="Instrumento, acesso, sequência…"></textarea>
+                </label>
+              </fieldset>
+              <fieldset class="fieldset">
+                <legend>Qual o motivo?</legend>
+                <label class="field">
+                  <span class="field__label">Motivo aparente</span>
+                  <textarea id="res-motivo" rows="3" required></textarea>
+                </label>
+              </fieldset>
+              <fieldset class="fieldset">
+                <legend>Quem mentiu?</legend>
+                <p class="hint">Marque todos que tiveram declarações falsas ou omitiram fatos relevantes.</p>
+                <div id="res-mentiras" class="checkbox-grid"></div>
+              </fieldset>
+              <button type="submit" class="btn btn--primary btn--block">Submeter hipótese</button>
+            </form>
+            <div id="resolution-result" class="resolution-result" hidden></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Arquivo Frio — leitura e dedução. Sem spoilers nas escolhas.</p>
+    </footer>
+  </div>
+
+  <!-- Modal documento -->
+  <div id="modal-root" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__sheet">
+      <header class="modal__head">
+        <span class="modal__badge" id="modal-type"></span>
+        <h2 id="modal-title" class="modal__title"></h2>
+        <button type="button" class="modal__close" data-close-modal aria-label="Fechar">×</button>
+      </header>
+      <div id="modal-body" class="modal__body"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
