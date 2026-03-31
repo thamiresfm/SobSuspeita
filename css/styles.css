@@ -136,6 +136,70 @@ body {
   line-height: 1.55;
 }
 
+.home-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0.5rem 0 1.25rem;
+}
+
+.home-cta__btn {
+  flex: 1 1 180px;
+  justify-content: center;
+}
+
+.home-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.home-filters__search {
+  flex: 1 1 210px;
+}
+
+.home-filters__select {
+  flex: 0 0 160px;
+}
+
+.home-section {
+  margin-bottom: 1.5rem;
+}
+
+.home-section__head {
+  margin-bottom: 0.5rem;
+}
+
+.home-section__title {
+  font-size: 1.1rem;
+  margin: 0 0 0.1rem;
+}
+
+.home-section__subtitle {
+  margin: 0;
+  font-size: 0.96rem;
+  color: var(--text-muted);
+}
+
+.case-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.85rem;
+}
+
+@media (min-width: 640px) {
+  .case-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 980px) {
+  .case-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 .case-list {
   list-style: none;
   margin: 0;
@@ -284,6 +348,76 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
+}
+
+.case-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.case-layout__main {
+  min-width: 0;
+}
+
+.case-layout__side {
+  border-left: 1px solid var(--border);
+  padding-left: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (max-width: 799px) {
+  .case-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .case-layout__side {
+    border-left: none;
+    border-top: 1px solid var(--border);
+    padding-left: 0;
+    padding-top: 0.75rem;
+  }
+}
+
+.case-summary {
+  background: var(--bg-elevated);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 0.75rem 0.9rem;
+}
+
+.case-summary__title {
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 0.4rem;
+}
+
+.case-summary__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin: 0.15rem 0;
+  font-size: 0.98rem;
+}
+
+.case-summary__label {
+  color: var(--text-muted);
+}
+
+.case-summary__value {
+  font-family: var(--font-mono);
+}
+
+.case-summary__hypo {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  white-space: pre-line;
 }
 
 .case-nav {

@@ -35,7 +35,39 @@
             não há atalhos por múltipla escolha fácil.
           </p>
         </div>
-        <div id="case-list" class="case-list" role="list"></div>
+        <section class="home-cta">
+          <button type="button" id="btn-home-continue" class="btn btn--primary home-cta__btn" hidden>Continuar investigação</button>
+          <button type="button" id="btn-home-new" class="btn home-cta__btn">Novo caso</button>
+        </section>
+        <section class="home-filters" aria-label="Filtrar casos">
+          <label class="field home-filters__search">
+            <span class="field__label">Buscar caso</span>
+            <input type="search" id="case-search" placeholder="Digite parte do título do caso" />
+          </label>
+          <label class="field home-filters__select">
+            <span class="field__label">Dificuldade</span>
+            <select id="case-filter-difficulty">
+              <option value="">Todas</option>
+              <option value="Fácil">Fácil</option>
+              <option value="Médio">Médio</option>
+              <option value="Difícil">Difícil</option>
+            </select>
+          </label>
+        </section>
+        <section id="home-continue-section" class="home-section" hidden>
+          <header class="home-section__head">
+            <h2 class="home-section__title">Em andamento</h2>
+            <p class="home-section__subtitle">Retome a última investigação onde parou.</p>
+          </header>
+          <div id="case-list-inprogress" class="case-grid" role="list"></div>
+        </section>
+        <section class="home-section">
+          <header class="home-section__head">
+            <h2 class="home-section__title">Arquivo completo</h2>
+            <p class="home-section__subtitle">Todos os casos disponíveis neste dispositivo.</p>
+          </header>
+          <div id="case-list" class="case-grid" role="list"></div>
+        </section>
         <p class="footnote">Progresso e anotações salvam neste dispositivo.</p>
       </section>
 
@@ -56,104 +88,126 @@
           </div>
         </div>
 
-        <nav class="case-nav" aria-label="Seções do caso">
-          <button type="button" class="case-nav__btn is-active" data-panel="documentos">Documentos</button>
-          <button type="button" class="case-nav__btn" data-panel="anotacoes">Anotações</button>
-          <button type="button" class="case-nav__btn" data-panel="timeline">Linha do tempo</button>
-          <button type="button" class="case-nav__btn" data-panel="suspeitos">Suspeitos</button>
-          <button type="button" class="case-nav__btn" data-panel="resolucao">Resolução</button>
-        </nav>
+        <div class="case-layout">
+          <div class="case-layout__main">
+            <nav class="case-nav" aria-label="Seções do caso">
+              <button type="button" class="case-nav__btn is-active" data-panel="documentos">Documentos</button>
+              <button type="button" class="case-nav__btn" data-panel="anotacoes">Anotações</button>
+              <button type="button" class="case-nav__btn" data-panel="timeline">Linha do tempo</button>
+              <button type="button" class="case-nav__btn" data-panel="suspeitos">Suspeitos</button>
+              <button type="button" class="case-nav__btn" data-panel="resolucao">Resolução</button>
+            </nav>
 
-        <div class="panels">
-          <div id="panel-documentos" class="panel is-visible" role="tabpanel">
-            <h2 class="sr-only">Documentos e evidências</h2>
-            <div class="phase-tabs" id="phase-tabs" role="tablist" aria-label="Fases"></div>
-            <ul id="doc-list" class="doc-list"></ul>
-          </div>
-
-          <div id="panel-anotacoes" class="panel" hidden role="tabpanel">
-            <h2 class="panel__heading">Camadas lógicas</h2>
-            <div class="layers">
-              <div class="layer">
-                <h3 class="layer__title">Fatos (dos arquivos)</h3>
-                <ul id="facts-list" class="facts-list"></ul>
+            <div class="panels">
+              <div id="panel-documentos" class="panel is-visible" role="tabpanel">
+                <h2 class="sr-only">Documentos e evidências</h2>
+                <div class="phase-tabs" id="phase-tabs" role="tablist" aria-label="Fases"></div>
+                <ul id="doc-list" class="doc-list"></ul>
               </div>
-              <div class="layer">
-                <h3 class="layer__title">Inferências (suas)</h3>
-                <form id="note-form" class="note-form">
-                  <label class="field">
-                    <span class="field__label">Nova anotação</span>
-                    <textarea id="note-text" rows="3" placeholder="Ex.: o álibi de X conflita com o laudo…"></textarea>
-                  </label>
-                  <div class="field field--row">
-                    <label class="field">
-                      <span class="field__label">Marcação</span>
-                      <select id="note-tag">
-                        <option value="fato">Fato confirmado</option>
-                        <option value="suspeita">Suspeita</option>
-                        <option value="duvida">Dúvida</option>
-                      </select>
-                    </label>
-                    <button type="submit" class="btn btn--primary">Adicionar</button>
+
+              <div id="panel-anotacoes" class="panel" hidden role="tabpanel">
+                <h2 class="panel__heading">Camadas lógicas</h2>
+                <div class="layers">
+                  <div class="layer">
+                    <h3 class="layer__title">Fatos (dos arquivos)</h3>
+                    <ul id="facts-list" class="facts-list"></ul>
                   </div>
-                </form>
-                <ul id="notes-list" class="notes-list"></ul>
+                  <div class="layer">
+                    <h3 class="layer__title">Inferências (suas)</h3>
+                    <form id="note-form" class="note-form">
+                      <label class="field">
+                        <span class="field__label">Nova anotação</span>
+                        <textarea id="note-text" rows="3" placeholder="Ex.: o álibi de X conflita com o laudo…"></textarea>
+                      </label>
+                      <div class="field field--row">
+                        <label class="field">
+                          <span class="field__label">Marcação</span>
+                          <select id="note-tag">
+                            <option value="fato">Fato confirmado</option>
+                            <option value="suspeita">Suspeita</option>
+                            <option value="duvida">Dúvida</option>
+                          </select>
+                        </label>
+                        <button type="submit" class="btn btn--primary">Adicionar</button>
+                      </div>
+                    </form>
+                    <ul id="notes-list" class="notes-list"></ul>
+                  </div>
+                  <div class="layer">
+                    <h3 class="layer__title">Hipótese final (rascunho)</h3>
+                    <label class="field">
+                      <span class="field__label">Síntese antes de enviar na aba Resolução</span>
+                      <textarea id="hypothesis-draft" rows="4" placeholder="Quem, como e por quê, em suas palavras…"></textarea>
+                    </label>
+                  </div>
+                </div>
               </div>
-              <div class="layer">
-                <h3 class="layer__title">Hipótese final (rascunho)</h3>
-                <label class="field">
-                  <span class="field__label">Síntese antes de enviar na aba Resolução</span>
-                  <textarea id="hypothesis-draft" rows="4" placeholder="Quem, como e por quê, em suas palavras…"></textarea>
-                </label>
+
+              <div id="panel-timeline" class="panel" hidden role="tabpanel">
+                <h2 class="panel__heading">Ordene os eventos</h2>
+                <p class="hint">Arraste para reorganizar. A ordem ajuda a expor contradições nos depoimentos.</p>
+                <ol id="timeline-list" class="timeline-list"></ol>
+              </div>
+
+              <div id="panel-suspeitos" class="panel" hidden role="tabpanel">
+                <h2 class="panel__heading">Painel de suspeitos</h2>
+                <p class="hint">Classifique cada pessoa conforme sua análise.</p>
+                <div id="suspects-grid" class="suspects-grid"></div>
+              </div>
+
+              <div id="panel-resolucao" class="panel" hidden role="tabpanel">
+                <h2 class="panel__heading">Encerramento do caso</h2>
+                <form id="resolution-form" class="resolution-form">
+                  <fieldset class="fieldset">
+                    <legend>Quem cometeu o crime?</legend>
+                    <label class="field">
+                      <span class="field__label">Culpado</span>
+                      <select id="res-culpado" required></select>
+                    </label>
+                  </fieldset>
+                  <fieldset class="fieldset">
+                    <legend>Como aconteceu?</legend>
+                    <label class="field">
+                      <span class="field__label">Descrição do método (livre)</span>
+                      <textarea id="res-metodo" rows="4" required placeholder="Instrumento, acesso, sequência…"></textarea>
+                    </label>
+                  </fieldset>
+                  <fieldset class="fieldset">
+                    <legend>Qual o motivo?</legend>
+                    <label class="field">
+                      <span class="field__label">Motivo aparente</span>
+                      <textarea id="res-motivo" rows="3" required></textarea>
+                    </label>
+                  </fieldset>
+                  <fieldset class="fieldset">
+                    <legend>Quem mentiu?</legend>
+                    <p class="hint">Marque todos que tiveram declarações falsas ou omitiram fatos relevantes.</p>
+                    <div id="res-mentiras" class="checkbox-grid"></div>
+                  </fieldset>
+                  <button type="submit" class="btn btn--primary btn--block">Submeter hipótese</button>
+                </form>
+                <div id="resolution-result" class="resolution-result" hidden></div>
               </div>
             </div>
           </div>
 
-          <div id="panel-timeline" class="panel" hidden role="tabpanel">
-            <h2 class="panel__heading">Ordene os eventos</h2>
-            <p class="hint">Arraste para reorganizar. A ordem ajuda a expor contradições nos depoimentos.</p>
-            <ol id="timeline-list" class="timeline-list"></ol>
-          </div>
-
-          <div id="panel-suspeitos" class="panel" hidden role="tabpanel">
-            <h2 class="panel__heading">Painel de suspeitos</h2>
-            <p class="hint">Classifique cada pessoa conforme sua análise.</p>
-            <div id="suspects-grid" class="suspects-grid"></div>
-          </div>
-
-          <div id="panel-resolucao" class="panel" hidden role="tabpanel">
-            <h2 class="panel__heading">Encerramento do caso</h2>
-            <form id="resolution-form" class="resolution-form">
-              <fieldset class="fieldset">
-                <legend>Quem cometeu o crime?</legend>
-                <label class="field">
-                  <span class="field__label">Culpado</span>
-                  <select id="res-culpado" required></select>
-                </label>
-              </fieldset>
-              <fieldset class="fieldset">
-                <legend>Como aconteceu?</legend>
-                <label class="field">
-                  <span class="field__label">Descrição do método (livre)</span>
-                  <textarea id="res-metodo" rows="4" required placeholder="Instrumento, acesso, sequência…"></textarea>
-                </label>
-              </fieldset>
-              <fieldset class="fieldset">
-                <legend>Qual o motivo?</legend>
-                <label class="field">
-                  <span class="field__label">Motivo aparente</span>
-                  <textarea id="res-motivo" rows="3" required></textarea>
-                </label>
-              </fieldset>
-              <fieldset class="fieldset">
-                <legend>Quem mentiu?</legend>
-                <p class="hint">Marque todos que tiveram declarações falsas ou omitiram fatos relevantes.</p>
-                <div id="res-mentiras" class="checkbox-grid"></div>
-              </fieldset>
-              <button type="submit" class="btn btn--primary btn--block">Submeter hipótese</button>
-            </form>
-            <div id="resolution-result" class="resolution-result" hidden></div>
-          </div>
+          <aside class="case-layout__side" aria-label="Resumo da investigação">
+            <section class="case-summary">
+              <h2 class="case-summary__title">Resumo rápido</h2>
+              <p class="case-summary__row">
+                <span class="case-summary__label">Notas:</span>
+                <span class="case-summary__value" id="summary-notes-count">0</span>
+              </p>
+              <p class="case-summary__row">
+                <span class="case-summary__label">Eventos na linha do tempo:</span>
+                <span class="case-summary__value" id="summary-timeline-count">0</span>
+              </p>
+            </section>
+            <section class="case-summary">
+              <h2 class="case-summary__title">Hipótese em rascunho</h2>
+              <p id="summary-hypothesis-preview" class="case-summary__hypo">Nenhuma hipótese registrada ainda.</p>
+            </section>
+          </aside>
         </div>
       </section>
     </main>

@@ -1,5 +1,5 @@
 import { loadRegistry, loadCase } from "./case-loader.js";
-import { mergeDefaultState, saveCaseState } from "./storage.js";
+import { mergeDefaultState, saveCaseState, loadCaseState } from "./storage.js";
 import { evaluateResolution } from "./resolution.js";
 import { playClick, setSoundOn, isEnabled } from "./audio.js";
 
@@ -302,6 +302,8 @@ function renderNotes() {
     });
     ul.appendChild(li);
   });
+  const summary = el("summary-notes-count");
+  if (summary) summary.textContent = String(state.notes.length);
 }
 
 function renderTimeline(caso) {
@@ -314,6 +316,8 @@ function renderTimeline(caso) {
   });
   state.timelineOrder = order;
   persist();
+  const countEl = el("summary-timeline-count");
+  if (countEl) countEl.textContent = String(order.length);
 
   function moveEvent(id, dir) {
     const arr = [...state.timelineOrder];
@@ -516,6 +520,11 @@ function bindCaseUi(caso) {
   el("hypothesis-draft").oninput = (e) => {
     state.hypothesisDraft = e.target.value;
     persist();
+    const prev = el("summary-hypothesis-preview");
+    if (prev) {
+      const txt = e.target.value.trim();
+      prev.textContent = txt || "Nenhuma hipótese registrada ainda.";
+    }
   };
 
   renderNotes();
@@ -598,33 +607,96 @@ async function openCase(entry) {
   }
 }
 
+function getCaseMeta(entry) {
+  const saved = loadCaseState(entry.id);
+  if (!saved) return { inProgress: false, lastStartedAt: null };
+  return {
+    inProgress: true,
+    lastStartedAt: saved.startedAt || null,
+  };
+}
+
 function renderHomeList() {
-  const list = el("case-list");
-  list.innerHTML = "";
-  registry.forEach((c) => {
-    const li = document.createElement("li");
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "case-card";
-    const capa = c.imagemCapa
-      ? `<img class="case-card__cover" src="${escapeHtml(c.imagemCapa)}" alt="" loading="lazy" />`
-      : "";
-    btn.innerHTML = `
-      ${capa}
-      <h2 class="case-card__title">${escapeHtml(c.titulo)}</h2>
-      <p class="case-card__desc">${escapeHtml(c.descricao)}</p>
-      <div class="case-card__row">
-        <span class="pill">${escapeHtml(c.dificuldade)}</span>
-        <span class="pill pill--muted">${escapeHtml(c.duracaoEstimada)}</span>
-      </div>
-    `;
-    btn.addEventListener("click", () => {
-      playClick();
-      openCase(c);
-    });
-    li.appendChild(btn);
-    list.appendChild(li);
+  const search = (el("case-search")?.value || "").trim().toLowerCase();
+  const diffFilter = el("case-filter-difficulty")?.value || "";
+
+  const inProgressList = el("case-list-inprogress");
+  const allList = el("case-list");
+  const contBtn = el("btn-home-continue");
+  const contSection = el("home-continue-section");
+
+  if (inProgressList) inProgressList.innerHTML = "";
+  if (allList) allList.innerHTML = "";
+
+  const withMeta = registry.map((c) => ({ entry: c, meta: getCaseMeta(c) }));
+
+  const filtered = withMeta.filter(({ entry }) => {
+    const text = `${entry.titulo} ${entry.descricao}`.toLowerCase();
+    if (search && !text.includes(search)) return false;
+    if (diffFilter && entry.dificuldade !== diffFilter) return false;
+    return true;
   });
+
+  const inProgress = filtered.filter((c) => c.meta.inProgress);
+  const notStarted = filtered.filter((c) => !c.meta.inProgress);
+
+  if (inProgress.length && contSection && contBtn && inProgressList) {
+    contSection.hidden = false;
+    const last = [...inProgress].sort((a, b) => (b.meta.lastStartedAt || 0) - (a.meta.lastStartedAt || 0))[0];
+    contBtn.hidden = false;
+    contBtn.onclick = () => {
+      playClick();
+      openCase(last.entry);
+    };
+    inProgress.forEach(({ entry }) => {
+      const card = createCaseCard(entry, { showStatus: true, statusLabel: "Em andamento" });
+      inProgressList.appendChild(card);
+    });
+  } else if (contSection && contBtn && inProgressList) {
+    contSection.hidden = true;
+    contBtn.hidden = true;
+    inProgressList.innerHTML = "";
+    contBtn.onclick = null;
+  }
+
+  if (allList) {
+    filtered.forEach(({ entry, meta }) => {
+      const label = meta.inProgress ? "Em andamento" : "Novo caso";
+      const card = createCaseCard(entry, { showStatus: true, statusLabel: label });
+      allList.appendChild(card);
+    });
+  }
+}
+
+function createCaseCard(entry, opts = {}) {
+  const li = document.createElement("div");
+  li.className = "case-card";
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "case-card__inner";
+  const capa = entry.imagemCapa
+    ? `<img class="case-card__cover" src="${escapeHtml(entry.imagemCapa)}" alt="" loading="lazy" />`
+    : "";
+  const statusBadge =
+    opts.showStatus && opts.statusLabel
+      ? `<span class="pill pill--muted case-card__status">${escapeHtml(opts.statusLabel)}</span>`
+      : "";
+  btn.innerHTML = `
+    ${capa}
+    <h2 class="case-card__title">${escapeHtml(entry.titulo)}</h2>
+    <p class="case-card__desc">${escapeHtml(entry.descricao)}</p>
+    <div class="case-card__row">
+      <span class="pill">${escapeHtml(entry.dificuldade)}</span>
+      <span class="pill pill--muted">${escapeHtml(entry.duracaoEstimada)}</span>
+      ${statusBadge}
+    </div>
+  `;
+  btn.addEventListener("click", () => {
+    playClick();
+    openCase(entry);
+  });
+  li.appendChild(btn);
+  return li;
 }
 
 async function init() {
