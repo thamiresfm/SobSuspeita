@@ -39,20 +39,44 @@
           <button type="button" id="btn-home-continue" class="btn btn--primary home-cta__btn" hidden>Continuar investigação</button>
           <button type="button" id="btn-home-new" class="btn home-cta__btn">Novo caso</button>
         </section>
-        <section class="home-filters" aria-label="Filtrar casos">
-          <label class="field home-filters__search">
-            <span class="field__label">Buscar caso</span>
-            <input type="search" id="case-search" placeholder="Digite parte do título do caso" />
-          </label>
-          <label class="field home-filters__select">
-            <span class="field__label">Dificuldade</span>
-            <select id="case-filter-difficulty">
-              <option value="">Todas</option>
-              <option value="Fácil">Fácil</option>
-              <option value="Médio">Médio</option>
-              <option value="Difícil">Difícil</option>
-            </select>
-          </label>
+        <section class="home-filters-and-stats">
+          <div class="home-filters" aria-label="Filtrar casos">
+            <label class="field home-filters__search">
+              <span class="field__label">Buscar caso</span>
+              <input type="search" id="case-search" placeholder="Digite parte do título do caso" />
+            </label>
+            <label class="field home-filters__select">
+              <span class="field__label">Dificuldade</span>
+              <select id="case-filter-difficulty">
+                <option value="">Todas</option>
+                <option value="Fácil">Fácil</option>
+                <option value="Médio">Médio</option>
+                <option value="Difícil">Difícil</option>
+              </select>
+            </label>
+          </div>
+          <aside class="home-stats" aria-label="Estatísticas do arquivo">
+            <div class="home-stats__card">
+              <h2 class="home-stats__title">Estatísticas</h2>
+              <p class="home-stats__row">
+                <span>Casos disponíveis</span>
+                <span id="stats-total">0</span>
+              </p>
+              <p class="home-stats__row">
+                <span>Resolvidos</span>
+                <span id="stats-resolved">0</span>
+              </p>
+              <p class="home-stats__row">
+                <span>Em andamento</span>
+                <span id="stats-inprogress">0</span>
+              </p>
+              <div class="home-stats__top">
+                <span class="home-stats__top-label">Top score</span>
+                <span id="stats-top-score">--</span>
+              </div>
+              <p id="stats-top-case" class="home-stats__top-case">Nenhum caso resolvido ainda.</p>
+            </div>
+          </aside>
         </section>
         <section id="home-continue-section" class="home-section" hidden>
           <header class="home-section__head">

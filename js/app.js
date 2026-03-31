@@ -467,6 +467,11 @@ function showResolutionResult(evalRes, elapsedMs) {
   const pistas = Array.isArray(sol.pistasIgnoradas) ? sol.pistasIgnoradas : [];
   const tempoStr = formatMs(elapsedMs);
 
+  state.lastScore = evalRes.total;
+  state.lastMaxScore = evalRes.max;
+  persist();
+  renderStats();
+
   box.innerHTML = `
     <p class="resolution-result__score">Pontuação: ${evalRes.total} / ${evalRes.max}</p>
     <p class="hint">Tempo de investigação: ${tempoStr}</p>
@@ -484,6 +489,47 @@ function showResolutionResult(evalRes, elapsedMs) {
     ${pistas.length ? `<p><strong>Pistas facilmente ignoradas</strong></p><ul class="resolution-result__list">${pistas.map((p) => `<li>${escapeHtml(p)}</li>`).join("")}</ul>` : ""}
     <p class="hint"><strong>Gabarito resumido:</strong> ${escapeHtml(sol.culpado)} — ${escapeHtml(sol.metodo)} Motivo: ${escapeHtml(sol.motivo)}</p>
   `;
+}
+
+function computeStats() {
+  const total = registry.length;
+  let resolved = 0;
+  let inProgress = 0;
+  let topScore = 0;
+  let topCaseTitle = "";
+
+  registry.forEach((entry) => {
+    const st = loadCaseState(entry.id);
+    if (!st) return;
+    if (st.resolutionSubmitted) {
+      resolved += 1;
+      if (typeof st.lastScore === "number" && st.lastScore > topScore) {
+        topScore = st.lastScore;
+        topCaseTitle = entry.titulo;
+      }
+    } else {
+      inProgress += 1;
+    }
+  });
+
+  return { total, resolved, inProgress, topScore, topCaseTitle };
+}
+
+function renderStats() {
+  const totalEl = el("stats-total");
+  if (!totalEl || !registry.length) return;
+  const resolvedEl = el("stats-resolved");
+  const inprogEl = el("stats-inprogress");
+  const topScoreEl = el("stats-top-score");
+  const topCaseEl = el("stats-top-case");
+  const { total, resolved, inProgress, topScore, topCaseTitle } = computeStats();
+  totalEl.textContent = String(total);
+  if (resolvedEl) resolvedEl.textContent = String(resolved);
+  if (inprogEl) inprogEl.textContent = String(inProgress);
+  if (topScoreEl) topScoreEl.textContent = topScore > 0 ? `${topScore}%` : "--";
+  if (topCaseEl) {
+    topCaseEl.textContent = topScore > 0 ? topCaseTitle : "Nenhum caso resolvido ainda.";
+  }
 }
 
 function bindCaseUi(caso) {
@@ -642,16 +688,19 @@ function renderHomeList() {
 
   if (inProgress.length && contSection && contBtn && inProgressList) {
     contSection.hidden = false;
-    const last = [...inProgress].sort((a, b) => (b.meta.lastStartedAt || 0) - (a.meta.lastStartedAt || 0))[0];
+    const sorted = [...inProgress].sort((a, b) => (b.meta.lastStartedAt || 0) - (a.meta.lastStartedAt || 0));
+    const last = sorted[0];
     contBtn.hidden = false;
     contBtn.onclick = () => {
       playClick();
       openCase(last.entry);
     };
-    inProgress.forEach(({ entry }) => {
-      const card = createCaseCard(entry, { showStatus: true, statusLabel: "Em andamento" });
-      inProgressList.appendChild(card);
+    const largeCard = createCaseCard(last.entry, {
+      showStatus: true,
+      statusLabel: "Em andamento",
+      variant: "large",
     });
+    inProgressList.appendChild(largeCard);
   } else if (contSection && contBtn && inProgressList) {
     contSection.hidden = true;
     contBtn.hidden = true;
@@ -671,6 +720,9 @@ function renderHomeList() {
 function createCaseCard(entry, opts = {}) {
   const li = document.createElement("div");
   li.className = "case-card";
+  if (opts.variant === "large") {
+    li.classList.add("case-card--large");
+  }
   const btn = document.createElement("button");
   btn.type = "button";
   btn.className = "case-card__inner";
@@ -704,6 +756,7 @@ async function init() {
     const data = await loadRegistry();
     registry = data.casos || [];
     renderHomeList();
+    renderStats();
   } catch (e) {
     console.error(e);
     el("case-list").innerHTML =
@@ -713,6 +766,8 @@ async function init() {
   el("btn-home").addEventListener("click", () => {
     playClick();
     showHome();
+    renderHomeList();
+    renderStats();
   });
 
   const modalTtsBtn = el("modal-tts-btn");
