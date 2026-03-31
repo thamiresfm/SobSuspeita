@@ -8,6 +8,7 @@ let currentCase = null;
 let currentCaseId = null;
 let state = null;
 let timerInterval = null;
+let currentUtterance = null;
 
 const el = (id) => document.getElementById(id);
 
@@ -91,6 +92,32 @@ function tipoLabel(tipo) {
   return m[tipo] || tipo || "Doc";
 }
 
+function stopSpeech() {
+  if (!("speechSynthesis" in window)) return;
+  window.speechSynthesis.cancel();
+  currentUtterance = null;
+}
+
+function speakText(text, heading) {
+  if (!("speechSynthesis" in window)) {
+    toast("Leitor de voz não é suportado neste navegador.");
+    return;
+  }
+  const clean = String(text || "").trim();
+  if (!clean) {
+    toast("Nada para ler neste documento.");
+    return;
+  }
+  stopSpeech();
+  const utter = new SpeechSynthesisUtterance();
+  utter.lang = "pt-BR";
+  utter.rate = 1;
+  utter.pitch = 1;
+  utter.text = heading ? `${heading}. ${clean}` : clean;
+  currentUtterance = utter;
+  window.speechSynthesis.speak(utter);
+}
+
 function appendDocVisual(body, doc) {
   if (doc.imagem) {
     const fig = document.createElement("figure");
@@ -122,6 +149,25 @@ function openModal(doc) {
   content.className = "doc-content";
   content.textContent = doc.conteudo || "";
   body.appendChild(content);
+  const controls = document.createElement("div");
+  controls.className = "doc-tts";
+  controls.innerHTML = `
+    <button type="button" class="btn btn--ghost btn--sm doc-tts__btn" data-tts=\"play\">Ouvir documento</button>
+    <button type="button" class="btn btn--ghost btn--sm doc-tts__btn" data-tts=\"stop\">Parar</button>
+  `;
+  controls.querySelectorAll(".doc-tts__btn").forEach((btn) => {
+    const mode = btn.dataset.tts;
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (mode === "play") {
+        const heading = doc.titulo || tipoLabel(doc.tipo);
+        speakText(doc.conteudo, heading);
+      } else {
+        stopSpeech();
+      }
+    });
+  });
+  body.appendChild(controls);
   modal.hidden = false;
   document.body.style.overflow = "hidden";
 }
