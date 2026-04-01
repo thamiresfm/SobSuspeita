@@ -58,7 +58,8 @@ function showHome() {
   stopTimer();
   el("view-home").hidden = false;
   el("view-case").hidden = true;
-  el("case-meta").hidden = true;
+  el("topbar-home").style.display = "";
+  el("topbar-case").classList.remove("is-visible");
   currentCase = null;
   currentCaseId = null;
   state = null;
@@ -80,6 +81,29 @@ function setActivePanel(name) {
     node.hidden = k !== name;
     node.classList.toggle("is-visible", k === name);
   });
+
+  // Coluna central: mostra viewer ou áreas auxiliares conforme painel
+  const viewer = el("doc-viewer");
+  const noteArea = el("note-quick-area");
+  const hintArea = el("panel-hint-area");
+  const hintText = el("panel-hint-text");
+
+  if (viewer) viewer.hidden = name !== "documentos";
+  if (noteArea) noteArea.hidden = name !== "anotacoes";
+  if (hintArea && hintText) {
+    if (name === "timeline") {
+      hintArea.hidden = false;
+      hintText.textContent = "Arraste ou use ↑↓ para ordenar os eventos. A ordem certa expõe contradições nos depoimentos.";
+    } else if (name === "suspeitos") {
+      hintArea.hidden = false;
+      hintText.textContent = "Classifique cada suspeito: Em análise, Principal, Sob observação ou Descartado.";
+    } else if (name === "resolucao") {
+      hintArea.hidden = false;
+      hintText.textContent = "Preencha o formulário com sua hipótese final e submeta quando estiver pronto.";
+    } else {
+      hintArea.hidden = true;
+    }
+  }
 }
 
 function tipoLabel(tipo) {
@@ -149,22 +173,54 @@ function appendDocVisual(body, doc) {
   }
 }
 
-function openModal(doc) {
-  const modal = el("modal-root");
-  el("modal-type").textContent = tipoLabel(doc.tipo);
-  el("modal-title").textContent = doc.titulo || "Documento";
-  const body = el("modal-body");
-  body.innerHTML = "";
-  body.classList.remove("modal__body--roteiro");
-  appendDocVisual(body, doc);
-  const content = document.createElement("div");
-  content.className = "doc-content";
-  content.textContent = doc.conteudo || "";
-  body.appendChild(content);
-  setDocForSpeech({ titulo: doc.titulo || tipoLabel(doc.tipo), conteudo: doc.conteudo || "" });
+function openDocViewer(doc) {
+  const viewer = el("doc-viewer");
+  if (!viewer) return;
   if (doc.id) markDocRead(doc.id);
-  modal.hidden = false;
-  document.body.style.overflow = "hidden";
+
+  // marca item ativo na lista
+  document.querySelectorAll(".doc-item").forEach((b) => {
+    b.classList.toggle("is-active", b.dataset.docId === doc.id);
+  });
+
+  const imgHtml = doc.imagem
+    ? `<img class="doc-viewer__image" src="${escapeHtml(doc.imagem)}" alt="${escapeHtml(doc.titulo || "Evidência")}" loading="lazy" />`
+    : (doc.tipo === "foto" ? `<div class="photo-placeholder">${escapeHtml(doc.imagemPlaceholder || "Evidência fotográfica — arquivo selado")}</div>` : "");
+
+  viewer.innerHTML = `
+    <p class="doc-viewer__badge">${escapeHtml(tipoLabel(doc.tipo))}</p>
+    <h2 class="doc-viewer__title">${escapeHtml(doc.titulo || "Documento")}</h2>
+    ${imgHtml}
+    <div class="doc-viewer__body">${escapeHtml(doc.conteudo || "")}</div>
+    <div class="doc-viewer__actions">
+      <button type="button" class="btn btn--ghost" id="doc-viewer-tts" aria-pressed="false">🔊 Ler</button>
+    </div>
+  `;
+
+  setDocForSpeech({ titulo: doc.titulo || tipoLabel(doc.tipo), conteudo: doc.conteudo || "" });
+
+  const ttsBtn = viewer.querySelector("#doc-viewer-tts");
+  if (ttsBtn) {
+    if (!("speechSynthesis" in window) || !(doc.conteudo || "").trim()) {
+      ttsBtn.hidden = true;
+    }
+    ttsBtn.addEventListener("click", () => {
+      const pressed = ttsBtn.getAttribute("aria-pressed") === "true";
+      if (pressed) {
+        stopSpeech();
+        ttsBtn.setAttribute("aria-pressed", "false");
+        ttsBtn.textContent = "🔊 Ler";
+      } else {
+        speakText(doc.conteudo, doc.titulo);
+        ttsBtn.setAttribute("aria-pressed", "true");
+        ttsBtn.textContent = "⏹ Parar";
+      }
+    });
+  }
+}
+
+function openModal(doc) {
+  openDocViewer(doc);
 }
 
 async function openRoteiroModal(url) {
@@ -252,6 +308,10 @@ function renderDocuments(caso) {
     `;
     b.appendChild(icon);
     b.appendChild(bodySpan);
+    b.dataset.docId = doc.id || "";
+    if (state && state.docsRead && state.docsRead.includes(doc.id)) {
+      b.classList.add("is-read");
+    }
     b.addEventListener("click", () => {
       playClick();
       openModal(doc);
@@ -582,22 +642,39 @@ function updateTopSuspect() {
 }
 
 function bindCaseUi(caso) {
-  el("case-title").textContent = caso.titulo || "Caso";
-  el("case-desc").textContent = caso.descricao || "";
-  el("case-diff").textContent = caso.dificuldade || "—";
-  el("case-duration").textContent = caso.duracaoEstimada || "—";
+  // Topbar
+  el("topbar-home").style.display = "none";
+  const topbarCase = el("topbar-case");
+  topbarCase.classList.add("is-visible");
 
-  const coverWrap = el("case-header-cover-wrap");
-  const coverImg = el("case-header-cover");
-  if (caso.imagemCapa) {
-    coverWrap.hidden = false;
-    coverImg.src = caso.imagemCapa;
-    coverImg.alt = caso.titulo || "";
-  } else {
-    coverWrap.hidden = true;
-    coverImg.removeAttribute("src");
-    coverImg.alt = "";
+  // sidebar col-left: label e count
+  const colId = el("case-col-id");
+  if (colId) colId.textContent = (caso.titulo || "Caso").toUpperCase().slice(0, 18);
+
+  // roteiro
+  const roteiroBtn = el("btn-roteiro");
+  if (roteiroBtn) {
+    if (caso.roteiro) {
+      roteiroBtn.hidden = false;
+      roteiroBtn.onclick = () => {
+        fetch(caso.roteiro).then(r => r.text()).then(text => {
+          openDocViewer({ tipo: "roteiro", titulo: "Roteiro do caso", conteudo: text });
+        });
+      };
+    } else {
+      roteiroBtn.hidden = true;
+    }
   }
+
+  // Resetar viewer
+  const viewer = el("doc-viewer");
+  if (viewer) viewer.innerHTML = `<div class="doc-viewer__empty"><p>Selecione um documento na lista à esquerda para ler.</p></div>`;
+
+  // Esconder helpers de outros painéis
+  const noteArea = el("note-quick-area");
+  const hintArea = el("panel-hint-area");
+  if (noteArea) noteArea.hidden = true;
+  if (hintArea) hintArea.hidden = true;
 
   const roteiroBtn = el("btn-roteiro");
   if (caso.roteiro) {
@@ -721,10 +798,8 @@ async function openCase(entry) {
     });
     el("view-home").hidden = true;
     el("view-case").hidden = false;
-    el("case-meta").hidden = false;
     bindCaseUi(caso);
     startTimer();
-    setActivePanel("documentos");
     runTutorial();
     document.querySelectorAll(".case-nav__btn").forEach((b) => {
       b.onclick = () => {
@@ -732,6 +807,7 @@ async function openCase(entry) {
         playClick();
       };
     });
+    setActivePanel("documentos");
   } catch (err) {
     console.error(err);
     toast("Erro ao abrir caso.");
@@ -1037,6 +1113,38 @@ async function init() {
     renderHomeList();
     renderStats();
   });
+
+  const btnHomeCase = el("btn-home-case");
+  if (btnHomeCase) {
+    btnHomeCase.addEventListener("click", () => {
+      playClick();
+      showHome();
+      renderHomeList();
+      renderStats();
+    });
+  }
+
+  const btnSoundCase = el("btn-sound-case");
+  if (btnSoundCase) {
+    btnSoundCase.addEventListener("click", () => {
+      const next = !isEnabled();
+      setSoundOn(next);
+      btnSoundCase.textContent = next ? "🔊" : "🔇";
+      btnSoundCase.setAttribute("aria-pressed", next ? "true" : "false");
+      el("btn-sound").textContent = next ? "🔊" : "🔇";
+    });
+  }
+
+  const btnAddNote = el("btn-add-note-shortcut");
+  if (btnAddNote) {
+    btnAddNote.addEventListener("click", () => {
+      setActivePanel("anotacoes");
+      document.querySelectorAll(".case-nav__btn").forEach((b) => {
+        b.classList.toggle("is-active", b.dataset.panel === "anotacoes");
+      });
+      playClick();
+    });
+  }
 
   const searchInput = el("case-search");
   if (searchInput) {
