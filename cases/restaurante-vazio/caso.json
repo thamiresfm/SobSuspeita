@@ -27,6 +27,7 @@
           "id": "dep-investidor",
           "tipo": "depoimento",
           "titulo": "Depoimento — Renato Figueiredo (Investidor)",
+          "imagem": "cases/restaurante-vazio/images/retrato-renato.png",
           "conteudo": "Não estive no restaurante naquele dia. Acompanho os números remotamente. Minha última visita presencial foi há três semanas. Tenho total interesse que o restaurante funcione bem."
         }
       ]
@@ -110,7 +111,8 @@
       "nome": "Renato Figueiredo (Investidor)",
       "motivo": "Mário ia expor fraude de R$ 340 mil.",
       "alibi": "Diz que não estava no restaurante naquele dia.",
-      "contradicoes": "Câmera registra sua presença no dia anterior; mensagens contêm ameaça explícita."
+      "contradicoes": "Câmera registra sua presença no dia anterior; mensagens contêm ameaça explícita.",
+      "retrato": "cases/restaurante-vazio/images/retrato-renato.png"
     },
     {
       "nome": "Felipe (Garçom antigo)",
