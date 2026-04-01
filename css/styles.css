@@ -931,50 +931,41 @@ body {
   letter-spacing: 0.04em;
 }
 
-/* nav buttons */
+/* nav buttons — limpo e simples */
 .case-nav__btn {
+  all: unset;
+  box-sizing: border-box;
   flex: 0 0 auto;
-  padding: 16px 1.1rem 14px;
-  border: none;
-  border-bottom: 2px solid transparent;
-  border-radius: 0;
-  background: transparent;
-  color: rgba(255,255,255,0.45);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0 1rem;
+  height: 52px;
+  cursor: pointer;
+  white-space: nowrap;
   font-family: var(--font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.07em;
   text-transform: uppercase;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: color 0.15s, background 0.15s, border-color 0.15s;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.4rem;
+  color: rgba(255, 255, 255, 0.4);
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
 }
 
 .case-nav__icon {
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
   flex-shrink: 0;
-  opacity: 0.6;
-  transition: opacity 0.15s;
 }
 
 .case-nav__btn:hover {
-  color: rgba(255,255,255,0.85);
-  background: rgba(255,255,255,0.04);
+  color: rgba(255, 255, 255, 0.8);
 }
-
-.case-nav__btn:hover .case-nav__icon { opacity: 0.85; }
 
 .case-nav__btn.is-active {
-  border-bottom-color: var(--accent);
   color: var(--accent);
-  background: rgba(201, 162, 39, 0.07);
+  border-bottom-color: var(--accent);
 }
-
-.case-nav__btn.is-active .case-nav__icon { opacity: 1; }
 
 .btn--roteiro {
   font-size: 0.72rem;
