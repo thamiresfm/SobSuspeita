@@ -217,26 +217,32 @@ function setActivePanel(name) {
 
     if (currentCase && state) {
       renderResolutionForm(currentCase);
-      el("resolution-form").onsubmit = (e) => {
-        e.preventDefault();
-        const mentiras = [];
-        el("res-mentiras").querySelectorAll('input[type="checkbox"]').forEach((cb) => {
-          if (cb.checked) mentiras.push(cb.value);
-        });
-        const answers = {
-          culpado: el("res-culpado").value,
-          metodo: el("res-metodo").value,
-          motivo: el("res-motivo").value,
-          mentiras,
+      const resForm = center.querySelector("#resolution-form");
+      if (resForm) {
+        resForm.onsubmit = (e) => {
+          e.preventDefault();
+          const mentiras = [];
+          center.querySelectorAll('#res-mentiras input[type="checkbox"]').forEach((cb) => {
+            if (cb.checked) mentiras.push(cb.value);
+          });
+          const answers = {
+            culpado: center.querySelector("#res-culpado")?.value || "",
+            metodo: center.querySelector("#res-metodo")?.value || "",
+            motivo: center.querySelector("#res-motivo")?.value || "",
+            mentiras,
+          };
+          const evalRes = evaluateResolution(currentCase, answers, state.timelineOrder);
+          const elapsed = Date.now() - (state.startedAt || Date.now());
+          state.resolutionSubmitted = true;
+          state.lastScore = evalRes.total;
+          state.lastMaxScore = evalRes.max;
+          persist();
+          showResolutionResult(evalRes, elapsed);
+          renderStats();
+          playClick();
+          toast("Hipótese registrada.");
         };
-        const evalRes = evaluateResolution(currentCase, answers, state.timelineOrder);
-        const elapsed = Date.now() - (state.startedAt || Date.now());
-        state.resolutionSubmitted = true;
-        persist();
-        showResolutionResult(evalRes, elapsed);
-        playClick();
-        toast("Hipótese registrada.");
-      };
+      }
     }
   }
 }
@@ -653,7 +659,10 @@ function hash(str) {
 }
 
 function renderResolutionForm(caso) {
-  const sel = el("res-culpado");
+  const center = el("case-col-center");
+  const scope = center || document;
+  const sel = scope.querySelector("#res-culpado") || el("res-culpado");
+  if (!sel) return;
   sel.innerHTML = '<option value="">Selecione…</option>';
   (caso.suspeitos || []).forEach((s) => {
     const o = document.createElement("option");
@@ -661,7 +670,8 @@ function renderResolutionForm(caso) {
     o.textContent = s.nome;
     sel.appendChild(o);
   });
-  const ment = el("res-mentiras");
+  const ment = scope.querySelector("#res-mentiras") || el("res-mentiras");
+  if (!ment) return;
   ment.innerHTML = "";
   (caso.suspeitos || []).forEach((s) => {
     const row = document.createElement("label");
@@ -675,12 +685,14 @@ function renderResolutionForm(caso) {
     ment.appendChild(row);
   });
 
-  const result = el("resolution-result");
-  result.hidden = true;
+  const result = scope.querySelector("#resolution-result") || el("resolution-result");
+  if (result) result.hidden = true;
 }
 
 function showResolutionResult(evalRes, elapsedMs) {
-  const box = el("resolution-result");
+  const center = el("case-col-center");
+  const box = (center && center.querySelector("#resolution-result")) || el("resolution-result");
+  if (!box) return;
   box.hidden = false;
   const sol = evalRes.solucao;
   const erros = [];
