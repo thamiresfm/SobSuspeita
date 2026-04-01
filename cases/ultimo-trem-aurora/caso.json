@@ -47,12 +47,14 @@
           "id": "laudo-freio",
           "tipo": "laudo",
           "titulo": "Laudo Técnico — Sistema de Freio",
+          "imagem": "cases/ultimo-trem-aurora/images/laudo-freio.png",
           "conteudo": "Encontradas marcas de uso de chave inglesa de 18mm nas válvulas de pressão. O ajuste reduz a eficácia do freio de emergência em 70%. Jonas Prado é o único técnico com certificação para esse procedimento nesta linha."
         },
         {
           "id": "log-acesso",
           "tipo": "laudo",
           "titulo": "Log de Acesso — Sala de Controle",
+          "imagem": "cases/ultimo-trem-aurora/images/log-acesso.png",
           "conteudo": "Registro eletrônico mostra que Clara Vilela saiu da sala de controle às 23h08 por 14 minutos. Nenhum log de ocorrência foi registrado nessa janela, o que contraria o protocolo obrigatório."
         }
       ]
@@ -72,6 +74,7 @@
           "id": "nota-carga",
           "tipo": "noticia",
           "titulo": "Manifesto de Carga — TA-09 vs. Armazém",
+          "imagem": "cases/ultimo-trem-aurora/images/manifesto-carga.png",
           "conteudo": "O manifesto oficial do TA-09 lista 4 caixas. O inventário do armazém registra que saíram 7 caixas do depósito naquela tarde. As 3 caixas extras foram carregadas sem nota fiscal e sem autorização — carga ilegal identificada como eletrônicos sem procedência."
         }
       ]
