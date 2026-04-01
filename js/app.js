@@ -78,12 +78,17 @@ function setActivePanel(name) {
   center.innerHTML = "";
 
   if (name === "documentos") {
-    // Restaura o doc-viewer (pode estar vazio se nenhum doc selecionado)
     const viewer = document.createElement("div");
     viewer.id = "doc-viewer";
     viewer.className = "doc-viewer";
     viewer.innerHTML = `<div class="doc-viewer__empty"><p>Selecione um documento na lista à esquerda para ler.</p></div>`;
     center.appendChild(viewer);
+    // Re-renderiza os documentos na coluna esquerda para garantir que a fase 1 apareça
+    if (currentCase) {
+      renderDocuments(currentCase);
+      const leftCol = el("case-col-left");
+      if (leftCol) leftCol.scrollTop = 0;
+    }
     return;
   }
 
@@ -861,6 +866,8 @@ function bindCaseUi(caso) {
   renderDocuments(caso);
   updateTopSuspect();
   updateDocsReadCount();
+  const leftCol = el("case-col-left");
+  if (leftCol) leftCol.scrollTop = 0;
 }
 
 const TUTORIAL_KEY = "sob-suspeita-tutorial-done";
