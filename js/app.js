@@ -676,15 +676,6 @@ function bindCaseUi(caso) {
   if (noteArea) noteArea.hidden = true;
   if (hintArea) hintArea.hidden = true;
 
-  const roteiroBtn = el("btn-roteiro");
-  if (caso.roteiro) {
-    roteiroBtn.hidden = false;
-    roteiroBtn.onclick = () => openRoteiroModal(caso.roteiro);
-  } else {
-    roteiroBtn.hidden = true;
-    roteiroBtn.onclick = null;
-  }
-
   activePhaseIndex = 0;
   renderDocuments(caso);
   renderFacts(caso);
