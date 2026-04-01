@@ -74,6 +74,7 @@
           "id": "conta-fraude",
           "tipo": "noticia",
           "titulo": "Relatório Contábil — Irregularidades Financeiras",
+          "imagem": "cases/restaurante-vazio/images/relatorio-contabil.png",
           "conteudo": "Auditoria indica desvio de R$ 340 mil ao longo de 8 meses pelo investidor Renato Figueiredo, via notas fiscais frias de fornecedores inexistentes. O Chef Mário havia solicitado acesso ao sistema contábil completo três dias antes do desaparecimento."
         },
         {
