@@ -760,7 +760,7 @@ body {
 /* nav buttons dentro da topbar */
 .case-nav__btn {
   flex: 0 0 auto;
-  padding: 0 1.1rem;
+  padding: 0 1.25rem;
   height: 100%;
   min-height: 44px;
   border: none;
@@ -769,22 +769,42 @@ body {
   background: transparent;
   color: var(--text-muted);
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.07em;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
   white-space: nowrap;
-  transition: color 0.15s, border-color 0.15s;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
   display: flex;
   align-items: center;
+  gap: 0.45rem;
 }
 
-.case-nav__btn:hover { color: var(--text); }
+.case-nav__icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  opacity: 0.7;
+  transition: opacity 0.15s;
+}
+
+.case-nav__btn:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.case-nav__btn:hover .case-nav__icon {
+  opacity: 1;
+}
 
 .case-nav__btn.is-active {
   border-bottom-color: var(--accent);
   color: var(--accent);
-  background: rgba(201, 162, 39, 0.04);
+  background: rgba(201, 162, 39, 0.08);
+}
+
+.case-nav__btn.is-active .case-nav__icon {
+  opacity: 1;
 }
 
 .btn--roteiro {
