@@ -13,7 +13,8 @@
           "id": "laudo-corpo",
           "tipo": "laudo",
           "titulo": "Laudo Necroscópico — Vítima: Ana Lúcia Ferreira",
-          "conteudo": "Vítima encontrada no porão da casa vazia na Rua Cedro 47. Causa mortis: asfixia mecânica. Tempo estimado de morte: 4 a 6 dias antes da descoberta, compatível com a data dos gritos relatados. Não há sinais de arrombamento — a porta dos fundos estava destrancada."
+          "conteudo": "Vítima encontrada no porão da casa vazia na Rua Cedro 47. Causa mortis: asfixia mecânica. Tempo estimado de morte: 4 a 6 dias antes da descoberta, compatível com a data dos gritos relatados. Não há sinais de arrombamento — a porta dos fundos estava destrancada.",
+          "imagem": "cases/vozes-madrugada/images/laudo-corpo.png"
         },
         {
           "id": "dep-vizinha",
@@ -39,13 +40,15 @@
           "id": "log-chaves",
           "tipo": "laudo",
           "titulo": "Log de Controle de Chaves — Imobiliária",
-          "conteudo": "O registro eletrônico da caixa de chaves mostra retirada do conjunto da Rua Cedro 47 às 23h14 de quarta-feira. O código de acesso utilizado é o de Marcos Alves. As chaves foram devolvidas às 01h02 do dia seguinte."
+          "conteudo": "O registro eletrônico da caixa de chaves mostra retirada do conjunto da Rua Cedro 47 às 23h14 de quarta-feira. O código de acesso utilizado é o de Marcos Alves. As chaves foram devolvidas às 01h02 do dia seguinte.",
+          "imagem": "cases/vozes-madrugada/images/log-chaves.png"
         },
         {
           "id": "msgs-irmao",
           "tipo": "noticia",
           "titulo": "Mensagens Recuperadas — Celular da Vítima",
-          "conteudo": "Quarta, 22h31 — Vítima: 'Já estou na casa. Onde você está?'\nQuarta, 22h45 — Contato 'Bruno': 'Já chegando. Precisamos resolver isso hoje.'\nQuarta, 23h03 — Vítima: 'Não gosto disso. Quero metade em dinheiro, como combinamos.'"
+          "conteudo": "Quarta, 22h31 — Vítima: 'Já estou na casa. Onde você está?'\nQuarta, 22h45 — Contato 'Bruno': 'Já chegando. Precisamos resolver isso hoje.'\nQuarta, 23h03 — Vítima: 'Não gosto disso. Quero metade em dinheiro, como combinamos.'",
+          "imagem": "cases/vozes-madrugada/images/msgs-irmao.png"
         },
         {
           "id": "dep-irmao",
@@ -64,13 +67,15 @@
           "id": "pedágio",
           "tipo": "laudo",
           "titulo": "Registros de Pedágio — Rodovia Anhanguera",
-          "conteudo": "Placa do veículo de Bruno Ferreira registrada no pedágio km 54 (sentido São Paulo) às 21h17 de quarta-feira — horas antes dos gritos. Chegada de volta registrada às 02h08 de quinta. O percurso é compatível com a Rua Cedro 47."
+          "conteudo": "Placa do veículo de Bruno Ferreira registrada no pedágio km 54 (sentido São Paulo) às 21h17 de quarta-feira — horas antes dos gritos. Chegada de volta registrada às 02h08 de quinta. O percurso é compatível com a Rua Cedro 47.",
+          "imagem": "cases/vozes-madrugada/images/pedagio.png"
         },
         {
           "id": "gravacao",
           "tipo": "laudo",
           "titulo": "Análise de Áudio — Gravador Encontrado na Casa",
-          "conteudo": "Gravador portátil encontrado atrás de parede removível no porão. Contém gravação de 47 minutos da conversa da noite do crime. Vozes identificadas: Ana Lúcia e Bruno Ferreira. Conflito por divisão de herança, ameaças e luta física detectada pelo microfone. O gravador foi esquecido pelo agressor."
+          "conteudo": "Gravador portátil encontrado atrás de parede removível no porão. Contém gravação de 47 minutos da conversa da noite do crime. Vozes identificadas: Ana Lúcia e Bruno Ferreira. Conflito por divisão de herança, ameaças e luta física detectada pelo microfone. O gravador foi esquecido pelo agressor.",
+          "imagem": "cases/vozes-madrugada/images/gravacao.png"
         }
       ]
     }
@@ -83,13 +88,34 @@
     "O pedágio registra o carro de Bruno em trânsito para São Paulo naquela noite."
   ],
   "eventosLinhaDoTempo": [
-    {"id": "ev1", "texto": "Vítima chega à casa da Rua Cedro 47 às 22h31."},
-    {"id": "ev2", "texto": "Chaves são retiradas da imobiliária às 23h14 com código de Marcos Alves."},
-    {"id": "ev3", "texto": "Bruno Ferreira chega à casa e a conversa começa — gravador registra tudo."},
-    {"id": "ev4", "texto": "Discussão sobre herança evolui para conflito físico — gritos ouvidos por vizinha."},
-    {"id": "ev5", "texto": "Ana Lúcia é asfixiada no porão por volta de 00h."},
-    {"id": "ev6", "texto": "Bruno sai da casa às 01h e devolve as chaves às 01h02."},
-    {"id": "ev7", "texto": "Corpo é descoberto dois dias depois; gravador esquecido no local."}
+    {
+      "id": "ev1",
+      "texto": "Vítima chega à casa da Rua Cedro 47 às 22h31."
+    },
+    {
+      "id": "ev2",
+      "texto": "Chaves são retiradas da imobiliária às 23h14 com código de Marcos Alves."
+    },
+    {
+      "id": "ev3",
+      "texto": "Bruno Ferreira chega à casa e a conversa começa — gravador registra tudo."
+    },
+    {
+      "id": "ev4",
+      "texto": "Discussão sobre herança evolui para conflito físico — gritos ouvidos por vizinha."
+    },
+    {
+      "id": "ev5",
+      "texto": "Ana Lúcia é asfixiada no porão por volta de 00h."
+    },
+    {
+      "id": "ev6",
+      "texto": "Bruno sai da casa às 01h e devolve as chaves às 01h02."
+    },
+    {
+      "id": "ev7",
+      "texto": "Corpo é descoberto dois dias depois; gravador esquecido no local."
+    }
   ],
   "suspeitos": [
     {
@@ -118,7 +144,9 @@
     "culpado": "Bruno Ferreira (Irmão da vítima)",
     "motivo": "Disputa por herança — não queria dividir os bens com a irmã.",
     "metodo": "Combinou encontro na casa vazia usando as chaves da imobiliária (com código de Marcos) e asfixiou a vítima durante a discussão. Esqueceu o gravador que registrou tudo.",
-    "mentiras": ["Bruno Ferreira (Irmão da vítima)"],
+    "mentiras": [
+      "Bruno Ferreira (Irmão da vítima)"
+    ],
     "pistasIgnoradas": [
       "O gravador esquecido no porão é a prova mais direta — contém 47 minutos da conversa e da luta.",
       "As mensagens 'resolver isso hoje' e 'quero metade em dinheiro' indicam briga financeira premeditada."
