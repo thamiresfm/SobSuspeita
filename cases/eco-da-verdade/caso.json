@@ -1,1 +1,119 @@
-{"titulo":"O Eco da Verdade","descricao":"Um jornalista investigativo morre após expor um grande esquema de corrupção. Novos áudios e documentos aparecem, mas as evidências parecem se contradizer.","dificuldade":"Difícil","duracaoEstimada":"45+ min","fases":[],"eventosLinhaDoTempo":[],"suspeitos":[{"nome":"Político influente","motivo":"Diretamente implicado nas denúncias do jornalista.","alibi":"Afirma estar em evento público no horário estimado da morte.","contradicoes":"Registros de deslocamento e agendas privadas apontam janelas de ausência não explicadas."},{"nome":"Assessor de imprensa","motivo":"Responsável por controlar a narrativa pública e o dano de imagem.","alibi":"Diz que só tratava de notas oficiais e não tinha contato direto com o jornalista.","contradicoes":"Mensagens revelam tentativas de negociação e intimidação prévias."},{"nome":"Empresário financiador","motivo":"Beneficiário econômico do esquema exposto.","alibi":"Alega desconhecer os detalhes da investigação jornalística.","contradicoes":"Transações financeiras indicam pagamentos a intermediários ligados à cena do crime."}],"solucao":{"culpado":"Político influente","motivo":"Silenciar o jornalista e impedir que novas provas consolidassem o escândalo.","metodo":"Uso de intermediário contratado para executar o crime e manipular evidências, criando múltiplas narrativas falsas.","mentiras":["Político influente","Assessor de imprensa","Empresário financiador"]}}
+{
+  "titulo": "O Eco da Verdade",
+  "descricao": "Um jornalista investigativo morre após expor um grande esquema de corrupção. Novos áudios e documentos aparecem, mas as evidências parecem se contradizer.",
+  "dificuldade": "Difícil",
+  "duracaoEstimada": "45+ min",
+  "fases": [
+    {
+      "nome": "Contexto",
+      "resumo": "O jornalista, a investigação e o ambiente político.",
+      "documentos": [
+        {
+          "id": "laudo-morte",
+          "tipo": "laudo",
+          "titulo": "Laudo Necroscópico — Jornalista Henrique Teles",
+          "conteudo": "Causa mortis: disparo de arma de fogo a curta distância. Corpo encontrado em seu carro, às 23h40, estacionado a 200m de sua redação. Três dias antes da morte, Henrique publicou um artigo sobre desvio de R$ 80 milhões em contratos públicos."
+        },
+        {
+          "id": "dep-assessor",
+          "tipo": "depoimento",
+          "titulo": "Depoimento — Assessor: Ricardo Melo",
+          "conteudo": "Meu trabalho é comunicação institucional. Nunca tive contato direto com Henrique Teles. As notas que emitimos eram padrão de gabinete. Qualquer negociação direta seria fora das minhas atribuições."
+        },
+        {
+          "id": "dep-politico",
+          "tipo": "depoimento",
+          "titulo": "Depoimento — Deputado Sérgio Nantes",
+          "conteudo": "Estava no evento de inauguração do Centro Cultural às 23h — tenho centenas de fotos e testemunhas. O artigo de Henrique era cheio de imprecisões. Lamentamos profundamente a morte, mas não temos nada a ver com isso."
+        }
+      ]
+    },
+    {
+      "nome": "Conflito",
+      "resumo": "Áudios contraditórios e rastreamento financeiro.",
+      "documentos": [
+        {
+          "id": "audio-ameaca",
+          "tipo": "depoimento",
+          "titulo": "Áudio Recuperado — Mensagem de Voz para Henrique",
+          "conteudo": "Voz não identificada, 48h antes da morte: 'Você vai parar com isso ou vai se arrepender. Há formas de fazer uma história desaparecer junto com quem a escreveu. Pense bem antes da próxima publicação.'"
+        },
+        {
+          "id": "transacoes",
+          "tipo": "laudo",
+          "titulo": "Rastreamento Financeiro — Contratos Públicos",
+          "conteudo": "R$ 80 milhões desviados via contratos superfaturados com três empresas-laranja. Assinatura do deputado Sérgio Nantes em dois contratos. Empresa intermediária vinculada ao empresário Jorge Paz recebeu R$ 34 milhões sem prestação de serviços verificável."
+        },
+        {
+          "id": "msgs-assessor",
+          "tipo": "noticia",
+          "titulo": "Mensagens Recuperadas — Celular de Ricardo Melo",
+          "conteudo": "D-5: 'O repórter tem tudo. Publicação prevista para quinta.'\nD-4: 'Tentei negociar. Ele recusou qualquer acordo.'\nD-3: 'Isso vai sair. Precisamos de um plano B.'\nD-1: sem mensagens — número desativado temporariamente."
+        }
+      ]
+    },
+    {
+      "nome": "Validação",
+      "resumo": "A cadeia de comando e o intermediário.",
+      "documentos": [
+        {
+          "id": "agenda-politico",
+          "tipo": "laudo",
+          "titulo": "Análise de Agenda Privada — Sérgio Nantes",
+          "conteudo": "Agenda digital recuperada: reunião marcada com Ricardo Melo às 18h do dia anterior à morte, em local não oficial. Entrada cancelada no sistema público de agenda, mas notificação ainda presente no celular do assessor."
+        },
+        {
+          "id": "pagamento-intermediario",
+          "tipo": "laudo",
+          "titulo": "Movimentação Financeira — Conta de Terceiro",
+          "conteudo": "Pagamento de R$ 120.000 enviado da empresa de Jorge Paz para conta não identificada no dia seguinte à morte. Destinatário rastreado como Fábio Ramos — antecedentes criminais por homicídio mercenário."
+        }
+      ]
+    }
+  ],
+  "fatos": [
+    "Henrique Teles foi assassinado 3 dias após publicar matéria sobre desvio de R$ 80 milhões.",
+    "Uma mensagem de voz ameaçou Henrique 48h antes da morte.",
+    "Ricardo Melo trocou mensagens sobre a publicação e sumiu no dia anterior ao crime.",
+    "Agenda privada de Nantes mostra reunião não oficial com Ricardo no dia anterior à morte.",
+    "Pagamento de R$ 120 mil a mercenário foi feito pela empresa de Jorge Paz após o crime."
+  ],
+  "eventosLinhaDoTempo": [
+    {"id": "ev1", "texto": "Henrique Teles publica artigo sobre desvio de R$ 80 milhões (D-3)."},
+    {"id": "ev2", "texto": "Ricardo Melo negocia com Henrique — repórter recusa acordo (D-4 a D-3)."},
+    {"id": "ev3", "texto": "Sérgio Nantes reune com Ricardo Melo em local não oficial (D-1, 18h)."},
+    {"id": "ev4", "texto": "Contrato de execução acertado com Fábio Ramos via empresa de Jorge Paz."},
+    {"id": "ev5", "texto": "Henrique Teles é assassinado em seu carro às 23h40 (D-0)."},
+    {"id": "ev6", "texto": "Pagamento de R$ 120 mil liberado para Fábio Ramos no dia seguinte (D+1)."}
+  ],
+  "suspeitos": [
+    {
+      "nome": "Deputado Sérgio Nantes",
+      "motivo": "Diretamente implicado nos desvios; publicação ameaçava seu mandato.",
+      "alibi": "Inauguração do Centro Cultural às 23h.",
+      "contradicoes": "Agenda privada mostra reunião não oficial com assessor no dia anterior; assinou contratos desviados."
+    },
+    {
+      "nome": "Ricardo Melo (Assessor)",
+      "motivo": "Controlava a narrativa; tentou negociar e silenciar o jornalista.",
+      "alibi": "Diz que nunca teve contato direto com Henrique.",
+      "contradicoes": "Mensagens provam negociação direta e sugestão de plano B após recusa."
+    },
+    {
+      "nome": "Jorge Paz (Empresário)",
+      "motivo": "Beneficiário de R$ 34 milhões nos contratos desviados.",
+      "alibi": "Alega desconhecer os detalhes da investigação.",
+      "contradicoes": "Empresa dele pagou R$ 120 mil ao mercenário no dia seguinte ao assassinato."
+    }
+  ],
+  "solucao": {
+    "culpado": "Deputado Sérgio Nantes",
+    "motivo": "Silenciar o jornalista e impedir que novas provas consolidassem o escândalo político.",
+    "metodo": "Usando Ricardo Melo como intermediário, contratou através da empresa de Jorge Paz o mercenário Fábio Ramos para executar o crime após fracasso na negociação.",
+    "mentiras": ["Deputado Sérgio Nantes", "Ricardo Melo (Assessor)", "Jorge Paz (Empresário)"],
+    "pistasIgnoradas": [
+      "O número desativado de Ricardo no dia anterior ao crime indica que ele sabia o que aconteceria.",
+      "O valor de R$ 120 mil pago ao mercenário é registrado como serviço de consultoria — prova de lavagem de pagamento pelo crime."
+    ]
+  }
+}

@@ -1,1 +1,119 @@
-{"titulo":"O Último Trem de Aurora","descricao":"Um maquinista desaparece durante a última viagem da noite. O trem chega vazio ao destino.","dificuldade":"Fácil","duracaoEstimada":"15–20 min","fases":[],"eventosLinhaDoTempo":[],"suspeitos":[{"nome":"Clara Vilela","motivo":"Controladora da estação, responsável pelos registros de passagem do trem.","alibi":"Diz que permaneceu na sala de controle toda a noite.","contradicoes":"Omissão de logs que mostram parada não programada em túnel."},{"nome":"Jonas Prado","motivo":"Trabalha na manutenção ferroviária e tem acesso técnico ao sistema de freios.","alibi":"Afirma ter encerrado o turno horas antes da última viagem.","contradicoes":"Ferramentas usadas recentemente encontradas próximo ao túnel."},{"nome":"Eduardo Farias","motivo":"Passageiro frequente envolvido com carga ilegal no trem.","alibi":"Alega que não embarcou na última viagem.","contradicoes":"Câmeras internas registram sua presença em vagão de carga."}],"solucao":{"culpado":"Eduardo Farias","motivo":"Contrabando e desvio de carga ilegal.","metodo":"Sabotagem do sistema de freio e retirada combinada do maquinista em um túnel, simulando desaparecimento.","mentiras":["Clara Vilela","Eduardo Farias"]}}
+{
+  "titulo": "O Último Trem de Aurora",
+  "descricao": "Um maquinista desaparece durante a última viagem da noite. O trem chega vazio ao destino.",
+  "dificuldade": "Fácil",
+  "duracaoEstimada": "15–20 min",
+  "fases": [
+    {
+      "nome": "Contexto",
+      "resumo": "O que se sabe sobre a última viagem e o desaparecimento.",
+      "documentos": [
+        {
+          "id": "rel-ocorrencia",
+          "tipo": "laudo",
+          "titulo": "Relatório de Ocorrência — Ferroviária Aurora",
+          "conteudo": "Data: 14/03. Horário: 23h47. O trem TA-09 chegou à estação terminal sem o maquinista Renato Souza. Todos os vagões estavam vazios. O sistema de freios apresentava marcas de adulteração manual na junção com o túnel Km 12."
+        },
+        {
+          "id": "dep-clara",
+          "tipo": "depoimento",
+          "titulo": "Depoimento — Clara Vilela (Controladora)",
+          "conteudo": "Permaneci na sala de controle das 21h às 02h. Não há nada de incomum nos logs. O trem seguiu o cronograma normal até o túnel — depois do Km 12, perdi o sinal, o que é comum nessa faixa. Não vi ninguém entrar na sala de máquinas."
+        },
+        {
+          "id": "dep-eduardo",
+          "tipo": "depoimento",
+          "titulo": "Depoimento — Eduardo Farias (Passageiro suspeito)",
+          "conteudo": "Não embarquei no TA-09 nessa noite. Estava em casa. Podem verificar minha passagem — comprei para o trem anterior, o TA-07."
+        }
+      ]
+    },
+    {
+      "nome": "Conflito",
+      "resumo": "Contradições nos depoimentos e evidências físicas.",
+      "documentos": [
+        {
+          "id": "log-cameras",
+          "tipo": "laudo",
+          "titulo": "Log de Câmeras Internas — Vagão de Carga",
+          "conteudo": "Câmera 03 (vagão de carga) registra indivíduo compatível com Eduardo Farias às 23h12, movendo caixas não catalogadas. O mesmo indivíduo deixa o vagão às 23h31 pela escotilha traseira, antes da entrada no túnel."
+        },
+        {
+          "id": "laudo-freio",
+          "tipo": "laudo",
+          "titulo": "Laudo Técnico — Sistema de Freio",
+          "conteudo": "Encontradas marcas de uso de chave inglesa de 18mm nas válvulas de pressão. O ajuste reduz a eficácia do freio de emergência em 70%. Jonas Prado é o único técnico com certificação para esse procedimento nesta linha."
+        },
+        {
+          "id": "log-acesso",
+          "tipo": "laudo",
+          "titulo": "Log de Acesso — Sala de Controle",
+          "conteudo": "Registro eletrônico mostra que Clara Vilela saiu da sala de controle às 23h08 por 14 minutos. Nenhum log de ocorrência foi registrado nessa janela, o que contraria o protocolo obrigatório."
+        }
+      ]
+    },
+    {
+      "nome": "Validação",
+      "resumo": "Provas finais que confirmam ou descartam suspeitos.",
+      "documentos": [
+        {
+          "id": "dep-jonas",
+          "tipo": "depoimento",
+          "titulo": "Depoimento — Jonas Prado (Manutenção)",
+          "conteudo": "Encerrei meu turno às 20h30. Deixei minhas ferramentas no armário padrão. Se apareceram próximas ao túnel, alguém as pegou sem minha autorização. Tenho registro de ponto para provar."
+        },
+        {
+          "id": "nota-carga",
+          "tipo": "noticia",
+          "titulo": "Manifesto de Carga — TA-09 vs. Armazém",
+          "conteudo": "O manifesto oficial do TA-09 lista 4 caixas. O inventário do armazém registra que saíram 7 caixas do depósito naquela tarde. As 3 caixas extras foram carregadas sem nota fiscal e sem autorização — carga ilegal identificada como eletrônicos sem procedência."
+        }
+      ]
+    }
+  ],
+  "fatos": [
+    "O trem chegou ao terminal sem o maquinista e sem passageiros.",
+    "O sistema de freio estava adulterado na entrada do túnel Km 12.",
+    "As câmeras registram Eduardo Farias no vagão de carga antes do desaparecimento.",
+    "Clara Vilela saiu da sala de controle por 14 minutos sem registrar ocorrência.",
+    "Há 3 caixas de carga extra no manifesto, sem nota fiscal."
+  ],
+  "eventosLinhaDoTempo": [
+    {"id": "ev1", "texto": "Eduardo Farias embarca clandestinamente no TA-09 às 23h12."},
+    {"id": "ev2", "texto": "Clara Vilela abandona a sala de controle às 23h08 por 14 minutos."},
+    {"id": "ev3", "texto": "Freio de emergência é sabotado antes da entrada no túnel Km 12."},
+    {"id": "ev4", "texto": "O trem para no túnel às 23h31 — maquinista é retirado à força."},
+    {"id": "ev5", "texto": "Eduardo Farias sai pela escotilha traseira com carga não catalogada."},
+    {"id": "ev6", "texto": "O trem TA-09 chega vazio ao terminal às 23h47."}
+  ],
+  "suspeitos": [
+    {
+      "nome": "Clara Vilela",
+      "motivo": "Controladora da estação, responsável pelos registros de passagem do trem.",
+      "alibi": "Diz que permaneceu na sala de controle toda a noite.",
+      "contradicoes": "Omissão de logs e saída de 14 minutos sem registro de ocorrência."
+    },
+    {
+      "nome": "Jonas Prado",
+      "motivo": "Técnico de manutenção com acesso ao sistema de freios.",
+      "alibi": "Afirma ter encerrado o turno horas antes da última viagem.",
+      "contradicoes": "Ferramentas compatíveis encontradas próximas ao túnel."
+    },
+    {
+      "nome": "Eduardo Farias",
+      "motivo": "Passageiro envolvido com carga ilegal no trem.",
+      "alibi": "Alega que não embarcou na última viagem.",
+      "contradicoes": "Câmeras internas registram sua presença no vagão de carga."
+    }
+  ],
+  "solucao": {
+    "culpado": "Eduardo Farias",
+    "motivo": "Contrabando e desvio de carga ilegal.",
+    "metodo": "Sabotagem do sistema de freio e retirada do maquinista no túnel para garantir fuga com a carga ilegal.",
+    "mentiras": ["Clara Vilela", "Eduardo Farias"],
+    "pistasIgnoradas": [
+      "A passagem comprada por Eduardo era para o TA-07, não para o TA-09 onde foi filmado.",
+      "O manifesto com 3 caixas extras e sem nota aponta diretamente o esquema de contrabando."
+    ]
+  }
+}

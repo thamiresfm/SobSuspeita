@@ -13,14 +13,14 @@ let currentDocForSpeech = null;
 
 const el = (id) => document.getElementById(id);
 
-function toast(msg) {
+function toast(msg, duration = 1600) {
   const t = el("toast");
   t.textContent = msg;
   t.hidden = false;
   clearTimeout(toast._tid);
   toast._tid = setTimeout(() => {
     t.hidden = true;
-  }, 1600);
+  }, duration);
 }
 
 function persist() {
@@ -616,6 +616,39 @@ function bindCaseUi(caso) {
   };
 }
 
+const TUTORIAL_KEY = "sob-suspeita-tutorial-done";
+const TUTORIAL_STEPS = [
+  { panel: "documentos", msg: "📄 Comece lendo os Documentos — laudos, depoimentos e notícias escondem as pistas." },
+  { panel: "anotacoes",  msg: "✏️ Use Anotações para marcar fatos, suspeitas e dúvidas enquanto lê." },
+  { panel: "timeline",   msg: "🕐 Monte a Linha do Tempo ordenando os eventos — contradições ficam visíveis." },
+  { panel: "suspeitos",  msg: "🔍 Classifique cada Suspeito conforme sua análise." },
+  { panel: "resolucao",  msg: "⚖️ Quando estiver pronto, vá para Resolução e registre sua hipótese final." },
+];
+
+function runTutorial() {
+  if (localStorage.getItem(TUTORIAL_KEY)) return;
+  let step = 0;
+  function showStep() {
+    if (step >= TUTORIAL_STEPS.length) {
+      localStorage.setItem(TUTORIAL_KEY, "1");
+      return;
+    }
+    const { panel, msg } = TUTORIAL_STEPS[step];
+    setActivePanel(panel);
+    toast(msg, 3600);
+    step++;
+    if (step < TUTORIAL_STEPS.length) {
+      setTimeout(showStep, 3800);
+    } else {
+      setTimeout(() => {
+        localStorage.setItem(TUTORIAL_KEY, "1");
+        setActivePanel("documentos");
+      }, 3800);
+    }
+  }
+  setTimeout(showStep, 600);
+}
+
 async function openCase(entry) {
   try {
     const caso = await loadCase(entry.arquivo);
@@ -641,6 +674,7 @@ async function openCase(entry) {
     bindCaseUi(caso);
     startTimer();
     setActivePanel("documentos");
+    runTutorial();
     document.querySelectorAll(".case-nav__btn").forEach((b) => {
       b.onclick = () => {
         setActivePanel(b.dataset.panel);
@@ -665,6 +699,8 @@ function getCaseMeta(entry) {
 function renderHomeList() {
   const search = (el("case-search")?.value || "").trim().toLowerCase();
   const diffFilter = el("case-filter-difficulty")?.value || "";
+  const activeTab = el("archive-tabs")?.querySelector(".archive-tab.is-active");
+  const levelFilter = activeTab ? (activeTab.dataset.level || "") : "";
 
   const inProgressList = el("case-list-inprogress");
   const beginnerList = el("case-list-beginner");
@@ -721,11 +757,28 @@ function renderHomeList() {
   }
 
   if (allList) {
-    filtered.forEach(({ entry, meta }) => {
-      const label = meta.inProgress ? "Em andamento" : "Novo caso";
-      const card = createCaseCard(entry, { showStatus: true, statusLabel: label });
-      allList.appendChild(card);
-    });
+    const archiveFiltered = levelFilter
+      ? filtered.filter(({ entry }) => {
+          const n = (entry.nivel || "")
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+          return n === levelFilter;
+        })
+      : filtered;
+    if (archiveFiltered.length === 0) {
+      const empty = document.createElement("p");
+      empty.className = "hint";
+      empty.style.padding = "1rem 0";
+      empty.textContent = "Nenhum caso encontrado com esses filtros.";
+      allList.appendChild(empty);
+    } else {
+      archiveFiltered.forEach(({ entry, meta }) => {
+        const label = meta.inProgress ? "Em andamento" : "Novo caso";
+        const card = createCaseCard(entry, { showStatus: true, statusLabel: label });
+        allList.appendChild(card);
+      });
+    }
   }
 
   function pushToLevel(entry, meta) {
@@ -768,36 +821,31 @@ function renderHomeList() {
   });
 }
 
+function calcProgress(id) {
+  const st = loadCaseState(id) || {};
+  if (st.resolutionSubmitted) return 100;
+  if (st.notes && st.notes.length) return 40;
+  if (st.timelineOrder && st.timelineOrder.length) return 25;
+  if (st.startedAt) return 10;
+  return 0;
+}
+
 function createCaseCard(entry, opts = {}) {
   const li = document.createElement("div");
   li.className = "case-card";
-  if (opts.variant === "large") {
-    li.classList.add("case-card--large");
-  }
-  const btn = document.createElement("button");
-  btn.type = "button";
-  btn.className = "case-card__inner";
-  const st = loadCaseState(entry.id) || {};
-  const progress =
-    st && st.resolutionSubmitted
-      ? 100
-      : st && st.notes && st.notes.length
-      ? 40
-      : st && st.timelineOrder && st.timelineOrder.length
-      ? 25
-      : st && st.startedAt
-      ? 10
-      : 0;
+  if (opts.variant === "large") li.classList.add("case-card--large");
+
+  const progress = calcProgress(entry.id);
   const capa = entry.imagemCapa
-    ? `<div class="case-card__thumb-wrap"><img class="case-card__thumb" src="${escapeHtml(
-        entry.imagemCapa
-      )}" alt="" loading="lazy" /></div>`
+    ? `<div class="case-card__thumb-wrap"><img class="case-card__thumb" src="${escapeHtml(entry.imagemCapa)}" alt="" loading="lazy" /></div>`
     : "";
-  const statusBadge =
-    opts.showStatus && opts.statusLabel
-      ? `<span class="pill pill--muted case-card__status">${escapeHtml(opts.statusLabel)}</span>`
-      : "";
-  btn.innerHTML = `
+  const statusLabel = opts.showStatus && opts.statusLabel
+    ? `<span class="pill pill--muted case-card__status">${escapeHtml(opts.statusLabel)}</span>`
+    : "";
+
+  const inner = document.createElement("div");
+  inner.className = "case-card__inner";
+  inner.innerHTML = `
     <div class="case-card__main">
       ${capa}
       <div class="case-card__content">
@@ -806,7 +854,7 @@ function createCaseCard(entry, opts = {}) {
         <div class="case-card__row">
           <span class="pill">${escapeHtml(entry.dificuldade)}</span>
           <span class="pill pill--muted">${escapeHtml(entry.duracaoEstimada)}</span>
-          ${statusBadge}
+          ${statusLabel}
         </div>
       </div>
     </div>
@@ -816,12 +864,108 @@ function createCaseCard(entry, opts = {}) {
       </div>
     </div>
   `;
-  btn.addEventListener("click", () => {
+
+  const actions = document.createElement("div");
+  actions.className = "case-card__actions";
+
+  const btnInvestigar = document.createElement("button");
+  btnInvestigar.type = "button";
+  btnInvestigar.className = "btn btn--primary";
+  btnInvestigar.textContent = "Investigar";
+  btnInvestigar.addEventListener("click", (e) => {
+    e.stopPropagation();
     playClick();
     openCase(entry);
   });
-  li.appendChild(btn);
+
+  const btnDetails = document.createElement("button");
+  btnDetails.type = "button";
+  btnDetails.className = "btn";
+  btnDetails.textContent = "Ver detalhes";
+  btnDetails.addEventListener("click", (e) => {
+    e.stopPropagation();
+    playClick();
+    openCaseDetails(entry);
+  });
+
+  actions.appendChild(btnInvestigar);
+  actions.appendChild(btnDetails);
+  inner.appendChild(actions);
+  li.appendChild(inner);
   return li;
+}
+
+function openCaseDetails(entry) {
+  const modal = el("modal-case-details");
+  if (!modal) return;
+
+  const progress = calcProgress(entry.id);
+  const st = loadCaseState(entry.id) || {};
+  const statusLabel = st.resolutionSubmitted
+    ? "Concluído"
+    : st.startedAt
+    ? "Em andamento"
+    : "Novo";
+  const statusClass = st.resolutionSubmitted
+    ? "detail-status--done"
+    : st.startedAt
+    ? "detail-status--inprogress"
+    : "detail-status--new";
+
+  el("detail-badge").textContent = entry.categoria || "";
+  el("detail-title").textContent = entry.titulo || "Caso";
+
+  const body = el("detail-body");
+  body.innerHTML = `
+    ${entry.imagemCapa ? `<img class="detail-cover" src="${escapeHtml(entry.imagemCapa)}" alt="${escapeHtml(entry.titulo)}" loading="lazy" />` : ""}
+    <span class="detail-status ${statusClass}">${escapeHtml(statusLabel)}</span>
+    <p class="detail-desc">${escapeHtml(entry.descricao || "")}</p>
+    <div class="detail-meta">
+      <div class="detail-meta__item">
+        <span class="detail-meta__label">Nível</span>
+        <span class="detail-meta__value">${escapeHtml(entry.nivel || "—")}</span>
+      </div>
+      <div class="detail-meta__item">
+        <span class="detail-meta__label">Capítulo</span>
+        <span class="detail-meta__value">${escapeHtml(String(entry.capitulo || "—"))}</span>
+      </div>
+      <div class="detail-meta__item">
+        <span class="detail-meta__label">Categoria</span>
+        <span class="detail-meta__value">${escapeHtml(entry.categoria || "—")}</span>
+      </div>
+      <div class="detail-meta__item">
+        <span class="detail-meta__label">Dificuldade</span>
+        <span class="detail-meta__value">${escapeHtml(entry.dificuldade || "—")}</span>
+      </div>
+      <div class="detail-meta__item">
+        <span class="detail-meta__label">Duração</span>
+        <span class="detail-meta__value">${escapeHtml(entry.duracaoEstimada || "—")}</span>
+      </div>
+    </div>
+    ${progress > 0 ? `
+    <div class="detail-progress-wrap">
+      <p class="detail-progress-label">Progresso</p>
+      <div class="detail-progress-bar">
+        <div class="detail-progress-fill" style="width:${progress}%"></div>
+      </div>
+    </div>` : ""}
+  `;
+
+  const btnInvestigar = el("detail-btn-investigate");
+  btnInvestigar.onclick = () => {
+    closeDetailsModal();
+    playClick();
+    openCase(entry);
+  };
+
+  modal.hidden = false;
+  document.body.style.overflow = "hidden";
+}
+
+function closeDetailsModal() {
+  const modal = el("modal-case-details");
+  if (modal) modal.hidden = true;
+  document.body.style.overflow = "";
 }
 
 async function init() {
@@ -845,9 +989,7 @@ async function init() {
 
   const searchInput = el("case-search");
   if (searchInput) {
-    searchInput.addEventListener("input", () => {
-      renderHomeList();
-    });
+    searchInput.addEventListener("input", () => renderHomeList());
   }
 
   const diffSelect = el("case-filter-difficulty");
@@ -857,6 +999,35 @@ async function init() {
       playClick();
     });
   }
+
+  // Tabs de nível no Arquivo completo
+  const archiveTabs = el("archive-tabs");
+  if (archiveTabs) {
+    archiveTabs.addEventListener("click", (e) => {
+      const tab = e.target.closest(".archive-tab");
+      if (!tab) return;
+      archiveTabs.querySelectorAll(".archive-tab").forEach((t) => {
+        t.classList.remove("is-active");
+        t.setAttribute("aria-selected", "false");
+      });
+      tab.classList.add("is-active");
+      tab.setAttribute("aria-selected", "true");
+      playClick();
+      renderHomeList();
+    });
+  }
+
+  // Fechar modal de detalhes
+  const detailClose = el("detail-close");
+  if (detailClose) detailClose.addEventListener("click", closeDetailsModal);
+  const detailBackdrop = el("detail-backdrop");
+  if (detailBackdrop) detailBackdrop.addEventListener("click", closeDetailsModal);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeModal();
+      closeDetailsModal();
+    }
+  });
 
   const modalTtsBtn = el("modal-tts-btn");
   if (modalTtsBtn) {
@@ -888,9 +1059,6 @@ async function init() {
 
   document.querySelectorAll("[data-close-modal]").forEach((n) => {
     n.addEventListener("click", closeModal);
-  });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeModal();
   });
 }
 

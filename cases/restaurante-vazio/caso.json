@@ -1,1 +1,125 @@
-{"titulo":"O Caso do Restaurante Vazio","descricao":"Um chef renomado desaparece antes do serviço da noite. A cozinha estava em funcionamento e todas as mesas reservadas.","dificuldade":"Médio","duracaoEstimada":"25–35 min","fases":[],"eventosLinhaDoTempo":[],"suspeitos":[{"nome":"Sous-chef","motivo":"Poderia assumir o lugar do chef e tem acesso direto aos ingredientes.","alibi":"Afirma que estava preparando mise en place o tempo todo.","contradicoes":"Relatórios de estoque indicam manipulação incomum de ingredientes tóxicos."},{"nome":"Investidor","motivo":"Pressão por retorno financeiro e envolvimento com possíveis fraudes.","alibi":"Diz que não estava no restaurante no dia, apenas acompanhando de longe.","contradicoes":"Mensagens e câmeras mostram encontros reservados com o chef dias antes."},{"nome":"Garçom antigo","motivo":"Conflitos antigos com o chef por mudanças na equipe.","alibi":"Alega que chegou apenas para o turno da noite e não entrou na cozinha antes.","contradicoes":"Testemunhas dizem tê-lo visto circulando na área de despensa mais cedo."}],"solucao":{"culpado":"Investidor","motivo":"Evitar que o chef exponha fraude financeira no restaurante.","metodo":"Envenenamento gradual planejado em refeições anteriores e desaparecimento forçado antes do serviço.","mentiras":["Investidor","Sous-chef"]}}
+{
+  "titulo": "O Caso do Restaurante Vazio",
+  "descricao": "Um chef renomado desaparece antes do serviço da noite. A cozinha estava em funcionamento e todas as mesas reservadas.",
+  "dificuldade": "Médio",
+  "duracaoEstimada": "25–35 min",
+  "fases": [
+    {
+      "nome": "Contexto",
+      "resumo": "O desaparecimento do chef e o estado do restaurante.",
+      "documentos": [
+        {
+          "id": "bo-desaparecimento",
+          "tipo": "laudo",
+          "titulo": "Boletim de Ocorrência — Desaparecimento Chef Mário Alcântara",
+          "conteudo": "Data: 18/04, 19h30. Chef Mário Alcântara não foi encontrado antes do serviço. Cozinha estava aquecida, fornos ligados e mise en place completo. Todas as 14 mesas estavam reservadas. Celular encontrado desligado na bancada da cozinha."
+        },
+        {
+          "id": "dep-souschef",
+          "tipo": "depoimento",
+          "titulo": "Depoimento — André Lima (Sous-chef)",
+          "conteudo": "Cheguei às 15h e fiquei preparando a mise en place até o horário do serviço. O Chef Mário estava no escritório quando cheguei. A última vez que o vi foi por volta das 18h, quando pediu para eu verificar o estoque de vinho. Não ouvi nada de incomum."
+        },
+        {
+          "id": "dep-investidor",
+          "tipo": "depoimento",
+          "titulo": "Depoimento — Renato Figueiredo (Investidor)",
+          "conteudo": "Não estive no restaurante naquele dia. Acompanho os números remotamente. Minha última visita presencial foi há três semanas. Tenho total interesse que o restaurante funcione bem."
+        }
+      ]
+    },
+    {
+      "nome": "Conflito",
+      "resumo": "Contradições, estoque adulterado e reuniões secretas.",
+      "documentos": [
+        {
+          "id": "estoque",
+          "tipo": "laudo",
+          "titulo": "Laudo de Estoque — Despensa da Cozinha",
+          "conteudo": "Encontrado frasco de cogumelo Amanita phalloides (altamente tóxico) misturado ao estoque de cogumelos comuns. Embalagem aberta recentemente. Impressões digitais na embalagem: André Lima. Estoque de álcool: 3 garrafas a menos do que o registrado na semana anterior."
+        },
+        {
+          "id": "msgs-chef",
+          "tipo": "noticia",
+          "titulo": "Mensagens — Celular Chef Mário (últimas 72h)",
+          "conteudo": "16/04 — Renato: 'Precisamos conversar sobre os números. Hoje às 17h?'\n16/04 — Mário: 'Não me interessa mais cobrir suas irregularidades. Vou falar com o contador na quinta.'\n17/04 — Renato: 'Você vai se arrepender de tomar essa decisão.'"
+        },
+        {
+          "id": "camera-sala",
+          "tipo": "laudo",
+          "titulo": "Registros de Câmera — Sala de Reuniões",
+          "conteudo": "Câmera interna registra Renato Figueiredo no restaurante em 17/04 às 11h — um dia antes do desaparecimento. Ele permaneceu 40 minutos na sala de reuniões com o Chef Mário, que saiu visivelmente alterado. Câmera da cozinha: André Lima acessa despensa às 17h12 no dia do desaparecimento, sem justificativa técnica."
+        }
+      ]
+    },
+    {
+      "nome": "Validação",
+      "resumo": "Provas do plano e da cumplicidade.",
+      "documentos": [
+        {
+          "id": "laudo-sangue",
+          "tipo": "laudo",
+          "titulo": "Análise Forense — Ralo da Cozinha",
+          "conteudo": "Traços de sangue humano encontrados no ralo central da cozinha. DNA compatível com Chef Mário Alcântara. Manchas limpas com produto à base de hipoclorito — produto encontrado no armário de limpeza com marca de uso recente."
+        },
+        {
+          "id": "conta-fraude",
+          "tipo": "noticia",
+          "titulo": "Relatório Contábil — Irregularidades Financeiras",
+          "conteudo": "Auditoria indica desvio de R$ 340 mil ao longo de 8 meses pelo investidor Renato Figueiredo, via notas fiscais frias de fornecedores inexistentes. O Chef Mário havia solicitado acesso ao sistema contábil completo três dias antes do desaparecimento."
+        },
+        {
+          "id": "dep-garcom",
+          "tipo": "depoimento",
+          "titulo": "Depoimento — Felipe (Garçom antigo)",
+          "conteudo": "Cheguei para o turno da noite e passei pela despensa para pegar guardanapos. Vi o sous-chef André mexendo em caixas que normalmente ficam no alto — não era da rotina dele. Não disse nada porque não era meu lugar. Parecia nervoso."
+        }
+      ]
+    }
+  ],
+  "fatos": [
+    "O Chef Mário desapareceu antes do serviço com o celular deixado na bancada.",
+    "Cogumelo venenoso foi encontrado no estoque com impressões de André Lima.",
+    "Renato Figueiredo estava no restaurante no dia anterior, contrariando seu depoimento.",
+    "Mensagens mostram ameaça de Renato após Mário ameaçar expor fraude financeira.",
+    "Sangue compatível com a vítima foi encontrado no ralo da cozinha."
+  ],
+  "eventosLinhaDoTempo": [
+    {"id": "ev1", "texto": "Mário descobre irregularidades financeiras e avisa Renato que irá ao contador."},
+    {"id": "ev2", "texto": "Renato vai ao restaurante em 17/04 e confronta Mário — câmera registra reunião tensa."},
+    {"id": "ev3", "texto": "André Lima acessa a despensa e manipula o estoque no dia do desaparecimento."},
+    {"id": "ev4", "texto": "Mário é atacado na cozinha por volta das 18h — sangue encontrado no ralo."},
+    {"id": "ev5", "texto": "Cozinha é limpa com hipoclorito para ocultar evidências."},
+    {"id": "ev6", "texto": "O serviço da noite é cancelado e o desaparecimento é reportado às 19h30."}
+  ],
+  "suspeitos": [
+    {
+      "nome": "André Lima (Sous-chef)",
+      "motivo": "Poderia assumir o lugar do chef; encontrado manipulando estoque tóxico.",
+      "alibi": "Afirma que ficou fazendo mise en place o tempo todo.",
+      "contradicoes": "Impressões digitais no cogumelo tóxico e acesso não justificado à despensa às 17h12."
+    },
+    {
+      "nome": "Renato Figueiredo (Investidor)",
+      "motivo": "Mário ia expor fraude de R$ 340 mil.",
+      "alibi": "Diz que não estava no restaurante naquele dia.",
+      "contradicoes": "Câmera registra sua presença no dia anterior; mensagens contêm ameaça explícita."
+    },
+    {
+      "nome": "Felipe (Garçom antigo)",
+      "motivo": "Conflitos com o chef por mudanças na equipe.",
+      "alibi": "Chegou apenas para o turno da noite.",
+      "contradicoes": "Testemunhas o viram próximo à despensa antes do horário."
+    }
+  ],
+  "solucao": {
+    "culpado": "Renato Figueiredo (Investidor)",
+    "motivo": "Evitar que o chef expusesse a fraude financeira de R$ 340 mil.",
+    "metodo": "Planejou o crime com cumplicidade de André para adulterar o estoque e eliminar o chef antes do serviço, limpando evidências com hipoclorito.",
+    "mentiras": ["Renato Figueiredo (Investidor)", "André Lima (Sous-chef)"],
+    "pistasIgnoradas": [
+      "A mensagem de ameaça de Renato um dia antes é prova direta de intenção.",
+      "O cogumelo tóxico era desnecessário se o plano era apenas intimidar — indica premeditação de assassinato."
+    ]
+  }
+}

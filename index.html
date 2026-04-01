@@ -113,11 +113,18 @@
           </header>
           <div id="case-list-special" class="case-grid" role="list"></div>
         </section>
-        <section class="home-section">
+        <section class="home-section" id="home-archive-section">
           <header class="home-section__head">
             <h2 class="home-section__title">Arquivo completo</h2>
             <p class="home-section__subtitle">Todos os casos disponíveis neste dispositivo.</p>
           </header>
+          <div class="archive-tabs" id="archive-tabs" role="tablist" aria-label="Filtrar por nível">
+            <button class="archive-tab is-active" data-level="" role="tab" aria-selected="true">Todos</button>
+            <button class="archive-tab" data-level="iniciante" role="tab" aria-selected="false">Iniciante</button>
+            <button class="archive-tab" data-level="intermediario" role="tab" aria-selected="false">Intermediário</button>
+            <button class="archive-tab" data-level="avancado" role="tab" aria-selected="false">Avançado</button>
+            <button class="archive-tab" data-level="especial" role="tab" aria-selected="false">Especial</button>
+          </div>
           <div id="case-list" class="case-grid" role="list"></div>
         </section>
         <p class="footnote">Progresso e anotações salvam neste dispositivo.</p>
@@ -280,6 +287,22 @@
         <button type="button" class="modal__close" data-close-modal aria-label="Fechar">×</button>
       </header>
       <div id="modal-body" class="modal__body"></div>
+    </div>
+  </div>
+
+  <!-- Modal detalhes do caso -->
+  <div id="modal-case-details" class="modal modal--details" hidden role="dialog" aria-modal="true" aria-labelledby="detail-title">
+    <div class="modal__backdrop" id="detail-backdrop"></div>
+    <div class="modal__sheet modal__sheet--details">
+      <header class="modal__head">
+        <span class="modal__badge" id="detail-badge"></span>
+        <h2 id="detail-title" class="modal__title"></h2>
+        <button type="button" class="modal__close" id="detail-close" aria-label="Fechar">×</button>
+      </header>
+      <div class="modal__body" id="detail-body"></div>
+      <footer class="modal__foot">
+        <button type="button" class="btn btn--primary btn--block" id="detail-btn-investigate">Investigar</button>
+      </footer>
     </div>
   </div>
 

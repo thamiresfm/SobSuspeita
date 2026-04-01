@@ -297,8 +297,8 @@ body {
   border-radius: var(--radius);
   color: inherit;
   font: inherit;
-  cursor: pointer;
-  transition: border-color 0.15s, background 0.15s, transform 0.15s;
+  cursor: default;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
   min-height: calc(var(--tap) * 1.4);
 }
 
@@ -312,10 +312,24 @@ body {
 
 .case-card:hover,
 .case-card:focus-visible {
-  border-color: var(--accent);
-  background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.04) 0, transparent 55%), #1d1d27;
+  border-color: var(--accent-dim);
+  background: #1a1a24;
   outline: none;
   transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.case-card__actions .btn {
+  transition: filter 0.15s ease, transform 0.1s ease;
+}
+
+.case-card__actions .btn:hover {
+  filter: brightness(1.12);
+  transform: translateY(-1px);
+}
+
+.case-card__actions .btn:active {
+  transform: translateY(0);
 }
 
 .case-card__inner {
@@ -387,6 +401,176 @@ body {
 
 .case-card__footer {
   margin-top: 0.75rem;
+}
+
+.case-card__actions {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+
+.case-card__actions .btn {
+  flex: 1;
+  justify-content: center;
+  min-height: 38px;
+  font-size: 0.82rem;
+  padding: 0.4rem 0.75rem;
+}
+
+/* Archive tabs */
+.archive-tabs {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.archive-tab {
+  padding: 0.4rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+
+.archive-tab:hover {
+  border-color: var(--accent-dim);
+  color: var(--text);
+}
+
+.archive-tab.is-active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(201, 162, 39, 0.08);
+}
+
+/* Modal de detalhes */
+.modal--details .modal__sheet--details {
+  max-width: 520px;
+  border-radius: var(--radius);
+  animation: slideUp 0.22s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.modal__foot {
+  padding: 0.75rem 1.1rem 1rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 0.75rem;
+}
+
+.detail-cover {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  margin-bottom: 1rem;
+  max-height: 200px;
+  object-fit: cover;
+  display: block;
+  background: var(--bg-elevated);
+}
+
+.detail-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.detail-meta__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.detail-meta__label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.detail-meta__value {
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.detail-desc {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0 0 1rem;
+}
+
+.detail-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.detail-status--new {
+  background: rgba(107, 158, 122, 0.12);
+  border: 1px solid rgba(107, 158, 122, 0.35);
+  color: var(--ok);
+}
+
+.detail-status--inprogress {
+  background: rgba(201, 162, 39, 0.12);
+  border: 1px solid rgba(201, 162, 39, 0.35);
+  color: var(--accent);
+}
+
+.detail-status--done {
+  background: rgba(100, 120, 180, 0.12);
+  border: 1px solid rgba(100, 120, 180, 0.35);
+  color: #8ab4f8;
+}
+
+.detail-progress-wrap {
+  margin-bottom: 1rem;
+}
+
+.detail-progress-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.3rem;
+}
+
+.detail-progress-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: #23222e;
+  overflow: hidden;
+}
+
+.detail-progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #f1d086, #c9a227);
+  transition: width 0.4s ease;
 }
 
 .case-card__row {

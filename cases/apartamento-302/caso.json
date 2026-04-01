@@ -1,1 +1,120 @@
-{"titulo":"O Apartamento 302","descricao":"Um homem é encontrado morto em seu apartamento trancado por dentro.","dificuldade":"Fácil","duracaoEstimada":"15–20 min","fases":[],"eventosLinhaDoTempo":[],"suspeitos":[{"nome":"Marisa (síndica)","motivo":"Controle das chaves e acesso às áreas comuns.","alibi":"Diz que estava em reunião de condomínio em outro bloco.","contradicoes":"Registros de entrada mostram uso de chave-mestra próximo ao horário da morte."},{"nome":"Lucas (vizinho)","motivo":"Conflitos por barulho e reclamações anteriores.","alibi":"Alega que estava viajando a trabalho.","contradicoes":"Câmeras do elevador registram sua presença na noite do crime."},{"nome":"Bianca (ex-namorada)","motivo":"Relacionamento conturbado e término recente.","alibi":"Afirma que não via a vítima há semanas.","contradicoes":"Mensagens recentes indicam encontro marcado no próprio apartamento."}],"solucao":{"culpado":"Bianca","motivo":"Vingança após término e conflitos acumulados.","metodo":"Usou uma linha presa à chave pela fresta inferior da porta para trancá-la por fora, encenando cenário de quarto fechado.","mentiras":["Bianca"]}}
+{
+  "titulo": "O Apartamento 302",
+  "descricao": "Um homem é encontrado morto em seu apartamento trancado por dentro.",
+  "dificuldade": "Fácil",
+  "duracaoEstimada": "15–20 min",
+  "fases": [
+    {
+      "nome": "Contexto",
+      "resumo": "O corpo e as primeiras evidências.",
+      "documentos": [
+        {
+          "id": "laudo-morte",
+          "tipo": "laudo",
+          "titulo": "Laudo Necroscópico — Vítima: Rodrigo Mendes",
+          "conteudo": "Causa mortis: envenenamento por sobredose de sedativo dissolvido em bebida. Horário estimado: entre 22h e 00h. O apartamento foi encontrado trancado por dentro. Não há sinais de arrombamento ou entrada forçada."
+        },
+        {
+          "id": "dep-marisa",
+          "tipo": "depoimento",
+          "titulo": "Depoimento — Marisa (Síndica)",
+          "conteudo": "Estava em reunião de condomínio no bloco B das 20h às 22h30. Só soube da morte no dia seguinte quando a polícia acionou o interfone. A chave-mestra fica em meu escritório, trancada. Não sei como alguém teria acesso."
+        },
+        {
+          "id": "dep-lucas",
+          "tipo": "depoimento",
+          "titulo": "Depoimento — Lucas (Vizinho do 301)",
+          "conteudo": "Estava viajando a trabalho em São Paulo. Tenho nota de hotel para provar. Rodrigo e eu tínhamos brigas por barulho, mas nada que justificasse isso. Cheguei de volta só na manhã seguinte."
+        }
+      ]
+    },
+    {
+      "nome": "Conflito",
+      "resumo": "Contradições nos álibi e pistas físicas.",
+      "documentos": [
+        {
+          "id": "log-elevador",
+          "tipo": "laudo",
+          "titulo": "Registro de Câmeras — Elevador e Hall",
+          "conteudo": "Câmera do elevador registra Lucas entrando no prédio às 21h43 e saindo às 22h17. Contradiz a afirmação de que estava em São Paulo. Também registra Bianca chegando às 21h50 e saindo às 22h10 com uma bolsa maior do que a da chegada."
+        },
+        {
+          "id": "msgs-bianca",
+          "tipo": "noticia",
+          "titulo": "Mensagens Recuperadas — Celular da Vítima",
+          "conteudo": "21h12 — Bianca: 'Precisamos conversar. Estarei aí às 22h.'\n21h15 — Rodrigo: 'Tá bom. Porta vai estar aberta.'\n21h58 — Bianca: 'Sobe. Deixei o drink na mesa.'"
+        },
+        {
+          "id": "dep-bianca",
+          "tipo": "depoimento",
+          "titulo": "Depoimento — Bianca (Ex-namorada)",
+          "conteudo": "Não via Rodrigo há semanas. O término foi difícil, mas seguimos em frente. Não fui ao apartamento nessa noite. Não tenho ideia de quem possa ter feito isso."
+        }
+      ]
+    },
+    {
+      "nome": "Validação",
+      "resumo": "Prova final do quarto trancado e da autoria.",
+      "documentos": [
+        {
+          "id": "laudo-porta",
+          "tipo": "laudo",
+          "titulo": "Laudo Pericial — Trancamento da Porta",
+          "conteudo": "A porta foi trancada por meio de uma linha de nylon resistente presa internamente à chave. A linha passou pela fresta inferior da porta e foi puxada e cortada pelo lado de fora. Marcas de nylon na parte inferior da dobradiça confirmam o método. Resíduos de nylon encontrados próximo ao batente externo."
+        },
+        {
+          "id": "bolsa-bianca",
+          "tipo": "laudo",
+          "titulo": "Análise Laboratorial — Copo e Resíduo",
+          "conteudo": "O copo encontrado na mesa da sala continha resíduo de diazepam dissolvido em suco. Impressões digitais na base do copo: Bianca Saraiva. A bolsa carregada na saída continha — segundo análise de câmera — dimensões compatíveis com rolo de linha fina e luvas."
+        }
+      ]
+    }
+  ],
+  "fatos": [
+    "A vítima morreu envenenada com sedativo dissolvido em bebida.",
+    "O apartamento estava trancado por dentro.",
+    "Bianca estava no apartamento naquela noite, contrariando seu próprio depoimento.",
+    "Lucas também estava no prédio — contradizendo o álibi de viagem.",
+    "A porta foi trancada por fora com linha de nylon puxada pela fresta."
+  ],
+  "eventosLinhaDoTempo": [
+    {"id": "ev1", "texto": "Bianca envia mensagem marcando visita e Rodrigo confirma às 21h12."},
+    {"id": "ev2", "texto": "Bianca chega ao prédio às 21h50 e sobe ao apartamento."},
+    {"id": "ev3", "texto": "Bianca dissolve sedativo no copo de suco às ~22h."},
+    {"id": "ev4", "texto": "Rodrigo bebe o copo envenenado e perde a consciência."},
+    {"id": "ev5", "texto": "Bianca sai do apartamento às 22h10 com bolsa maior, usando linha de nylon para trancar a porta por fora."},
+    {"id": "ev6", "texto": "Lucas é registrado entrando e saindo do prédio entre 21h43 e 22h17 — testemunha não declarada."},
+    {"id": "ev7", "texto": "Corpo encontrado no dia seguinte pelo síndico."}
+  ],
+  "suspeitos": [
+    {
+      "nome": "Marisa (síndica)",
+      "motivo": "Tem chave-mestra e acesso irrestrito ao prédio.",
+      "alibi": "Diz que estava em reunião de condomínio no bloco B.",
+      "contradicoes": "Não há registro eletrônico da reunião; chave-mestra sem controle de uso."
+    },
+    {
+      "nome": "Lucas (vizinho)",
+      "motivo": "Conflitos anteriores com a vítima por barulho.",
+      "alibi": "Alega que estava viajando a trabalho em São Paulo.",
+      "contradicoes": "Câmera do elevador registra sua presença no prédio na noite do crime."
+    },
+    {
+      "nome": "Bianca (ex-namorada)",
+      "motivo": "Término conturbado e conflitos recentes.",
+      "alibi": "Afirma que não via a vítima há semanas.",
+      "contradicoes": "Mensagens e câmeras provam que esteve no apartamento naquela noite."
+    }
+  ],
+  "solucao": {
+    "culpado": "Bianca (ex-namorada)",
+    "motivo": "Vingança após término e conflitos acumulados.",
+    "metodo": "Administrou sedativo dissolvido no copo e trancou a porta por fora usando linha de nylon pela fresta inferior, simulando quarto fechado por dentro.",
+    "mentiras": ["Bianca (ex-namorada)", "Lucas (vizinho)"],
+    "pistasIgnoradas": [
+      "A mensagem 'Deixei o drink na mesa' enviada ainda antes de subir é inconsistente — ela já havia preparado o copo.",
+      "Lucas estava no prédio mas não declarou — pode ser testemunha relevante do que viu."
+    ]
+  }
+}
