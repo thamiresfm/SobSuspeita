@@ -71,16 +71,6 @@ function setActivePanel(name) {
     b.classList.toggle("is-active", b.dataset.panel === name);
   });
 
-  // Painéis na coluna esquerda — só documentos usa a lista lateral
-  const leftPanels = ["panel-documentos","panel-anotacoes","panel-timeline","panel-suspeitos","panel-resolucao"];
-  leftPanels.forEach((id) => {
-    const node = el(id);
-    if (!node) return;
-    const panelName = id.replace("panel-", "");
-    node.hidden = panelName !== name;
-    node.classList.toggle("is-visible", panelName === name);
-  });
-
   // Coluna central: mostra o conteúdo certo para cada aba
   const center = el("case-col-center");
   if (!center) return;
@@ -953,12 +943,6 @@ function startInvestigation(caso) {
   bindCaseUi(caso);
   startTimer();
   runTutorial();
-  document.querySelectorAll(".case-nav__btn").forEach((b) => {
-    b.onclick = () => {
-      setActivePanel(b.dataset.panel);
-      playClick();
-    };
-  });
   setActivePanel("documentos");
 }
 
@@ -1261,6 +1245,20 @@ async function init() {
     renderHomeList();
     renderStats();
   });
+
+  // Delegação para toda a nav da topbar do caso
+  const topbarCase = el("topbar-case");
+  if (topbarCase) {
+    topbarCase.addEventListener("click", (e) => {
+      const btn = e.target.closest(".case-nav__btn");
+      if (!btn) return;
+      const panel = btn.dataset.panel;
+      if (panel) {
+        setActivePanel(panel);
+        playClick();
+      }
+    });
+  }
 
   const btnHomeCase = el("btn-home-case");
   if (btnHomeCase) {
