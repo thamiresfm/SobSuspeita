@@ -681,6 +681,12 @@ body {
   color: var(--text-muted);
 }
 
+.pill--resolved {
+  background: rgba(107, 158, 122, 0.12);
+  border-color: rgba(107, 158, 122, 0.4);
+  color: var(--ok);
+}
+
 .pill--time {
   font-variant-numeric: tabular-nums;
 }

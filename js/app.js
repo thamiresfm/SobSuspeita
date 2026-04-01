@@ -988,9 +988,11 @@ function startInvestigation(caso) {
 
 function getCaseMeta(entry) {
   const saved = loadCaseState(entry.id);
-  if (!saved) return { inProgress: false, lastStartedAt: null };
+  if (!saved) return { inProgress: false, resolved: false, lastStartedAt: null };
+  const resolved = !!(saved.resolutionSubmitted);
   return {
-    inProgress: true,
+    inProgress: !resolved,
+    resolved,
     lastStartedAt: saved.startedAt || null,
   };
 }
@@ -1073,7 +1075,7 @@ function renderHomeList() {
       allList.appendChild(empty);
     } else {
       archiveFiltered.forEach(({ entry, meta }) => {
-        const label = meta.inProgress ? "Em andamento" : "Novo caso";
+        const label = meta.resolved ? "Concluído" : meta.inProgress ? "Em andamento" : "Novo caso";
         const card = createCaseCard(entry, { showStatus: true, statusLabel: label });
         allList.appendChild(card);
       });
@@ -1085,8 +1087,7 @@ function renderHomeList() {
       .toLowerCase()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "");
-    const isInProgress = meta.inProgress;
-    const label = isInProgress ? "Em andamento" : "Novo caso";
+    const label = meta.resolved ? "Concluído" : meta.inProgress ? "Em andamento" : "Novo caso";
     const card = createCaseCard(entry, { showStatus: true, statusLabel: label });
 
     if (nivel === "iniciante" && beginnerList) {
@@ -1138,8 +1139,13 @@ function createCaseCard(entry, opts = {}) {
   const capa = entry.imagemCapa
     ? `<div class="case-card__thumb-wrap"><img class="case-card__thumb" src="${escapeHtml(entry.imagemCapa)}" alt="" loading="lazy" /></div>`
     : "";
+  const statusPillClass = opts.statusLabel === "Concluído"
+    ? "pill pill--resolved case-card__status"
+    : opts.statusLabel === "Em andamento"
+    ? "pill case-card__status"
+    : "pill pill--muted case-card__status";
   const statusLabel = opts.showStatus && opts.statusLabel
-    ? `<span class="pill pill--muted case-card__status">${escapeHtml(opts.statusLabel)}</span>`
+    ? `<span class="${statusPillClass}">${escapeHtml(opts.statusLabel)}</span>`
     : "";
 
   const inner = document.createElement("div");
