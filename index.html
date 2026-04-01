@@ -169,6 +169,29 @@
 
       <!-- Caso — layout 3 colunas -->
       <section id="view-case" class="view view--case" hidden aria-labelledby="case-title">
+
+        <!-- Tela de introdução do caso -->
+        <div id="case-intro" class="case-intro" hidden>
+          <div id="case-intro-cover" class="case-intro__cover"></div>
+          <div class="case-intro__body">
+            <div class="case-intro__content">
+              <span class="case-intro__kicker" id="case-intro-kicker"></span>
+              <h1 class="case-intro__title" id="case-intro-title"></h1>
+              <div class="case-intro__tags" id="case-intro-tags"></div>
+              <p class="case-intro__desc" id="case-intro-desc"></p>
+              <div class="case-intro__meta" id="case-intro-meta"></div>
+              <div class="case-intro__actions">
+                <button type="button" class="btn btn--primary case-intro__btn-start" id="btn-start-case">
+                  Começar investigação
+                </button>
+                <button type="button" class="btn btn--ghost case-intro__btn-back" id="btn-back-home-intro">
+                  ← Voltar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="case-3col">
 
           <!-- Coluna esquerda: lista de documentos -->

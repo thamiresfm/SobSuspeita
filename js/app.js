@@ -768,6 +768,66 @@ function runTutorial() {
   setTimeout(showStep, 600);
 }
 
+function showCaseIntro(entry, caso) {
+  const intro = el("case-intro");
+  if (!intro) return false;
+
+  // Capa de fundo
+  const cover = el("case-intro-cover");
+  if (cover) {
+    cover.style.backgroundImage = caso.imagemCapa
+      ? `url("${caso.imagemCapa}")`
+      : `url("assets/hero-sob-suspeita.png")`;
+  }
+
+  // Kicker
+  const kicker = el("case-intro-kicker");
+  if (kicker) kicker.textContent = `Caso ${entry.capitulo ? `#${entry.capitulo}` : ""} — ${entry.categoria || "Investigação"}`;
+
+  // Título
+  const titleEl = el("case-intro-title");
+  if (titleEl) titleEl.textContent = caso.titulo || entry.titulo || "Caso";
+
+  // Tags
+  const tags = el("case-intro-tags");
+  if (tags) {
+    tags.innerHTML = `
+      <span class="pill">${escapeHtml(caso.dificuldade || entry.dificuldade || "—")}</span>
+      <span class="pill pill--muted">${escapeHtml(caso.duracaoEstimada || entry.duracaoEstimada || "—")}</span>
+      ${entry.nivel ? `<span class="pill pill--muted">${escapeHtml(entry.nivel)}</span>` : ""}
+    `;
+  }
+
+  // Descrição
+  const desc = el("case-intro-desc");
+  if (desc) desc.textContent = caso.descricao || entry.descricao || "";
+
+  // Meta (suspeitos, documentos, fases)
+  const metaEl = el("case-intro-meta");
+  if (metaEl) {
+    const totalDocs = (caso.fases || []).reduce((acc, f) => acc + (f.documentos || []).length, 0);
+    const fases = (caso.fases || []).length;
+    const suspeitos = (caso.suspeitos || []).length;
+    metaEl.innerHTML = `
+      <div class="case-intro__meta-item">
+        <span class="case-intro__meta-label">Suspeitos</span>
+        <span class="case-intro__meta-value">${suspeitos}</span>
+      </div>
+      <div class="case-intro__meta-item">
+        <span class="case-intro__meta-label">Documentos</span>
+        <span class="case-intro__meta-value">${totalDocs}</span>
+      </div>
+      <div class="case-intro__meta-item">
+        <span class="case-intro__meta-label">Fases</span>
+        <span class="case-intro__meta-value">${fases}</span>
+      </div>
+    `;
+  }
+
+  intro.hidden = false;
+  return true;
+}
+
 async function openCase(entry) {
   try {
     const caso = await loadCase(entry.arquivo);
@@ -789,20 +849,31 @@ async function openCase(entry) {
     });
     el("view-home").hidden = true;
     el("view-case").hidden = false;
-    bindCaseUi(caso);
-    startTimer();
-    runTutorial();
-    document.querySelectorAll(".case-nav__btn").forEach((b) => {
-      b.onclick = () => {
-        setActivePanel(b.dataset.panel);
-        playClick();
-      };
-    });
-    setActivePanel("documentos");
+
+    // Mostra intro antes de entrar no caso
+    const hasIntro = showCaseIntro(entry, caso);
+    if (!hasIntro) startInvestigation(caso);
+
   } catch (err) {
     console.error(err);
     toast("Erro ao abrir caso.");
   }
+}
+
+function startInvestigation(caso) {
+  const intro = el("case-intro");
+  if (intro) intro.hidden = true;
+
+  bindCaseUi(caso);
+  startTimer();
+  runTutorial();
+  document.querySelectorAll(".case-nav__btn").forEach((b) => {
+    b.onclick = () => {
+      setActivePanel(b.dataset.panel);
+      playClick();
+    };
+  });
+  setActivePanel("documentos");
 }
 
 function getCaseMeta(entry) {
@@ -1134,6 +1205,26 @@ async function init() {
         b.classList.toggle("is-active", b.dataset.panel === "anotacoes");
       });
       playClick();
+    });
+  }
+
+  const btnStartCase = el("btn-start-case");
+  if (btnStartCase) {
+    btnStartCase.addEventListener("click", () => {
+      playClick();
+      if (currentCase) startInvestigation(currentCase);
+    });
+  }
+
+  const btnBackHomeIntro = el("btn-back-home-intro");
+  if (btnBackHomeIntro) {
+    btnBackHomeIntro.addEventListener("click", () => {
+      playClick();
+      const intro = el("case-intro");
+      if (intro) intro.hidden = true;
+      showHome();
+      renderHomeList();
+      renderStats();
     });
   }
 
