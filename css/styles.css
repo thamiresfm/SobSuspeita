@@ -1416,58 +1416,58 @@ body {
 /* ===================== MOBILE — tela do caso ===================== */
 @media (max-width: 700px) {
 
-  /* Topbar compacta */
+  /* ── Topbar ── */
   .topbar--case {
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 40px 1fr auto;
     height: 48px;
   }
 
   .topbar-case__brand {
-    padding: 0 0.6rem;
+    padding: 0 0 0 0.5rem;
   }
 
-  .topbar-case__name {
-    display: none;
-  }
+  .topbar-case__name { display: none; }
 
-  .topbar-case__diamond {
-    font-size: 1.1rem;
-  }
+  .topbar-case__diamond { font-size: 1rem; }
 
-  /* Nav: ícone + label curto, sem texto completo */
+  /* Nav: só ícone, sem label */
   .case-nav__btn {
-    padding: 0 0.55rem;
-    gap: 0.2rem;
+    padding: 0 0.6rem;
+    gap: 0;
     flex-direction: column;
     height: 48px;
-    font-size: 0.56rem;
-    letter-spacing: 0.03em;
+    font-size: 0;
+    min-width: 40px;
   }
 
+  .case-nav__label { display: none; }
+
   .case-nav__icon {
-    width: 17px;
-    height: 17px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .case-nav__btn.is-active .case-nav__icon {
+    filter: drop-shadow(0 0 4px rgba(201,162,39,0.6));
   }
 
   /* Timer compacto */
   .topbar-case__timer {
     font-size: 0.75rem;
     padding: 0.15rem 0.4rem;
+    letter-spacing: 0.02em;
   }
 
   .topbar-case__right {
-    padding: 0 0.5rem;
-    gap: 0.25rem;
+    padding: 0 0.4rem;
+    gap: 0.2rem;
   }
 
-  .topbar-case__right .btn--roteiro {
-    display: none;
-  }
+  .topbar-case__right .btn--roteiro,
+  .topbar-case__right #btn-sound-case { display: none; }
 
-  /* Layout: 1 coluna — esquerda em cima, central embaixo */
-  .view--case {
-    margin-top: 48px;
-  }
+  /* ── Layout ── */
+  .view--case { margin-top: 48px; }
 
   .case-3col {
     grid-template-columns: 1fr !important;
@@ -1477,28 +1477,23 @@ body {
     min-height: calc(100dvh - 48px);
   }
 
-  .case-col {
-    height: auto;
-    overflow: visible;
-  }
+  .case-col { height: auto; overflow: visible; }
 
-  /* Coluna esquerda: horizontal scroll de fases e docs */
+  /* Coluna esquerda: compacta, scrollável */
   .case-col--left {
     border-right: none;
     border-bottom: 2px solid var(--border);
-    max-height: 240px;
+    max-height: 210px;
     overflow-y: auto;
   }
 
-  /* Coluna direita: oculta no mobile */
-  .case-col--right {
-    display: none;
-  }
+  /* Oculta coluna direita */
+  .case-col--right { display: none; }
 
-  /* Coluna central */
+  /* Coluna central ocupa o resto */
   .case-col--center {
     padding: 0;
-    min-height: calc(100dvh - 48px - 240px);
+    min-height: calc(100dvh - 48px - 210px);
   }
 
   .center-panel-wrap {
@@ -1506,14 +1501,49 @@ body {
     max-width: 100%;
   }
 
+  /* Formulário de anotações: empilhado */
+  .center-note-form__row {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .center-note-form__actions {
+    width: 100%;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
+
+  .center-note-form__actions .field {
+    flex: 1;
+    margin-bottom: 0;
+  }
+
+  /* Suspeitos: 1 coluna */
+  .center-suspects-grid {
+    grid-template-columns: 1fr !important;
+  }
+
   .doc-viewer {
     max-width: 100%;
     padding: 0 1rem;
   }
 
-  .doc-viewer__title {
-    font-size: 1.2rem;
+  .doc-viewer__title { font-size: 1.15rem; }
+
+  /* Toast não bloqueia conteúdo */
+  .toast {
+    bottom: 0.75rem;
+    font-size: 0.7rem;
+    max-width: 85vw;
+    text-align: center;
   }
+
+  /* Intro do caso: padding menor */
+  .case-intro__body { padding: 0 1.25rem; }
+  .case-intro__title { font-size: clamp(1.5rem, 6vw, 2rem); }
+  .case-intro__meta { grid-template-columns: repeat(3, auto); gap: 0.6rem 1rem; }
+  .case-intro__btn-start { padding: 0.6rem 1.25rem; }
 }
 
 .case-summary {
