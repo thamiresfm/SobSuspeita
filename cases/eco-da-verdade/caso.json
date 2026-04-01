@@ -3,6 +3,7 @@
   "descricao": "Um jornalista investigativo morre após expor um grande esquema de corrupção. Novos áudios e documentos aparecem, mas as evidências parecem se contradizer.",
   "dificuldade": "Difícil",
   "duracaoEstimada": "45+ min",
+  "imagemCapa": "cases/eco-da-verdade/images/capa.png",
   "fases": [
     {
       "nome": "Contexto",
@@ -12,18 +13,21 @@
           "id": "laudo-morte",
           "tipo": "laudo",
           "titulo": "Laudo Necroscópico — Jornalista Henrique Teles",
+          "imagem": "cases/eco-da-verdade/images/laudo-vitima.png",
           "conteudo": "Causa mortis: disparo de arma de fogo a curta distância. Corpo encontrado em seu carro, às 23h40, estacionado a 200m de sua redação. Três dias antes da morte, Henrique publicou um artigo sobre desvio de R$ 80 milhões em contratos públicos."
         },
         {
           "id": "dep-assessor",
           "tipo": "depoimento",
           "titulo": "Depoimento — Assessor: Ricardo Melo",
+          "imagem": "cases/eco-da-verdade/images/retrato-ricardo.png",
           "conteudo": "Meu trabalho é comunicação institucional. Nunca tive contato direto com Henrique Teles. As notas que emitimos eram padrão de gabinete. Qualquer negociação direta seria fora das minhas atribuições."
         },
         {
           "id": "dep-politico",
           "tipo": "depoimento",
           "titulo": "Depoimento — Deputado Sérgio Nantes",
+          "imagem": "cases/eco-da-verdade/images/retrato-nantes.png",
           "conteudo": "Estava no evento de inauguração do Centro Cultural às 23h — tenho centenas de fotos e testemunhas. O artigo de Henrique era cheio de imprecisões. Lamentamos profundamente a morte, mas não temos nada a ver com isso."
         }
       ]
@@ -36,18 +40,21 @@
           "id": "audio-ameaca",
           "tipo": "depoimento",
           "titulo": "Áudio Recuperado — Mensagem de Voz para Henrique",
+          "imagem": "cases/eco-da-verdade/images/cena-crime.png",
           "conteudo": "Voz não identificada, 48h antes da morte: 'Você vai parar com isso ou vai se arrepender. Há formas de fazer uma história desaparecer junto com quem a escreveu. Pense bem antes da próxima publicação.'"
         },
         {
           "id": "transacoes",
           "tipo": "laudo",
           "titulo": "Rastreamento Financeiro — Contratos Públicos",
+          "imagem": "cases/eco-da-verdade/images/doc-financeiro.png",
           "conteudo": "R$ 80 milhões desviados via contratos superfaturados com três empresas-laranja. Assinatura do deputado Sérgio Nantes em dois contratos. Empresa intermediária vinculada ao empresário Jorge Paz recebeu R$ 34 milhões sem prestação de serviços verificável."
         },
         {
           "id": "msgs-assessor",
           "tipo": "noticia",
           "titulo": "Mensagens Recuperadas — Celular de Ricardo Melo",
+          "imagem": "cases/eco-da-verdade/images/retrato-ricardo.png",
           "conteudo": "D-5: 'O repórter tem tudo. Publicação prevista para quinta.'\nD-4: 'Tentei negociar. Ele recusou qualquer acordo.'\nD-3: 'Isso vai sair. Precisamos de um plano B.'\nD-1: sem mensagens — número desativado temporariamente."
         }
       ]
@@ -60,12 +67,14 @@
           "id": "agenda-politico",
           "tipo": "laudo",
           "titulo": "Análise de Agenda Privada — Sérgio Nantes",
+          "imagem": "cases/eco-da-verdade/images/retrato-nantes.png",
           "conteudo": "Agenda digital recuperada: reunião marcada com Ricardo Melo às 18h do dia anterior à morte, em local não oficial. Entrada cancelada no sistema público de agenda, mas notificação ainda presente no celular do assessor."
         },
         {
           "id": "pagamento-intermediario",
           "tipo": "laudo",
           "titulo": "Movimentação Financeira — Conta de Terceiro",
+          "imagem": "cases/eco-da-verdade/images/doc-financeiro.png",
           "conteudo": "Pagamento de R$ 120.000 enviado da empresa de Jorge Paz para conta não identificada no dia seguinte à morte. Destinatário rastreado como Fábio Ramos — antecedentes criminais por homicídio mercenário."
         }
       ]
@@ -91,19 +100,22 @@
       "nome": "Deputado Sérgio Nantes",
       "motivo": "Diretamente implicado nos desvios; publicação ameaçava seu mandato.",
       "alibi": "Inauguração do Centro Cultural às 23h.",
-      "contradicoes": "Agenda privada mostra reunião não oficial com assessor no dia anterior; assinou contratos desviados."
+      "contradicoes": "Agenda privada mostra reunião não oficial com assessor no dia anterior; assinou contratos desviados.",
+      "retrato": "cases/eco-da-verdade/images/retrato-nantes.png"
     },
     {
       "nome": "Ricardo Melo (Assessor)",
       "motivo": "Controlava a narrativa; tentou negociar e silenciar o jornalista.",
       "alibi": "Diz que nunca teve contato direto com Henrique.",
-      "contradicoes": "Mensagens provam negociação direta e sugestão de plano B após recusa."
+      "contradicoes": "Mensagens provam negociação direta e sugestão de plano B após recusa.",
+      "retrato": "cases/eco-da-verdade/images/retrato-ricardo.png"
     },
     {
       "nome": "Jorge Paz (Empresário)",
       "motivo": "Beneficiário de R$ 34 milhões nos contratos desviados.",
       "alibi": "Alega desconhecer os detalhes da investigação.",
-      "contradicoes": "Empresa dele pagou R$ 120 mil ao mercenário no dia seguinte ao assassinato."
+      "contradicoes": "Empresa dele pagou R$ 120 mil ao mercenário no dia seguinte ao assassinato.",
+      "retrato": "cases/eco-da-verdade/images/retrato-jorge.png"
     }
   ],
   "solucao": {

@@ -40,13 +40,13 @@
       "id": "apartamento-302",
       "arquivo": "apartamento-302/caso.json",
       "titulo": "O Apartamento 302",
-      "descricao": "Vizinhos escutam barulhos estranhos, mas o morador jura que estava viajando.",
+      "descricao": "Um homem é encontrado morto em seu apartamento trancado por dentro. Álibi impossível e porta que não deveria estar fechada.",
       "dificuldade": "Fácil",
       "nivel": "Iniciante",
       "capitulo": 4,
-      "categoria": "Intrusão",
+      "categoria": "Assassinato",
       "duracaoEstimada": "15–20 min",
-      "imagemCapa": ""
+      "imagemCapa": "cases/apartamento-302/images/capa.png"
     },
     {
       "id": "restaurante-vazio",
@@ -100,13 +100,13 @@
       "id": "eco-da-verdade",
       "arquivo": "eco-da-verdade/caso.json",
       "titulo": "O Eco da Verdade",
-      "descricao": "Um caso antigo volta à tona quando novos áudios contradizem o processo original.",
+      "descricao": "Um jornalista investigativo morre após expor R$ 80 milhões em desvios. Áudios, agendas e pagamentos revelam uma cadeia de comando.",
       "dificuldade": "Difícil",
       "nivel": "Especial",
       "capitulo": 9,
-      "categoria": "Revisão de caso",
-      "duracaoEstimada": "40+ min",
-      "imagemCapa": ""
+      "categoria": "Assassinato político",
+      "duracaoEstimada": "45+ min",
+      "imagemCapa": "cases/eco-da-verdade/images/capa.png"
     }
   ]
 }
