@@ -868,15 +868,11 @@ function bindCaseUi(caso) {
   renderDocuments(caso);
   updateTopSuspect();
   updateDocsReadCount();
-  requestAnimationFrame(() => {
+  // Força scroll ao topo da coluna esquerda após dois frames (garante render completo)
+  requestAnimationFrame(() => requestAnimationFrame(() => {
     const leftCol = el("case-col-left");
-    if (leftCol) {
-      leftCol.scrollTop = 0;
-      // Garante que o primeiro phase-tab está visível
-      const firstTab = leftCol.querySelector(".phase-tab");
-      if (firstTab) firstTab.scrollIntoView({ block: "start", behavior: "instant" });
-    }
-  });
+    if (leftCol) leftCol.scrollTop = 0;
+  }));
 }
 
 const TUTORIAL_KEY = "sob-suspeita-tutorial-done";

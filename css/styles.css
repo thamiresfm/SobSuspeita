@@ -58,6 +58,9 @@ body {
   padding: 0 !important;
   margin: 0 !important;
   overflow: hidden;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
 }
 
 .app:has(#view-case:not([hidden])) .topbar--home {
@@ -66,6 +69,15 @@ body {
 
 .app:has(#view-case:not([hidden])) .main {
   padding: 0 !important;
+  margin: 0 !important;
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.app:has(#view-case:not([hidden])) .footer {
+  display: none !important;
 }
 
 .topbar {
@@ -115,6 +127,12 @@ body {
 .main {
   flex: 1;
   padding-bottom: 2rem;
+}
+
+.app:has(#view-case:not([hidden])) .main {
+  padding-bottom: 0 !important;
+  padding-top: 0 !important;
+  overflow: hidden;
 }
 
 .hero {
@@ -863,11 +881,18 @@ body {
 }
 
 .view--case {
-  padding-top: 44px;
+  padding-top: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-top: 44px;
 }
 
 .case-3col {
-  height: calc(100dvh - 44px) !important;
+  flex: 1;
+  height: auto !important;
+  min-height: 0;
 }
 
 /* Brand / logo esquerda */
