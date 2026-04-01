@@ -817,61 +817,8 @@ function bindCaseUi(caso) {
 
   activePhaseIndex = 0;
   renderDocuments(caso);
-  renderFacts(caso);
-  el("hypothesis-draft").value = state.hypothesisDraft || "";
-  el("hypothesis-draft").oninput = (e) => {
-    state.hypothesisDraft = e.target.value;
-    persist();
-    const prev = el("summary-hypothesis-preview");
-    if (prev) {
-      const txt = e.target.value.trim();
-      prev.textContent = txt || "Nenhuma hipótese registrada ainda.";
-    }
-  };
-
-  renderNotes();
-  renderTimeline(caso);
-  renderSuspects(caso);
-  renderResolutionForm(caso);
   updateTopSuspect();
   updateDocsReadCount();
-
-  el("note-form").onsubmit = (e) => {
-    e.preventDefault();
-    const texto = el("note-text").value.trim();
-    if (!texto) return;
-    const tipo = el("note-tag").value;
-    state.notes.push({
-      id: `n-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
-      texto,
-      tipo,
-    });
-    el("note-text").value = "";
-    persist();
-    renderNotes();
-    playClick();
-  };
-
-  el("resolution-form").onsubmit = (e) => {
-    e.preventDefault();
-    const mentiras = [];
-    el("res-mentiras").querySelectorAll('input[type="checkbox"]').forEach((cb) => {
-      if (cb.checked) mentiras.push(cb.value);
-    });
-    const answers = {
-      culpado: el("res-culpado").value,
-      metodo: el("res-metodo").value,
-      motivo: el("res-motivo").value,
-      mentiras,
-    };
-    const evalRes = evaluateResolution(caso, answers, state.timelineOrder);
-    const elapsed = Date.now() - (state.startedAt || Date.now());
-    state.resolutionSubmitted = true;
-    persist();
-    showResolutionResult(evalRes, elapsed);
-    playClick();
-    toast("Hipótese registrada.");
-  };
 }
 
 const TUTORIAL_KEY = "sob-suspeita-tutorial-done";
@@ -1346,6 +1293,66 @@ async function init() {
       playClick();
     });
   }
+
+  // Delegação global para formulários re-criados dinamicamente
+  document.addEventListener("submit", (e) => {
+    const form = e.target;
+    if (!form || !state || !currentCase) return;
+
+    if (form.id === "note-form") {
+      e.preventDefault();
+      const texto = el("note-text")?.value.trim();
+      if (!texto) return;
+      const tipo = el("note-tag")?.value || "fato";
+      state.notes.push({ id: `n-${Date.now()}-${Math.random().toString(36).slice(2,7)}`, texto, tipo });
+      el("note-text").value = "";
+      persist();
+      renderNotes();
+      playClick();
+    }
+
+    if (form.id === "resolution-form") {
+      e.preventDefault();
+      const mentiras = [];
+      el("res-mentiras")?.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
+        if (cb.checked) mentiras.push(cb.value);
+      });
+      const answers = {
+        culpado: el("res-culpado")?.value || "",
+        metodo: el("res-metodo")?.value || "",
+        motivo: el("res-motivo")?.value || "",
+        mentiras,
+      };
+      const evalRes = evaluateResolution(currentCase, answers, state.timelineOrder);
+      const elapsed = Date.now() - (state.startedAt || Date.now());
+      state.resolutionSubmitted = true;
+      persist();
+      showResolutionResult(evalRes, elapsed);
+      playClick();
+      toast("Hipótese registrada.");
+    }
+  });
+
+  // Delegação global para hypothesis-draft e note-del re-criados
+  document.addEventListener("input", (e) => {
+    if (e.target?.id === "hypothesis-draft" && state) {
+      state.hypothesisDraft = e.target.value;
+      persist();
+      const prev = el("summary-hypothesis-preview");
+      if (prev) prev.textContent = e.target.value.trim() || "Nenhuma hipótese registrada ainda.";
+    }
+  });
+
+  document.addEventListener("click", (e) => {
+    const delBtn = e.target?.closest(".note-card__del");
+    if (delBtn && state) {
+      const id = delBtn.dataset.id;
+      state.notes = state.notes.filter((n) => n.id !== id);
+      persist();
+      renderNotes();
+      playClick();
+    }
+  });
 
   const btnStartCase = el("btn-start-case");
   if (btnStartCase) {
