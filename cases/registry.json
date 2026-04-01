@@ -28,13 +28,13 @@
       "id": "ultimo-trem-aurora",
       "arquivo": "ultimo-trem-aurora/caso.json",
       "titulo": "O Último Trem de Aurora",
-      "descricao": "Um passageiro desaparece entre duas estações em uma noite de neblina.",
+      "descricao": "Um maquinista desaparece durante a última viagem. O trem chega vazio — freio adulterado e carga ilegal apontam para um plano meticuloso.",
       "dificuldade": "Fácil",
       "nivel": "Iniciante",
       "capitulo": 3,
       "categoria": "Desaparecimento",
       "duracaoEstimada": "15–20 min",
-      "imagemCapa": ""
+      "imagemCapa": "cases/ultimo-trem-aurora/images/capa.png"
     },
     {
       "id": "apartamento-302",

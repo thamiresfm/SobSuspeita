@@ -3,6 +3,7 @@
   "descricao": "Um maquinista desaparece durante a última viagem da noite. O trem chega vazio ao destino.",
   "dificuldade": "Fácil",
   "duracaoEstimada": "15–20 min",
+  "imagemCapa": "cases/ultimo-trem-aurora/images/capa.png",
   "fases": [
     {
       "nome": "Contexto",
@@ -12,6 +13,7 @@
           "id": "rel-ocorrencia",
           "tipo": "laudo",
           "titulo": "Relatório de Ocorrência — Ferroviária Aurora",
+          "imagem": "cases/ultimo-trem-aurora/images/relatorio-ocorrencia.png",
           "conteudo": "Data: 14/03. Horário: 23h47. O trem TA-09 chegou à estação terminal sem o maquinista Renato Souza. Todos os vagões estavam vazios. O sistema de freios apresentava marcas de adulteração manual na junção com o túnel Km 12."
         },
         {
@@ -36,6 +38,7 @@
           "id": "log-cameras",
           "tipo": "laudo",
           "titulo": "Log de Câmeras Internas — Vagão de Carga",
+          "imagem": "cases/ultimo-trem-aurora/images/log-cameras.png",
           "conteudo": "Câmera 03 (vagão de carga) registra indivíduo compatível com Eduardo Farias às 23h12, movendo caixas não catalogadas. O mesmo indivíduo deixa o vagão às 23h31 pela escotilha traseira, antes da entrada no túnel."
         },
         {
