@@ -162,6 +162,7 @@ function openModal(doc) {
   content.textContent = doc.conteudo || "";
   body.appendChild(content);
   setDocForSpeech({ titulo: doc.titulo || tipoLabel(doc.tipo), conteudo: doc.conteudo || "" });
+  if (doc.id) markDocRead(doc.id);
   modal.hidden = false;
   document.body.style.overflow = "hidden";
 }
@@ -410,6 +411,7 @@ function renderSuspects(caso) {
       state.suspectStatus[nome] = e.target.value;
       persist();
       playClick();
+      updateTopSuspect();
     });
     grid.appendChild(card);
   });
@@ -532,6 +534,53 @@ function renderStats() {
   }
 }
 
+function updateDocsReadCount() {
+  const countEl = el("summary-docs-read");
+  if (!countEl || !state) return;
+  const read = (state.docsRead || []).length;
+  countEl.textContent = String(read);
+}
+
+function markDocRead(docId) {
+  if (!state) return;
+  if (!state.docsRead) state.docsRead = [];
+  if (!state.docsRead.includes(docId)) {
+    state.docsRead.push(docId);
+    persist();
+    updateDocsReadCount();
+  }
+}
+
+function updateTopSuspect() {
+  const section = el("sidebar-top-suspect");
+  const content = el("sidebar-suspect-content");
+  if (!section || !content || !currentCase) return;
+
+  const top = Object.entries(state.suspectStatus || {})
+    .find(([, v]) => v === "principal");
+
+  if (!top) {
+    section.hidden = true;
+    return;
+  }
+
+  const [nome] = top;
+  const susp = (currentCase.suspeitos || []).find((s) => s.nome === nome);
+  if (!susp) { section.hidden = true; return; }
+
+  section.hidden = false;
+  const foto = susp.retrato
+    ? `<img class="sidebar-suspect__photo" src="${escapeHtml(susp.retrato)}" alt="" loading="lazy" />`
+    : `<div class="sidebar-suspect__photo" style="display:flex;align-items:center;justify-content:center;font-size:1.4rem">🔍</div>`;
+  content.innerHTML = `
+    ${foto}
+    <div class="sidebar-suspect__info">
+      <p class="sidebar-suspect__name">${escapeHtml(nome)}</p>
+      <span class="sidebar-suspect__status sidebar-suspect__status--principal">Principal</span>
+    </div>
+  `;
+}
+
 function bindCaseUi(caso) {
   el("case-title").textContent = caso.titulo || "Caso";
   el("case-desc").textContent = caso.descricao || "";
@@ -577,6 +626,8 @@ function bindCaseUi(caso) {
   renderTimeline(caso);
   renderSuspects(caso);
   renderResolutionForm(caso);
+  updateTopSuspect();
+  updateDocsReadCount();
 
   el("note-form").onsubmit = (e) => {
     e.preventDefault();

@@ -132,31 +132,40 @@
 
       <!-- Caso -->
       <section id="view-case" class="view view--case" hidden aria-labelledby="case-title">
+
+        <!-- Capa full-width -->
+        <div id="case-header-cover-wrap" class="case-cover" hidden>
+          <img id="case-header-cover" class="case-cover__img" src="" alt="" loading="lazy" />
+          <div class="case-cover__overlay"></div>
+        </div>
+
+        <!-- Cabeçalho do caso -->
         <div class="case-header">
-          <div id="case-header-cover-wrap" class="case-header__cover-wrap" hidden>
-            <img id="case-header-cover" class="case-header__cover-img" src="" alt="" width="640" height="360" loading="lazy" />
-          </div>
           <div class="case-header__topline">
-            <h1 id="case-title" class="case-header__title"></h1>
+            <div>
+              <h1 id="case-title" class="case-header__title"></h1>
+              <p id="case-desc" class="case-header__desc"></p>
+              <div class="case-header__tags">
+                <span class="pill" id="case-diff"></span>
+                <span class="pill pill--muted" id="case-duration"></span>
+              </div>
+            </div>
             <button type="button" id="btn-roteiro" class="btn btn--ghost btn--roteiro" hidden>Ver roteiro</button>
-          </div>
-          <p id="case-desc" class="case-header__desc"></p>
-          <div class="case-header__tags">
-            <span class="pill" id="case-diff"></span>
-            <span class="pill pill--muted" id="case-duration"></span>
           </div>
         </div>
 
+        <!-- Nav horizontal de seções -->
+        <nav class="case-nav" aria-label="Seções do caso">
+          <button type="button" class="case-nav__btn is-active" data-panel="documentos">Documentos</button>
+          <button type="button" class="case-nav__btn" data-panel="anotacoes">Anotações</button>
+          <button type="button" class="case-nav__btn" data-panel="timeline">Linha do tempo</button>
+          <button type="button" class="case-nav__btn" data-panel="suspeitos">Suspeitos</button>
+          <button type="button" class="case-nav__btn" data-panel="resolucao">Resolução</button>
+        </nav>
+
+        <!-- Layout: coluna principal + sidebar -->
         <div class="case-layout">
           <div class="case-layout__main">
-            <nav class="case-nav" aria-label="Seções do caso">
-              <button type="button" class="case-nav__btn is-active" data-panel="documentos">Documentos</button>
-              <button type="button" class="case-nav__btn" data-panel="anotacoes">Anotações</button>
-              <button type="button" class="case-nav__btn" data-panel="timeline">Linha do tempo</button>
-              <button type="button" class="case-nav__btn" data-panel="suspeitos">Suspeitos</button>
-              <button type="button" class="case-nav__btn" data-panel="resolucao">Resolução</button>
-            </nav>
-
             <div class="panels">
               <div id="panel-documentos" class="panel is-visible" role="tabpanel">
                 <h2 class="sr-only">Documentos e evidências</h2>
@@ -250,9 +259,21 @@
             </div>
           </div>
 
+          <!-- Sidebar direita -->
           <aside class="case-layout__side" aria-label="Resumo da investigação">
+            <!-- suspeito em destaque -->
+            <section class="case-summary" id="sidebar-top-suspect" hidden>
+              <h2 class="case-summary__title">Principal suspeito</h2>
+              <div class="sidebar-suspect" id="sidebar-suspect-content"></div>
+            </section>
+
+            <!-- contadores -->
             <section class="case-summary">
               <h2 class="case-summary__title">Resumo rápido</h2>
+              <p class="case-summary__row">
+                <span class="case-summary__label">Documentos lidos:</span>
+                <span class="case-summary__value" id="summary-docs-read">0</span>
+              </p>
               <p class="case-summary__row">
                 <span class="case-summary__label">Notas:</span>
                 <span class="case-summary__value" id="summary-notes-count">0</span>
@@ -262,6 +283,8 @@
                 <span class="case-summary__value" id="summary-timeline-count">0</span>
               </p>
             </section>
+
+            <!-- hipótese rascunho -->
             <section class="case-summary">
               <h2 class="case-summary__title">Hipótese em rascunho</h2>
               <p id="summary-hypothesis-preview" class="case-summary__hypo">Nenhuma hipótese registrada ainda.</p>

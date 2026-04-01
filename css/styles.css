@@ -660,26 +660,34 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-.case-header {
-  padding: 0.5rem 0 1rem;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 1rem;
-}
-
-.case-header__cover-wrap {
-  margin-bottom: 1rem;
-  border-radius: var(--radius);
+/* Capa full-width */
+.case-cover {
+  position: relative;
+  margin: 0 -1rem 0;
   overflow: hidden;
-  border: 1px solid var(--border);
-  background: var(--bg-elevated);
+  max-height: 280px;
+  background: #0b0b10;
 }
 
-.case-header__cover-img {
+.case-cover__img {
   display: block;
   width: 100%;
-  height: auto;
-  max-height: 220px;
+  height: 100%;
+  max-height: 280px;
   object-fit: cover;
+}
+
+.case-cover__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.75) 100%);
+}
+
+/* Cabeçalho */
+.case-header {
+  padding: 1rem 0 0.75rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0;
 }
 
 .case-header__topline {
@@ -690,27 +698,19 @@ body {
   flex-wrap: wrap;
 }
 
-.case-header__topline .case-header__title {
-  flex: 1;
-  min-width: 0;
-}
-
-.btn--roteiro {
-  flex-shrink: 0;
-  font-size: 0.72rem;
-  white-space: nowrap;
-}
-
 .case-header__title {
-  font-size: 1.6rem;
-  margin: 0 0 0.5rem;
+  font-size: 1.7rem;
+  margin: 0 0 0.4rem;
+  font-family: var(--font-body);
+  font-weight: 600;
 }
 
 .case-header__desc {
   color: var(--text-muted);
-  margin: 0 0 0.75rem;
-  font-size: 1.08rem;
-  line-height: 1.6;
+  margin: 0 0 0.6rem;
+  font-size: 1rem;
+  line-height: 1.55;
+  max-width: 70ch;
 }
 
 .case-header__tags {
@@ -719,10 +719,61 @@ body {
   gap: 0.4rem;
 }
 
+.btn--roteiro {
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  white-space: nowrap;
+  align-self: flex-start;
+  margin-top: 0.25rem;
+}
+
+/* Nav horizontal */
+.case-nav {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  border-bottom: 2px solid var(--border);
+  margin: 0 0 1.25rem;
+  padding: 0;
+}
+
+.case-nav::-webkit-scrollbar { display: none; }
+
+.case-nav__btn {
+  flex: 0 0 auto;
+  padding: 0.7rem 1.1rem;
+  min-height: 44px;
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+  margin-bottom: -2px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.case-nav__btn:hover { color: var(--text); }
+
+.case-nav__btn.is-active {
+  border-bottom-color: var(--accent);
+  color: var(--accent);
+  background: transparent;
+}
+
+/* Layout caso */
 .case-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1.8fr) minmax(240px, 0.8fr);
+  gap: 1.25rem;
+  align-items: flex-start;
 }
 
 .case-layout__main {
@@ -730,22 +781,73 @@ body {
 }
 
 .case-layout__side {
-  border-left: 1px solid var(--border);
-  padding-left: 0.75rem;
   display: flex;
   flex-direction: column;
+  gap: 0.85rem;
+  position: sticky;
+  top: 56px;
+}
+
+/* Sidebar suspeito destaque */
+.sidebar-suspect {
+  display: flex;
+  align-items: center;
   gap: 0.75rem;
 }
 
+.sidebar-suspect__photo {
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+  background: var(--bg);
+}
+
+.sidebar-suspect__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.sidebar-suspect__name {
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0 0 0.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-suspect__status {
+  display: inline-flex;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: rgba(196, 92, 92, 0.12);
+  border: 1px solid rgba(196, 92, 92, 0.3);
+  color: var(--danger);
+}
+
+.sidebar-suspect__status--principal {
+  background: rgba(201, 162, 39, 0.12);
+  border-color: rgba(201, 162, 39, 0.35);
+  color: var(--accent);
+}
+
 @media (max-width: 799px) {
+  .case-cover { max-height: 180px; }
+  .case-cover__img { max-height: 180px; }
   .case-layout {
     grid-template-columns: minmax(0, 1fr);
   }
   .case-layout__side {
-    border-left: none;
+    position: static;
     border-top: 1px solid var(--border);
-    padding-left: 0;
-    padding-top: 0.75rem;
+    padding-top: 1rem;
   }
 }
 
