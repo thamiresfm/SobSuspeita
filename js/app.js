@@ -1246,15 +1246,13 @@ async function init() {
     renderStats();
   });
 
-  // Listener direto em cada botão da nav (registrado uma vez no init)
-  document.querySelectorAll(".case-nav__btn[data-panel]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const panel = btn.dataset.panel;
-      if (panel) {
-        setActivePanel(panel);
-        playClick();
-      }
-    });
+  // Listeners da nav registrados via delegação no document (sempre funciona)
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".case-nav__btn");
+    if (btn && btn.dataset.panel) {
+      setActivePanel(btn.dataset.panel);
+      playClick();
+    }
   });
 
   const btnHomeCase = el("btn-home-case");

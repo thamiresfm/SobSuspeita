@@ -933,8 +933,6 @@ body {
 
 /* nav buttons — limpo e simples */
 .case-nav__btn {
-  all: unset;
-  box-sizing: border-box;
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
@@ -942,20 +940,23 @@ body {
   padding: 0 1rem;
   height: 52px;
   cursor: pointer;
-  pointer-events: auto;
-  -webkit-user-select: none;
-  user-select: none;
   white-space: nowrap;
   font-family: var(--font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.07em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.4);
+  background: none;
+  border: none;
   border-bottom: 2px solid transparent;
+  border-radius: 0;
+  outline: none;
   transition: color 0.15s, border-color 0.15s;
+  pointer-events: auto;
 }
 
-.case-nav__btn * {
+.case-nav__btn svg,
+.case-nav__btn span {
   pointer-events: none;
 }
 
