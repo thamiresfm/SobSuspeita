@@ -51,8 +51,9 @@
         },
         {
           "id": "camera-sala",
-          "tipo": "laudo",
-          "titulo": "Registros de Câmera — Sala de Reuniões",
+          "tipo": "foto",
+          "titulo": "Registros de Câmera — Sala de Reuniões e Cozinha",
+          "imagem": "cases/restaurante-vazio/images/camera-restaurante.png",
           "conteudo": "Câmera interna registra Renato Figueiredo no restaurante em 17/04 às 11h — um dia antes do desaparecimento. Ele permaneceu 40 minutos na sala de reuniões com o Chef Mário, que saiu visivelmente alterado. Câmera da cozinha: André Lima acessa despensa às 17h12 no dia do desaparecimento, sem justificativa técnica."
         }
       ]
