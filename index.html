@@ -281,10 +281,14 @@
     <div class="modal__backdrop" data-close-modal></div>
     <div class="modal__sheet">
       <header class="modal__head">
-        <span class="modal__badge" id="modal-type"></span>
+        <div class="modal__head-top">
+          <span class="modal__badge" id="modal-type"></span>
+          <div class="modal__head-actions">
+            <button type="button" id="modal-tts-btn" class="btn btn--ghost btn--sm modal__tts" hidden aria-pressed="false">🔊 Ler</button>
+            <button type="button" class="modal__close" data-close-modal aria-label="Fechar">×</button>
+          </div>
+        </div>
         <h2 id="modal-title" class="modal__title"></h2>
-        <button type="button" id="modal-tts-btn" class="btn btn--ghost btn--sm modal__tts" hidden aria-pressed="false">🔊 Ler</button>
-        <button type="button" class="modal__close" data-close-modal aria-label="Fechar">×</button>
       </header>
       <div id="modal-body" class="modal__body"></div>
     </div>

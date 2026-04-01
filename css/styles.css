@@ -1374,51 +1374,56 @@ textarea {
 }
 
 .modal__head {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  grid-template-rows: auto auto;
-  gap: 0.25rem 0.5rem;
-  padding: 1rem 1rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.85rem 1rem 0.6rem;
   border-bottom: 1px solid var(--border);
-  align-items: start;
+}
+
+.modal__head-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
 }
 
 .modal__badge {
-  grid-column: 1;
   font-family: var(--font-mono);
   font-size: 0.65rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--accent);
+  flex: 1;
 }
 
-.modal__title {
-  grid-column: 1 / -1;
-  font-size: 1.38rem;
-  line-height: 1.25;
-  margin: 0;
-  padding-right: 2rem;
+.modal__head-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
 }
 
 .modal__tts {
-  grid-column: 2;
-  grid-row: 1;
-  align-self: start;
-  justify-self: end;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
+  min-height: 32px;
+  padding: 0.2rem 0.6rem;
 }
 
 .modal__close {
-  grid-column: 2;
-  grid-row: 1;
-  justify-self: end;
   background: none;
   border: none;
   color: var(--text-muted);
   font-size: 1.75rem;
   line-height: 1;
   cursor: pointer;
-  padding: 0.15rem;
+  padding: 0.1rem 0.25rem;
+}
+
+.modal__title {
+  font-size: 1.38rem;
+  line-height: 1.25;
+  margin: 0;
 }
 
 .modal__body {
