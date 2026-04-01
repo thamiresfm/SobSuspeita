@@ -55,12 +55,17 @@ body {
 
 .app:has(#view-case:not([hidden])) {
   max-width: 100%;
-  padding: 0;
+  padding: 0 !important;
+  margin: 0 !important;
   overflow: hidden;
 }
 
 .app:has(#view-case:not([hidden])) .topbar--home {
   display: none !important;
+}
+
+.app:has(#view-case:not([hidden])) .main {
+  padding: 0 !important;
 }
 
 .topbar {
@@ -989,8 +994,8 @@ body {
 
 .case-3col {
   display: grid;
-  grid-template-columns: 280px minmax(0, 1fr) 280px;
-  height: calc(100dvh - 56px);
+  grid-template-columns: 300px minmax(0, 1fr) 260px;
+  height: calc(100dvh - 52px);
   overflow: hidden;
   width: 100%;
 }
@@ -1064,7 +1069,19 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
+.case-col--left .doc-item__icon {
+  font-size: 0.6rem;
+  min-width: 46px;
+  padding: 0.15rem 0.4rem;
+  background: rgba(201,162,39,0.08);
+  border: 1px solid rgba(201,162,39,0.2);
+  border-radius: 4px;
+  text-align: center;
+  flex-shrink: 0;
 }
 
 .case-col--left .doc-item__peek {

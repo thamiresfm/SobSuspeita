@@ -417,24 +417,12 @@ function renderDocuments(caso) {
     const b = document.createElement("button");
     b.type = "button";
     b.className = "doc-item";
-    if (doc.imagem) {
-      const th = document.createElement("img");
-      th.className = "doc-item__thumb";
-      th.src = doc.imagem;
-      th.alt = "";
-      th.loading = "lazy";
-      b.appendChild(th);
-    }
     const icon = document.createElement("span");
     icon.className = "doc-item__icon";
     icon.textContent = tipoLabel(doc.tipo);
     const bodySpan = document.createElement("span");
     bodySpan.className = "doc-item__body";
-    const peek = (doc.conteudo || "").slice(0, 140);
-    bodySpan.innerHTML = `
-      <span class="doc-item__title">${escapeHtml(doc.titulo || "Sem título")}</span>
-      <p class="doc-item__peek">${escapeHtml(peek)}${(doc.conteudo || "").length > 140 ? "…" : ""}</p>
-    `;
+    bodySpan.innerHTML = `<span class="doc-item__title">${escapeHtml(doc.titulo || "Sem título")}</span>`;
     b.appendChild(icon);
     b.appendChild(bodySpan);
     b.dataset.docId = doc.id || "";
