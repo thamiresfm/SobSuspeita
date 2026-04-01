@@ -1102,9 +1102,9 @@ async function init() {
     renderHomeList();
     renderStats();
   } catch (e) {
-    console.error(e);
-    el("case-list").innerHTML =
-      "<li><p>Não foi possível carregar os casos. Use um servidor local (ex.: <code>npx serve .</code>).</p></li>";
+    console.error("Erro ao carregar registry:", e);
+    const caseList = el("case-list");
+    if (caseList) caseList.innerHTML = "<p style='padding:1rem;color:#c45c5c'>Não foi possível carregar os casos. Verifique a conexão ou use um servidor local.</p>";
   }
 
   el("btn-home").addEventListener("click", () => {
@@ -1209,12 +1209,15 @@ async function init() {
     });
   }
 
-  el("btn-sound").addEventListener("click", () => {
-    const next = !isEnabled();
-    setSoundOn(next);
-    el("btn-sound").textContent = next ? "🔊" : "🔇";
-    el("btn-sound").setAttribute("aria-pressed", next ? "true" : "false");
-  });
+  const btnSound = el("btn-sound");
+  if (btnSound) {
+    btnSound.addEventListener("click", () => {
+      const next = !isEnabled();
+      setSoundOn(next);
+      btnSound.textContent = next ? "🔊" : "🔇";
+      btnSound.setAttribute("aria-pressed", next ? "true" : "false");
+    });
+  }
 
   document.querySelectorAll("[data-close-modal]").forEach((n) => {
     n.addEventListener("click", closeModal);
