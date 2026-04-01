@@ -1500,6 +1500,22 @@ async function init() {
     });
   }
 
+  // Botão "Novo caso" — faz scroll até a primeira seção de casos visível
+  const btnHomeNew = el("btn-home-new");
+  if (btnHomeNew) {
+    btnHomeNew.addEventListener("click", () => {
+      playClick();
+      // Tenta rolar até a primeira trilha de nível visível ou o arquivo completo
+      const target =
+        el("home-level-beginner")?.hidden === false ? el("home-level-beginner") :
+        el("home-level-intermediate")?.hidden === false ? el("home-level-intermediate") :
+        el("home-level-advanced")?.hidden === false ? el("home-level-advanced") :
+        el("home-level-special")?.hidden === false ? el("home-level-special") :
+        el("home-archive-section");
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
+
   const btnSound = el("btn-sound");
   if (btnSound) {
     btnSound.addEventListener("click", () => {
