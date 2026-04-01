@@ -1466,34 +1466,53 @@ body {
   .topbar-case__right .btn--roteiro,
   .topbar-case__right #btn-sound-case { display: none; }
 
-  /* ── Layout ── */
-  .view--case { margin-top: 48px; }
+  /* ── Layout mobile: scroll livre ── */
+  .app:has(#view-case:not([hidden])) {
+    height: auto !important;
+    overflow: visible !important;
+    overflow-x: hidden !important;
+  }
+
+  .app:has(#view-case:not([hidden])) .main {
+    overflow: visible !important;
+  }
+
+  .view--case {
+    margin-top: 48px;
+    overflow: visible;
+  }
 
   .case-3col {
     grid-template-columns: 1fr !important;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto auto;
     height: auto !important;
     overflow: visible;
-    min-height: calc(100dvh - 48px);
+    min-height: 0;
   }
 
-  .case-col { height: auto; overflow: visible; }
+  .case-col {
+    height: auto;
+    overflow: visible;
+    max-height: none;
+  }
 
-  /* Coluna esquerda: compacta, scrollável */
+  /* Coluna esquerda: altura fixa com scroll interno */
   .case-col--left {
     border-right: none;
     border-bottom: 2px solid var(--border);
     max-height: 210px;
     overflow-y: auto;
+    overflow-x: hidden;
   }
 
   /* Oculta coluna direita */
   .case-col--right { display: none; }
 
-  /* Coluna central ocupa o resto */
+  /* Coluna central: scroll natural da página */
   .case-col--center {
     padding: 0;
-    min-height: calc(100dvh - 48px - 210px);
+    min-height: 50vh;
+    overflow: visible;
   }
 
   .center-panel-wrap {
