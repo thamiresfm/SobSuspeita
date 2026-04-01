@@ -3,6 +3,7 @@
   "descricao": "Um homem é encontrado morto em seu apartamento trancado por dentro.",
   "dificuldade": "Fácil",
   "duracaoEstimada": "15–20 min",
+  "imagemCapa": "cases/apartamento-302/images/capa.png",
   "fases": [
     {
       "nome": "Contexto",
@@ -12,18 +13,21 @@
           "id": "laudo-morte",
           "tipo": "laudo",
           "titulo": "Laudo Necroscópico — Vítima: Rodrigo Mendes",
+          "imagem": "cases/apartamento-302/images/retrato-vitima.png",
           "conteudo": "Causa mortis: envenenamento por sobredose de sedativo dissolvido em bebida. Horário estimado: entre 22h e 00h. O apartamento foi encontrado trancado por dentro. Não há sinais de arrombamento ou entrada forçada."
         },
         {
           "id": "dep-marisa",
           "tipo": "depoimento",
           "titulo": "Depoimento — Marisa (Síndica)",
+          "imagem": "cases/apartamento-302/images/retrato-marisa.png",
           "conteudo": "Estava em reunião de condomínio no bloco B das 20h às 22h30. Só soube da morte no dia seguinte quando a polícia acionou o interfone. A chave-mestra fica em meu escritório, trancada. Não sei como alguém teria acesso."
         },
         {
           "id": "dep-lucas",
           "tipo": "depoimento",
           "titulo": "Depoimento — Lucas (Vizinho do 301)",
+          "imagem": "cases/apartamento-302/images/retrato-lucas.png",
           "conteudo": "Estava viajando a trabalho em São Paulo. Tenho nota de hotel para provar. Rodrigo e eu tínhamos brigas por barulho, mas nada que justificasse isso. Cheguei de volta só na manhã seguinte."
         }
       ]
@@ -34,20 +38,23 @@
       "documentos": [
         {
           "id": "log-elevador",
-          "tipo": "laudo",
+          "tipo": "foto",
           "titulo": "Registro de Câmeras — Elevador e Hall",
+          "imagem": "cases/apartamento-302/images/capa.png",
           "conteudo": "Câmera do elevador registra Lucas entrando no prédio às 21h43 e saindo às 22h17. Contradiz a afirmação de que estava em São Paulo. Também registra Bianca chegando às 21h50 e saindo às 22h10 com uma bolsa maior do que a da chegada."
         },
         {
           "id": "msgs-bianca",
           "tipo": "noticia",
           "titulo": "Mensagens Recuperadas — Celular da Vítima",
+          "imagem": "cases/apartamento-302/images/retrato-bianca.png",
           "conteudo": "21h12 — Bianca: 'Precisamos conversar. Estarei aí às 22h.'\n21h15 — Rodrigo: 'Tá bom. Porta vai estar aberta.'\n21h58 — Bianca: 'Sobe. Deixei o drink na mesa.'"
         },
         {
           "id": "dep-bianca",
           "tipo": "depoimento",
           "titulo": "Depoimento — Bianca (Ex-namorada)",
+          "imagem": "cases/apartamento-302/images/retrato-bianca.png",
           "conteudo": "Não via Rodrigo há semanas. O término foi difícil, mas seguimos em frente. Não fui ao apartamento nessa noite. Não tenho ideia de quem possa ter feito isso."
         }
       ]
@@ -58,14 +65,16 @@
       "documentos": [
         {
           "id": "laudo-porta",
-          "tipo": "laudo",
+          "tipo": "foto",
           "titulo": "Laudo Pericial — Trancamento da Porta",
+          "imagem": "cases/apartamento-302/images/prova-porta.png",
           "conteudo": "A porta foi trancada por meio de uma linha de nylon resistente presa internamente à chave. A linha passou pela fresta inferior da porta e foi puxada e cortada pelo lado de fora. Marcas de nylon na parte inferior da dobradiça confirmam o método. Resíduos de nylon encontrados próximo ao batente externo."
         },
         {
           "id": "bolsa-bianca",
           "tipo": "laudo",
           "titulo": "Análise Laboratorial — Copo e Resíduo",
+          "imagem": "cases/apartamento-302/images/prova-copo.png",
           "conteudo": "O copo encontrado na mesa da sala continha resíduo de diazepam dissolvido em suco. Impressões digitais na base do copo: Bianca Saraiva. A bolsa carregada na saída continha — segundo análise de câmera — dimensões compatíveis com rolo de linha fina e luvas."
         }
       ]
@@ -92,19 +101,22 @@
       "nome": "Marisa (síndica)",
       "motivo": "Tem chave-mestra e acesso irrestrito ao prédio.",
       "alibi": "Diz que estava em reunião de condomínio no bloco B.",
-      "contradicoes": "Não há registro eletrônico da reunião; chave-mestra sem controle de uso."
+      "contradicoes": "Não há registro eletrônico da reunião; chave-mestra sem controle de uso.",
+      "retrato": "cases/apartamento-302/images/retrato-marisa.png"
     },
     {
       "nome": "Lucas (vizinho)",
       "motivo": "Conflitos anteriores com a vítima por barulho.",
       "alibi": "Alega que estava viajando a trabalho em São Paulo.",
-      "contradicoes": "Câmera do elevador registra sua presença no prédio na noite do crime."
+      "contradicoes": "Câmera do elevador registra sua presença no prédio na noite do crime.",
+      "retrato": "cases/apartamento-302/images/retrato-lucas.png"
     },
     {
       "nome": "Bianca (ex-namorada)",
       "motivo": "Término conturbado e conflitos recentes.",
       "alibi": "Afirma que não via a vítima há semanas.",
-      "contradicoes": "Mensagens e câmeras provam que esteve no apartamento naquela noite."
+      "contradicoes": "Mensagens e câmeras provam que esteve no apartamento naquela noite.",
+      "retrato": "cases/apartamento-302/images/retrato-bianca.png"
     }
   ],
   "solucao": {
