@@ -692,6 +692,11 @@ body {
   overflow: hidden;
 }
 
+.case-intro[hidden] {
+  display: none !important;
+  pointer-events: none !important;
+}
+
 .case-intro__cover {
   position: absolute;
   inset: 0;
