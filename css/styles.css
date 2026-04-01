@@ -824,6 +824,7 @@ body {
 
 /* Topbar caso */
 .topbar--home { display: flex; }
+
 .topbar--case {
   display: none;
   position: fixed;
@@ -831,14 +832,14 @@ body {
   left: 0;
   right: 0;
   z-index: 100;
-  background: #0d0d0f;
-  border-bottom: 1px solid var(--border);
-  grid-template-columns: 200px 1fr auto;
-  align-items: center;
-  gap: 0;
+  background: #0c0c10;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  grid-template-columns: auto 1fr auto;
+  align-items: stretch;
   padding: 0;
-  height: 56px;
+  height: 52px;
   width: 100%;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.5);
 }
 
 .topbar--case.is-visible {
@@ -846,102 +847,134 @@ body {
 }
 
 .view--case {
-  padding-top: 56px;
+  padding-top: 52px;
 }
 
+.case-3col {
+  height: calc(100dvh - 52px) !important;
+}
+
+/* Brand / logo esquerda */
 .topbar-case__brand {
   padding: 0 1rem;
-  border-right: 1px solid var(--border);
-  height: 100%;
+  border-right: 1px solid rgba(255,255,255,0.07);
   display: flex;
   align-items: center;
+  flex-shrink: 0;
+}
+
+.topbar-case__brand .topbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: var(--text);
 }
 
 .topbar-case__logo {
-  height: 38px;
+  height: 30px;
   width: auto;
   display: block;
+  object-fit: contain;
 }
 
+.topbar-case__diamond {
+  color: var(--accent);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.topbar-case__name {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* Nav central */
 .topbar-case__nav {
   display: flex;
+  align-items: stretch;
   height: 100%;
   overflow-x: auto;
   scrollbar-width: none;
+  justify-content: center;
 }
 
 .topbar-case__nav::-webkit-scrollbar { display: none; }
 
+/* Direita: timer + botões */
 .topbar-case__right {
-  padding: 0 1rem;
-  border-left: 1px solid var(--border);
-  height: 100%;
+  padding: 0 0.85rem;
+  border-left: 1px solid rgba(255,255,255,0.07);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  white-space: nowrap;
+  gap: 0.6rem;
+  flex-shrink: 0;
 }
 
 .topbar-case__timer {
   font-family: var(--font-mono);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 600;
   color: var(--accent);
   font-variant-numeric: tabular-nums;
-  background: rgba(201, 162, 39, 0.08);
-  border: 1px solid rgba(201, 162, 39, 0.25);
+  background: rgba(201, 162, 39, 0.1);
+  border: 1px solid rgba(201, 162, 39, 0.3);
   border-radius: 6px;
-  padding: 0.2rem 0.6rem;
+  padding: 0.2rem 0.65rem;
+  letter-spacing: 0.04em;
 }
 
-/* nav buttons dentro da topbar */
+/* nav buttons */
 .case-nav__btn {
   flex: 0 0 auto;
-  padding: 0 1.25rem;
+  padding: 0 1.1rem;
   height: 100%;
-  min-height: 44px;
   border: none;
   border-bottom: 2px solid transparent;
   border-radius: 0;
   background: transparent;
-  color: var(--text-muted);
+  color: rgba(255,255,255,0.45);
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
+  font-size: 0.7rem;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   cursor: pointer;
   white-space: nowrap;
   transition: color 0.15s, background 0.15s, border-color 0.15s;
   display: flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.4rem;
 }
 
 .case-nav__icon {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   flex-shrink: 0;
-  opacity: 0.7;
+  opacity: 0.6;
   transition: opacity 0.15s;
 }
 
 .case-nav__btn:hover {
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.04);
 }
 
-.case-nav__btn:hover .case-nav__icon {
-  opacity: 1;
-}
+.case-nav__btn:hover .case-nav__icon { opacity: 0.85; }
 
 .case-nav__btn.is-active {
   border-bottom-color: var(--accent);
   color: var(--accent);
-  background: rgba(201, 162, 39, 0.08);
+  background: rgba(201, 162, 39, 0.07);
 }
 
-.case-nav__btn.is-active .case-nav__icon {
-  opacity: 1;
-}
+.case-nav__btn.is-active .case-nav__icon { opacity: 1; }
 
 .btn--roteiro {
   font-size: 0.72rem;
