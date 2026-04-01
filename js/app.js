@@ -1335,6 +1335,16 @@ async function init() {
     });
   }
 
+  const btnCloseCase = el("btn-close-case");
+  if (btnCloseCase) {
+    btnCloseCase.addEventListener("click", () => {
+      playClick();
+      showHome();
+      renderHomeList();
+      renderStats();
+    });
+  }
+
   const btnSoundCase = el("btn-sound-case");
   if (btnSoundCase) {
     btnSoundCase.addEventListener("click", () => {

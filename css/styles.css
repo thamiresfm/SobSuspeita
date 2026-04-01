@@ -1046,6 +1046,22 @@ body {
   white-space: nowrap;
 }
 
+/* Botão fechar caso: só aparece no mobile */
+.case-nav__btn--close {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .case-nav__btn--close {
+    display: inline-flex;
+    border-left: 1px solid rgba(255,255,255,0.08);
+    margin-left: 0.2rem;
+  }
+  .case-nav__btn--close .case-nav__icon {
+    color: rgba(255,255,255,0.5);
+  }
+}
+
 /* Layout 3 colunas */
 
 .case-3col {
