@@ -18,6 +18,7 @@
           "id": "dep-vizinha",
           "tipo": "depoimento",
           "titulo": "Depoimento — Dona Irene (Vizinha, 71 anos)",
+          "imagem": "cases/vozes-madrugada/images/retrato-irene.png",
           "conteudo": "Ouvi gritos na madrugada de quarta para quinta. Uma voz feminina pedindo socorro e depois silêncio. Achei que eram barulhos da rua. Só liguei para a polícia dois dias depois quando vi luz acesa na janela do porão. Tenho artrite e não saio à noite."
         },
         {
@@ -49,6 +50,7 @@
           "id": "dep-irmao",
           "tipo": "depoimento",
           "titulo": "Depoimento — Bruno Ferreira (Irmão da vítima)",
+          "imagem": "cases/vozes-madrugada/images/retrato-bruno.png",
           "conteudo": "Estava em Campinas naquela semana, visitando amigos. Não sabia que minha irmã tinha ido até aquela casa. Nossa relação era boa. A disputa de herança é exagerada — estávamos resolvendo tudo amigavelmente."
         }
       ]
@@ -100,13 +102,15 @@
       "nome": "Dona Irene (Vizinha)",
       "motivo": "Rixa antiga com a família da vítima.",
       "alibi": "Problemas de saúde que a impedem de sair à noite.",
-      "contradicoes": "Médico confirma condição estável sem restrições severas de mobilidade."
+      "contradicoes": "Médico confirma condição estável sem restrições severas de mobilidade.",
+      "retrato": "cases/vozes-madrugada/images/retrato-irene.png"
     },
     {
       "nome": "Bruno Ferreira (Irmão da vítima)",
       "motivo": "Disputa de herança e conflitos familiares.",
       "alibi": "Afirma estar em Campinas visitando amigos.",
-      "contradicoes": "Pedágio e mensagens provam que estava a caminho da casa naquela noite."
+      "contradicoes": "Pedágio e mensagens provam que estava a caminho da casa naquela noite.",
+      "retrato": "cases/vozes-madrugada/images/retrato-bruno.png"
     }
   ],
   "solucao": {
