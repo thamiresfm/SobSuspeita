@@ -24,6 +24,7 @@
           "id": "dep-corretor",
           "tipo": "depoimento",
           "titulo": "Depoimento — Marcos Alves (Corretor)",
+          "imagem": "cases/vozes-madrugada/images/retrato-marcos.png",
           "conteudo": "A casa está em processo de venda faz dois meses. Só entro em horário comercial, sempre com agendamento. As chaves ficam no escritório da imobiliária. Não tenho motivo nenhum para ir a esse imóvel à noite."
         }
       ]
@@ -92,7 +93,8 @@
       "nome": "Marcos Alves (Corretor)",
       "motivo": "Interesse em vender o imóvel; chaves usadas com seu código.",
       "alibi": "Diz que só visita a casa em horário comercial.",
-      "contradicoes": "Log eletrônico mostra uso do seu código na madrugada do crime."
+      "contradicoes": "Log eletrônico mostra uso do seu código na madrugada do crime.",
+      "retrato": "cases/vozes-madrugada/images/retrato-marcos.png"
     },
     {
       "nome": "Dona Irene (Vizinha)",
