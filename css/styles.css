@@ -48,7 +48,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1360px;
   margin: 0 auto;
   padding: env(safe-area-inset-top) 1rem env(safe-area-inset-bottom);
 }
@@ -354,9 +354,9 @@ body {
 .case-card__thumb {
   display: block;
   width: 100%;
-  height: auto;
-  max-height: none;
-  object-fit: contain;
+  height: 100%;
+  max-height: 190px;
+  object-fit: cover;
 }
 
 .case-card__content {
