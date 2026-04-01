@@ -64,13 +64,13 @@
       "id": "vozes-madrugada",
       "arquivo": "vozes-madrugada/caso.json",
       "titulo": "Vozes na Madrugada",
-      "descricao": "Chamadas anônimas avisam de um crime minutos antes dele acontecer.",
+      "descricao": "Gritos ouvidos numa casa vazia. Dias depois, um corpo no porão — e um gravador esquecido pelo assassino.",
       "dificuldade": "Médio",
       "nivel": "Intermediário",
       "capitulo": 6,
-      "categoria": "Ameaça",
+      "categoria": "Assassinato",
       "duracaoEstimada": "25–35 min",
-      "imagemCapa": ""
+      "imagemCapa": "cases/vozes-madrugada/images/capa.png"
     },
     {
       "id": "testemunha-invisivel",

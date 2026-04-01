@@ -3,6 +3,7 @@
   "descricao": "Moradores relatam gritos em uma casa vazia. Dias depois, um corpo é encontrado no local.",
   "dificuldade": "Médio",
   "duracaoEstimada": "25–35 min",
+  "imagemCapa": "cases/vozes-madrugada/images/capa.png",
   "fases": [
     {
       "nome": "Contexto",
