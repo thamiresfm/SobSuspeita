@@ -54,7 +54,7 @@
           "id": "dep-ti",
           "tipo": "depoimento",
           "titulo": "Depoimento — Técnico de TI: Luís Carvalheiro",
-          "imagem": "cases/relatorio-17b/images/log-ti.png",
+          "imagem": "cases/relatorio-17b/images/retrato-luis.png",
           "conteudo": "Fui chamado para garantir a segurança do servidor na semana anterior ao desaparecimento. Realizei apenas manutenções rotineiras. Não alterei nenhum log ou backup."
         }
       ]
@@ -114,7 +114,8 @@
       "nome": "Luís Carvalheiro (TI)",
       "motivo": "Acesso privilegiado a sistemas de backup e logs.",
       "alibi": "Afirma ter realizado apenas manutenções rotineiras.",
-      "contradicoes": "Instalou ferramenta de deleção não autorizada e recebeu pagamento suspeito após o crime."
+      "contradicoes": "Instalou ferramenta de deleção não autorizada e recebeu pagamento suspeito após o crime.",
+      "retrato": "cases/relatorio-17b/images/retrato-luis.png"
     }
   ],
   "solucao": {
