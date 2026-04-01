@@ -342,9 +342,11 @@
     <div class="modal__backdrop" id="detail-backdrop"></div>
     <div class="modal__sheet modal__sheet--details">
       <header class="modal__head">
-        <span class="modal__badge" id="detail-badge"></span>
+        <div class="modal__head-top">
+          <span class="modal__badge" id="detail-badge"></span>
+          <button type="button" class="modal__close" id="detail-close" aria-label="Fechar">×</button>
+        </div>
         <h2 id="detail-title" class="modal__title"></h2>
-        <button type="button" class="modal__close" id="detail-close" aria-label="Fechar">×</button>
       </header>
       <div class="modal__body" id="detail-body"></div>
       <footer class="modal__foot">
