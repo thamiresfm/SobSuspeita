@@ -23,7 +23,7 @@
       </div>
     </header>
 
-    <!-- Topbar caso (3 colunas) -->
+    <!-- Topbar caso -->
     <header class="topbar topbar--case" id="topbar-case" hidden role="banner">
       <div class="topbar-case__brand">
         <button type="button" id="btn-home-case" class="topbar__brand" aria-label="Voltar ao início">
@@ -33,30 +33,30 @@
       </div>
       <nav class="topbar-case__nav case-nav" aria-label="Seções do caso">
         <button type="button" class="case-nav__btn is-active" data-panel="documentos">
-          <svg class="case-nav__icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 3h7l4 4v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 3v4h4M7 9h6M7 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          <span>Documentos</span>
+          <svg class="case-nav__icon" viewBox="0 0 20 20" fill="none"><path d="M5 3h7l4 4v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 3v4h4M7 9h6M7 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span class="case-nav__label">Docs</span>
         </button>
         <button type="button" class="case-nav__btn" data-panel="anotacoes">
-          <svg class="case-nav__icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h12v9l-4 4H4V4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 13v4M12 13h4M7 7h6M7 10h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          <span>Anotações</span>
+          <svg class="case-nav__icon" viewBox="0 0 20 20" fill="none"><path d="M4 4h12v9l-4 4H4V4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7 7h6M7 10h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span class="case-nav__label">Notas</span>
         </button>
         <button type="button" class="case-nav__btn" data-panel="timeline">
-          <svg class="case-nav__icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M10 6v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          <span>Linha do Tempo</span>
+          <svg class="case-nav__icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M10 6v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span class="case-nav__label">Tempo</span>
         </button>
         <button type="button" class="case-nav__btn" data-panel="suspeitos">
-          <svg class="case-nav__icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="7" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M4 17c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          <span>Suspeitos</span>
+          <svg class="case-nav__icon" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M4 17c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span class="case-nav__label">Suspeitos</span>
         </button>
         <button type="button" class="case-nav__btn" data-panel="resolucao">
-          <svg class="case-nav__icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 3l1.8 5.5H17l-4.6 3.4 1.8 5.5L10 14l-4.2 3.4 1.8-5.5L3 8.5h5.2L10 3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-          <span>Resolução</span>
+          <svg class="case-nav__icon" viewBox="0 0 20 20" fill="none"><path d="M10 3l1.8 5.5H17l-4.6 3.4 1.8 5.5L10 14l-4.2 3.4 1.8-5.5L3 8.5h5.2L10 3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          <span class="case-nav__label">Fechar</span>
         </button>
       </nav>
       <div class="topbar-case__right">
         <span class="topbar-case__timer" id="timer-display" aria-live="polite">00:00</span>
-        <button type="button" class="btn btn--ghost btn--sm" id="btn-sound-case" aria-pressed="false" title="Som ambiente">🔇</button>
-        <button type="button" id="btn-roteiro" class="btn btn--ghost btn--sm btn--roteiro" hidden>Ver roteiro</button>
+        <button type="button" class="btn btn--ghost btn--sm" id="btn-sound-case" aria-pressed="false" title="Som">🔇</button>
+        <button type="button" id="btn-roteiro" class="btn btn--ghost btn--sm btn--roteiro" hidden>Roteiro</button>
       </div>
     </header>
 

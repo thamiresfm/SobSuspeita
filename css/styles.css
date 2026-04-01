@@ -1413,21 +1413,107 @@ body {
   color: var(--text-muted);
 }
 
-/* Responsivo mobile */
-@media (max-width: 900px) {
+/* ===================== MOBILE — tela do caso ===================== */
+@media (max-width: 700px) {
+
+  /* Topbar compacta */
   .topbar--case {
-    grid-template-columns: 120px 1fr auto;
+    grid-template-columns: auto 1fr auto;
+    height: 48px;
   }
+
+  .topbar-case__brand {
+    padding: 0 0.6rem;
+  }
+
+  .topbar-case__name {
+    display: none;
+  }
+
+  .topbar-case__diamond {
+    font-size: 1.1rem;
+  }
+
+  /* Nav: ícone + label curto, sem texto completo */
+  .case-nav__btn {
+    padding: 0 0.55rem;
+    gap: 0.2rem;
+    flex-direction: column;
+    height: 48px;
+    font-size: 0.56rem;
+    letter-spacing: 0.03em;
+  }
+
+  .case-nav__icon {
+    width: 17px;
+    height: 17px;
+  }
+
+  /* Timer compacto */
+  .topbar-case__timer {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.4rem;
+  }
+
+  .topbar-case__right {
+    padding: 0 0.5rem;
+    gap: 0.25rem;
+  }
+
+  .topbar-case__right .btn--roteiro {
+    display: none;
+  }
+
+  /* Layout: 1 coluna — esquerda em cima, central embaixo */
+  .view--case {
+    margin-top: 48px;
+  }
+
   .case-3col {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto 1fr;
+    height: auto !important;
+    overflow: visible;
+    min-height: calc(100dvh - 48px);
+  }
+
+  .case-col {
     height: auto;
     overflow: visible;
   }
-  .case-col { height: auto; overflow: visible; }
-  .case-col--left { border-right: none; border-bottom: 1px solid var(--border); }
-  .case-col--right { border-left: none; border-top: 1px solid var(--border); }
-  .case-col--center { padding: 1rem; }
+
+  /* Coluna esquerda: horizontal scroll de fases e docs */
+  .case-col--left {
+    border-right: none;
+    border-bottom: 2px solid var(--border);
+    max-height: 240px;
+    overflow-y: auto;
+  }
+
+  /* Coluna direita: oculta no mobile */
+  .case-col--right {
+    display: none;
+  }
+
+  /* Coluna central */
+  .case-col--center {
+    padding: 0;
+    min-height: calc(100dvh - 48px - 240px);
+  }
+
+  .center-panel-wrap {
+    padding: 1rem;
+    max-width: 100%;
+  }
+
+  .doc-viewer {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
+  .doc-viewer__title {
+    font-size: 1.2rem;
+  }
 }
 
 .case-summary {
