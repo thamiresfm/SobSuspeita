@@ -67,6 +67,7 @@
           "id": "laudo-sangue",
           "tipo": "laudo",
           "titulo": "Análise Forense — Ralo da Cozinha",
+          "imagem": "cases/restaurante-vazio/images/laudo-ralo.png",
           "conteudo": "Traços de sangue humano encontrados no ralo central da cozinha. DNA compatível com Chef Mário Alcântara. Manchas limpas com produto à base de hipoclorito — produto encontrado no armário de limpeza com marca de uso recente."
         },
         {
