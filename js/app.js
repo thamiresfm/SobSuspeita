@@ -83,11 +83,13 @@ function setActivePanel(name) {
     viewer.className = "doc-viewer";
     viewer.innerHTML = `<div class="doc-viewer__empty"><p>Selecione um documento na lista à esquerda para ler.</p></div>`;
     center.appendChild(viewer);
-    // Re-renderiza os documentos na coluna esquerda para garantir que a fase 1 apareça
     if (currentCase) {
+      activePhaseIndex = 0;
       renderDocuments(currentCase);
-      const leftCol = el("case-col-left");
-      if (leftCol) leftCol.scrollTop = 0;
+      requestAnimationFrame(() => {
+        const leftCol = el("case-col-left");
+        if (leftCol) leftCol.scrollTop = 0;
+      });
     }
     return;
   }
@@ -866,8 +868,15 @@ function bindCaseUi(caso) {
   renderDocuments(caso);
   updateTopSuspect();
   updateDocsReadCount();
-  const leftCol = el("case-col-left");
-  if (leftCol) leftCol.scrollTop = 0;
+  requestAnimationFrame(() => {
+    const leftCol = el("case-col-left");
+    if (leftCol) {
+      leftCol.scrollTop = 0;
+      // Garante que o primeiro phase-tab está visível
+      const firstTab = leftCol.querySelector(".phase-tab");
+      if (firstTab) firstTab.scrollIntoView({ block: "start", behavior: "instant" });
+    }
+  });
 }
 
 const TUTORIAL_KEY = "sob-suspeita-tutorial-done";
