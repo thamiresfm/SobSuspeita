@@ -27,6 +27,7 @@
           "id": "dep-socio",
           "tipo": "depoimento",
           "titulo": "Depoimento — Sócio: Fábio Tavares",
+          "imagem": "cases/testemunha-invisivel/images/retrato-fabio.png",
           "conteudo": "Estava em reunião com clientes no Hotel Meliá das 20h às 22h30. Tenho presença registrada no evento. Paulo e eu tínhamos divergências, mas nada que chegasse a isso. Estávamos próximos de fechar um acordo."
         }
       ]
@@ -66,6 +67,7 @@
           "id": "transferencia",
           "tipo": "laudo",
           "titulo": "Movimentação Bancária — Conta Roberto Feix",
+          "imagem": "cases/testemunha-invisivel/images/transferencia-bancaria.png",
           "conteudo": "Transferência de R$ 28.000 recebida em 15/04 — 5 dias após o crime — de conta de terceiro. O remetente é uma empresa-laranja vinculada ao Fábio Tavares. Segunda transferência de igual valor pendente para 30/04."
         },
         {
@@ -103,7 +105,8 @@
       "nome": "Fábio Tavares (Sócio)",
       "motivo": "Conflito empresarial; se beneficiaria com a morte do diretor.",
       "alibi": "Estava em reunião no Hotel Meliá.",
-      "contradicoes": "E-mail instrui Roberto a apagar câmeras; transferência bancária paga pelo crime."
+      "contradicoes": "E-mail instrui Roberto a apagar câmeras; transferência bancária paga pelo crime.",
+      "retrato": "cases/testemunha-invisivel/images/retrato-fabio.png"
     },
     {
       "nome": "Denise Cardoso (Funcionária)",
