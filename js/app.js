@@ -157,7 +157,10 @@ function setActivePanel(name) {
         <p class="hint">Arraste ou use ↑↓ para reordenar os eventos. A ordem correta expõe contradições nos depoimentos.</p>
         <ol id="timeline-list" class="timeline-list"></ol>
       </div>`;
-    if (currentCase && state) renderTimeline(currentCase);
+    if (currentCase && state) {
+      const ol = center.querySelector("#timeline-list");
+      if (ol) renderTimelineInto(currentCase, ol);
+    }
     return;
   }
 
@@ -448,7 +451,9 @@ function escapeHtml(s) {
 }
 
 function renderFacts(caso) {
-  const ul = el("facts-list");
+  const center = el("case-col-center");
+  const ul = (center && center.querySelector("#facts-list")) || el("facts-list");
+  if (!ul) return;
   ul.innerHTML = "";
   const fatos = Array.isArray(caso.fatos) ? caso.fatos : [];
   if (fatos.length === 0) {
@@ -465,7 +470,9 @@ function renderFacts(caso) {
 }
 
 function renderNotes() {
-  const ul = el("notes-list");
+  const center = el("case-col-center");
+  const ul = (center && center.querySelector("#notes-list")) || el("notes-list");
+  if (!ul) return;
   ul.innerHTML = "";
   state.notes.forEach((n) => {
     const li = document.createElement("li");
@@ -487,14 +494,12 @@ function renderNotes() {
   if (summary) summary.textContent = String(state.notes.length);
 }
 
-function renderTimeline(caso) {
-  const ol = el("timeline-list");
+function renderTimelineInto(caso, ol) {
+  if (!ol) return;
   ol.innerHTML = "";
   const events = caso.eventosLinhaDoTempo || [];
   const order = state.timelineOrder.filter((id) => events.some((e) => e.id === id));
-  events.forEach((e) => {
-    if (!order.includes(e.id)) order.push(e.id);
-  });
+  events.forEach((e) => { if (!order.includes(e.id)) order.push(e.id); });
   state.timelineOrder = order;
   persist();
   const countEl = el("summary-timeline-count");
@@ -508,7 +513,7 @@ function renderTimeline(caso) {
     [arr[i], arr[j]] = [arr[j], arr[i]];
     state.timelineOrder = arr;
     persist();
-    renderTimeline(caso);
+    renderTimelineInto(caso, ol);
     playClick();
   }
 
@@ -551,11 +556,16 @@ function renderTimeline(caso) {
       arr.splice(ti, 0, from);
       state.timelineOrder = arr;
       persist();
-      renderTimeline(caso);
+      renderTimelineInto(caso, ol);
       playClick();
     });
     ol.appendChild(li);
   });
+}
+
+function renderTimeline(caso) {
+  const ol = el("timeline-list");
+  if (ol) renderTimelineInto(caso, ol);
 }
 
 function renderSuspectsInto(caso, grid) {
