@@ -942,6 +942,9 @@ body {
   padding: 0 1rem;
   height: 52px;
   cursor: pointer;
+  pointer-events: auto;
+  -webkit-user-select: none;
+  user-select: none;
   white-space: nowrap;
   font-family: var(--font-mono);
   font-size: 0.7rem;
@@ -950,6 +953,10 @@ body {
   color: rgba(255, 255, 255, 0.4);
   border-bottom: 2px solid transparent;
   transition: color 0.15s, border-color 0.15s;
+}
+
+.case-nav__btn * {
+  pointer-events: none;
 }
 
 .case-nav__icon {

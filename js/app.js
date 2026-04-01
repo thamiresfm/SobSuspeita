@@ -1246,19 +1246,16 @@ async function init() {
     renderStats();
   });
 
-  // Delegação para toda a nav da topbar do caso
-  const topbarCase = el("topbar-case");
-  if (topbarCase) {
-    topbarCase.addEventListener("click", (e) => {
-      const btn = e.target.closest(".case-nav__btn");
-      if (!btn) return;
+  // Listener direto em cada botão da nav (registrado uma vez no init)
+  document.querySelectorAll(".case-nav__btn[data-panel]").forEach((btn) => {
+    btn.addEventListener("click", () => {
       const panel = btn.dataset.panel;
       if (panel) {
         setActivePanel(panel);
         playClick();
       }
     });
-  }
+  });
 
   const btnHomeCase = el("btn-home-case");
   if (btnHomeCase) {
