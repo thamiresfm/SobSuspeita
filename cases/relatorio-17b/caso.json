@@ -3,6 +3,7 @@
   "descricao": "Um cientista desaparece após enviar um relatório criptografado com informações sensíveis.",
   "dificuldade": "Difícil",
   "duracaoEstimada": "35–45 min",
+  "imagemCapa": "cases/relatorio-17b/images/capa.png",
   "fases": [
     {
       "nome": "Contexto",
@@ -12,18 +13,21 @@
           "id": "rel-17b",
           "tipo": "laudo",
           "titulo": "Fragmento Decriptado — Relatório 17-B",
+          "imagem": "cases/relatorio-17b/images/relatorio-17b.png",
           "conteudo": "Projeto 17-B conduziu testes em humanos não consentidos entre jan–mar. Os participantes foram recrutados de populações vulneráveis sem declaração ética aprovada. Sete casos de efeitos adversos graves foram registrados e omitidos das publicações oficiais. Este relatório foi enviado para canal externo seguro em 22/05."
         },
         {
           "id": "dep-colega",
           "tipo": "depoimento",
           "titulo": "Depoimento — Dr. Paulo Mendes (Colega de laboratório)",
+          "imagem": "cases/relatorio-17b/images/retrato-paulo.png",
           "conteudo": "Trabalhei em outro setor no turno noturno. Não tinha acesso ao projeto 17-B. Rafael era reservado com seus dados. Sei que ele estava preocupado com algo, mas não comentou detalhes comigo."
         },
         {
           "id": "dep-diretora",
           "tipo": "depoimento",
           "titulo": "Depoimento — Dra. Carla Braga (Diretora)",
+          "imagem": "cases/relatorio-17b/images/retrato-carla.png",
           "conteudo": "O projeto 17-B seguiu todos os protocolos regulatórios. Não tomei conhecimento de nenhuma irregularidade. Rafael era um profissional competente, mas nos últimos meses apresentava sinais de instabilidade. Talvez tenha construído narrativas equivocadas sobre o projeto."
         }
       ]
@@ -36,18 +40,21 @@
           "id": "log-ti",
           "tipo": "laudo",
           "titulo": "Log de Acesso ao Sistema — Laboratório",
+          "imagem": "cases/relatorio-17b/images/log-ti.png",
           "conteudo": "Em 23/05 às 02h11, login realizado na estação de Rafael Andrade com credenciais do Dr. Paulo Mendes. Arquivos do projeto 17-B foram acessados e três arquivos de backup deletados. Às 02h31 o sistema registra tentativa de apagar log — bloqueada por protocolo de segurança."
         },
         {
           "id": "email-diretora",
           "tipo": "laudo",
           "titulo": "E-mails Internos — Diretora para Equipe",
+          "imagem": "cases/relatorio-17b/images/retrato-carla.png",
           "conteudo": "20/05: 'O projeto 17-B precisa de aprovação acelerada. Ignorem comentários externos e reportem direto para mim.'\n21/05: 'Qualquer documentação referente a efeitos adversos deve passar pelo meu escritório antes de registro oficial.'\n22/05: 'Notifiquem-me imediatamente se Rafael Andrade enviar qualquer arquivo para fora do sistema.'"
         },
         {
           "id": "dep-ti",
           "tipo": "depoimento",
           "titulo": "Depoimento — Técnico de TI: Luís Carvalheiro",
+          "imagem": "cases/relatorio-17b/images/log-ti.png",
           "conteudo": "Fui chamado para garantir a segurança do servidor na semana anterior ao desaparecimento. Realizei apenas manutenções rotineiras. Não alterei nenhum log ou backup."
         }
       ]
@@ -60,12 +67,14 @@
           "id": "log-ti2",
           "tipo": "laudo",
           "titulo": "Log de Servidor — Backups Deletados",
+          "imagem": "cases/relatorio-17b/images/log-ti.png",
           "conteudo": "Análise de recuperação forense: os três arquivos deletados em 23/05 eram cópias do Relatório 17-B. Metadados de deleção mostram uso de ferramenta proprietária instalada por Luís Carvalheiro na semana anterior. A ferramenta não constava na lista de manutenção aprovada."
         },
         {
           "id": "transferencia-ti",
           "tipo": "noticia",
           "titulo": "Movimentação Financeira — Luís Carvalheiro",
+          "imagem": "cases/relatorio-17b/images/transferencia.png",
           "conteudo": "Pagamento de R$ 15.000 recebido em 24/05 — empresa-laranja vinculada a fornecedor do laboratório, cujo contrato é assinado pela Dra. Carla Braga. Segunda parcela de igual valor identificada para 15/06."
         }
       ]
@@ -91,13 +100,15 @@
       "nome": "Dr. Paulo Mendes (Colega)",
       "motivo": "Poderia ganhar reconhecimento com a pesquisa se Rafael sumisse.",
       "alibi": "Afirma estar trabalhando em outro setor no turno noturno.",
-      "contradicoes": "Login com suas credenciais acessa a máquina de Rafael às 2h — ele nega."
+      "contradicoes": "Login com suas credenciais acessa a máquina de Rafael às 2h — ele nega.",
+      "retrato": "cases/relatorio-17b/images/retrato-paulo.png"
     },
     {
       "nome": "Dra. Carla Braga (Diretora)",
       "motivo": "O relatório denunciava testes ilegais sob sua gestão.",
       "alibi": "Diz que não tinha conhecimento do conteúdo do relatório.",
-      "contradicoes": "E-mails internos provam que ela monitorava Rafael ativamente e controlava a documentação."
+      "contradicoes": "E-mails internos provam que ela monitorava Rafael ativamente e controlava a documentação.",
+      "retrato": "cases/relatorio-17b/images/retrato-carla.png"
     },
     {
       "nome": "Luís Carvalheiro (TI)",
