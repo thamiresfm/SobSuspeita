@@ -1,4 +1,4 @@
-# Roteiro de vídeo — Galeria Nocturna
+# Roteiro de vídeo — Galeria Noturna
 
 **Duração sugerida:** 3–5 minutos (dinâmico) ou 8–10 min (detalhado).
 
@@ -50,7 +50,7 @@
 
 ## Créditos
 
-- “Arquivo Frio — Galeria Nocturna.”
+- “Arquivo Frio — Galeria Noturna.”
 
 ---
 
