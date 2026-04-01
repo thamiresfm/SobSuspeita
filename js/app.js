@@ -843,6 +843,21 @@ async function init() {
     renderStats();
   });
 
+  const searchInput = el("case-search");
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      renderHomeList();
+    });
+  }
+
+  const diffSelect = el("case-filter-difficulty");
+  if (diffSelect) {
+    diffSelect.addEventListener("change", () => {
+      renderHomeList();
+      playClick();
+    });
+  }
+
   const modalTtsBtn = el("modal-tts-btn");
   if (modalTtsBtn) {
     modalTtsBtn.addEventListener("click", () => {
