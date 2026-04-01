@@ -3,6 +3,7 @@
   "descricao": "Um chef renomado desaparece antes do serviço da noite. A cozinha estava em funcionamento e todas as mesas reservadas.",
   "dificuldade": "Médio",
   "duracaoEstimada": "25–35 min",
+  "imagemCapa": "cases/restaurante-vazio/images/retrato-mario.jpg",
   "fases": [
     {
       "nome": "Contexto",
@@ -12,12 +13,14 @@
           "id": "bo-desaparecimento",
           "tipo": "laudo",
           "titulo": "Boletim de Ocorrência — Desaparecimento Chef Mário Alcântara",
+          "imagem": "cases/restaurante-vazio/images/retrato-mario.jpg",
           "conteudo": "Data: 18/04, 19h30. Chef Mário Alcântara não foi encontrado antes do serviço. Cozinha estava aquecida, fornos ligados e mise en place completo. Todas as 14 mesas estavam reservadas. Celular encontrado desligado na bancada da cozinha."
         },
         {
           "id": "dep-souschef",
           "tipo": "depoimento",
           "titulo": "Depoimento — André Lima (Sous-chef)",
+          "imagem": "cases/restaurante-vazio/images/retrato-andre.png",
           "conteudo": "Cheguei às 15h e fiquei preparando a mise en place até o horário do serviço. O Chef Mário estava no escritório quando cheguei. A última vez que o vi foi por volta das 18h, quando pediu para eu verificar o estoque de vinho. Não ouvi nada de incomum."
         },
         {
@@ -36,12 +39,14 @@
           "id": "estoque",
           "tipo": "laudo",
           "titulo": "Laudo de Estoque — Despensa da Cozinha",
+          "imagem": "cases/restaurante-vazio/images/retrato-andre.png",
           "conteudo": "Encontrado frasco de cogumelo Amanita phalloides (altamente tóxico) misturado ao estoque de cogumelos comuns. Embalagem aberta recentemente. Impressões digitais na embalagem: André Lima. Estoque de álcool: 3 garrafas a menos do que o registrado na semana anterior."
         },
         {
           "id": "msgs-chef",
           "tipo": "noticia",
           "titulo": "Mensagens — Celular Chef Mário (últimas 72h)",
+          "imagem": "cases/restaurante-vazio/images/retrato-mario.jpg",
           "conteudo": "16/04 — Renato: 'Precisamos conversar sobre os números. Hoje às 17h?'\n16/04 — Mário: 'Não me interessa mais cobrir suas irregularidades. Vou falar com o contador na quinta.'\n17/04 — Renato: 'Você vai se arrepender de tomar essa decisão.'"
         },
         {
@@ -97,7 +102,8 @@
       "nome": "André Lima (Sous-chef)",
       "motivo": "Poderia assumir o lugar do chef; encontrado manipulando estoque tóxico.",
       "alibi": "Afirma que ficou fazendo mise en place o tempo todo.",
-      "contradicoes": "Impressões digitais no cogumelo tóxico e acesso não justificado à despensa às 17h12."
+      "contradicoes": "Impressões digitais no cogumelo tóxico e acesso não justificado à despensa às 17h12.",
+      "retrato": "cases/restaurante-vazio/images/retrato-andre.png"
     },
     {
       "nome": "Renato Figueiredo (Investidor)",

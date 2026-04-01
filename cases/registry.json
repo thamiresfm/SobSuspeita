@@ -52,13 +52,13 @@
       "id": "restaurante-vazio",
       "arquivo": "restaurante-vazio/caso.json",
       "titulo": "O Caso do Restaurante Vazio",
-      "descricao": "Todas as mesas reservadas, nenhuma testemunha presente quando o crime acontece.",
+      "descricao": "Um chef renomado desaparece antes do serviço. Cogumelo tóxico, sangue no ralo e fraude de R$ 340 mil.",
       "dificuldade": "Médio",
       "nivel": "Intermediário",
       "capitulo": 5,
       "categoria": "Assassinato",
       "duracaoEstimada": "25–35 min",
-      "imagemCapa": ""
+      "imagemCapa": "cases/restaurante-vazio/images/retrato-mario.jpg"
     },
     {
       "id": "vozes-madrugada",
