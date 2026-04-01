@@ -729,7 +729,10 @@ function renderHomeList() {
   }
 
   function pushToLevel(entry, meta) {
-    const nivel = (entry.nivel || "").toLowerCase();
+    const nivel = (entry.nivel || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
     const isInProgress = meta.inProgress;
     const label = isInProgress ? "Em andamento" : "Novo caso";
     const card = createCaseCard(entry, { showStatus: true, statusLabel: label });
@@ -786,27 +789,31 @@ function createCaseCard(entry, opts = {}) {
       ? 10
       : 0;
   const capa = entry.imagemCapa
-    ? `<img class="case-card__cover" src="${escapeHtml(entry.imagemCapa)}" alt="" loading="lazy" />`
+    ? `<div class="case-card__thumb-wrap"><img class="case-card__thumb" src="${escapeHtml(
+        entry.imagemCapa
+      )}" alt="" loading="lazy" /></div>`
     : "";
   const statusBadge =
     opts.showStatus && opts.statusLabel
       ? `<span class="pill pill--muted case-card__status">${escapeHtml(opts.statusLabel)}</span>`
       : "";
   btn.innerHTML = `
-    <div class="case-card__media">
+    <div class="case-card__main">
       ${capa}
-      <div class="case-card__overlay">
+      <div class="case-card__content">
         <h2 class="case-card__title">${escapeHtml(entry.titulo)}</h2>
         <p class="case-card__desc">${escapeHtml(entry.descricao)}</p>
+        <div class="case-card__row">
+          <span class="pill">${escapeHtml(entry.dificuldade)}</span>
+          <span class="pill pill--muted">${escapeHtml(entry.duracaoEstimada)}</span>
+          ${statusBadge}
+        </div>
       </div>
     </div>
-    <div class="case-card__row">
-      <span class="pill">${escapeHtml(entry.dificuldade)}</span>
-      <span class="pill pill--muted">${escapeHtml(entry.duracaoEstimada)}</span>
-      ${statusBadge}
-    </div>
-    <div class="case-card__progress" aria-label="Progresso no caso">
-      <div class="case-card__progress-fill" style="width: ${progress}%;"></div>
+    <div class="case-card__footer" aria-label="Progresso no caso">
+      <div class="case-card__progress">
+        <div class="case-card__progress-fill" style="width: ${progress}%;"></div>
+      </div>
     </div>
   `;
   btn.addEventListener("click", () => {

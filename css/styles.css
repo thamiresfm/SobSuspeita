@@ -47,7 +47,8 @@ body {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  max-width: 720px;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
   padding: env(safe-area-inset-top) 1rem env(safe-area-inset-bottom);
 }
@@ -102,25 +103,25 @@ body {
 }
 
 .hero {
-  margin: 0 -1rem 1.25rem;
-  padding: 1.75rem 1.25rem 1.5rem;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.9) 100%),
-    radial-gradient(circle at 10% 0%, rgba(255, 230, 150, 0.18) 0%, transparent 55%),
-    url("../assets/hero-desk-placeholder.jpg") center/cover no-repeat;
+  margin: 0 -1.5rem 1.5rem;
+  padding: 0 0 1.5rem;
+  border-radius: 0;
+  border: none;
+  background: linear-gradient(180deg, #050506 0%, #050506 35%, #0d0d0f 100%);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0.3rem;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
 }
 
 .hero__logo {
-  width: 220px;
+  width: 100%;
+  max-width: none;
   height: auto;
   display: block;
-  margin-bottom: 0.5rem;
+  margin: 0;
+  filter: none;
 }
 
 .kicker {
@@ -143,7 +144,7 @@ body {
 .hero__lead {
   color: var(--text-muted);
   margin: 0;
-  max-width: 38ch;
+  max-width: 42ch;
   font-size: 1.08rem;
   line-height: 1.55;
 }
@@ -263,7 +264,7 @@ body {
 .case-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 0.85rem;
+  gap: 1rem;
 }
 
 @media (min-width: 640px) {
@@ -291,14 +292,14 @@ body {
   display: block;
   width: 100%;
   text-align: left;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
+  background: #14141d;
+  border: 1px solid #2f2a1b;
   border-radius: var(--radius);
   color: inherit;
   font: inherit;
   cursor: pointer;
-  transition: border-color 0.15s, background 0.15s;
-  min-height: var(--tap);
+  transition: border-color 0.15s, background 0.15s, transform 0.15s;
+  min-height: calc(var(--tap) * 1.4);
 }
 
 .case-card--large {
@@ -311,15 +312,16 @@ body {
 
 .case-card:hover,
 .case-card:focus-visible {
-  border-color: var(--accent-dim);
-  background: var(--bg-hover);
+  border-color: var(--accent);
+  background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.04) 0, transparent 55%), #1d1d27;
   outline: none;
+  transform: translateY(-2px);
 }
 
 .case-card__inner {
   display: block;
   width: 100%;
-  padding: 1rem 1.1rem;
+  padding: 1.1rem 1.15rem 1.2rem;
   background: transparent;
   border: none;
   color: inherit;
@@ -329,42 +331,62 @@ body {
 }
 
 .case-card--large .case-card__inner {
-  padding: 1.1rem 1.25rem;
+  padding: 1.3rem 1.6rem 1.45rem;
 }
 
-.case-card__media {
-  position: relative;
+.case-card__main {
+  display: grid;
+  grid-template-columns: 1.5fr 2fr;
+  gap: 0.9rem;
+  align-items: stretch;
+}
+
+.case-card--large .case-card__main {
+  grid-template-columns: 2fr 3fr;
+}
+
+.case-card__thumb-wrap {
   border-radius: calc(var(--radius) - 2px);
   overflow: hidden;
-  margin-bottom: 0.7rem;
+  background: #0f0f16;
 }
 
-.case-card__cover {
+.case-card__thumb {
   display: block;
   width: 100%;
   height: auto;
-  max-height: 180px;
-  object-fit: cover;
+  max-height: none;
+  object-fit: contain;
 }
 
-.case-card__overlay {
-  position: absolute;
-  inset: auto 0 0 0;
-  padding: 0.6rem 0.7rem 0.7rem;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.1));
+.case-card__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.45rem;
 }
 
 .case-card__title {
-  font-size: 1.08rem;
+  font-size: 1.28rem;
   font-weight: 600;
-  margin: 0 0 0.15rem;
+  margin: 0 0 0.2rem;
   font-family: var(--font-body);
+  color: #ffe19a;
 }
 
 .case-card__desc {
-  color: var(--text-muted);
-  font-size: 0.92rem;
+  color: #f4f1e8;
+  opacity: 0.9;
+  font-size: 1rem;
   margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.case-card__footer {
+  margin-top: 0.75rem;
 }
 
 .case-card__row {
