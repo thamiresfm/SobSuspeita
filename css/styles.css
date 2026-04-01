@@ -167,6 +167,20 @@ body {
   object-position: center top;
 }
 
+@media (max-width: 640px) {
+  .hero {
+    margin: 0 -1rem 1rem;
+  }
+
+  .hero__bg--banner {
+    height: auto;
+    max-height: 56vw;
+    object-fit: contain;
+    object-position: center top;
+    background: #050506;
+  }
+}
+
 .kicker {
   font-family: var(--font-mono);
   font-size: 0.8rem;
@@ -186,10 +200,21 @@ body {
 
 .hero__lead {
   color: var(--text-muted);
-  margin: 0;
+  margin: 0 1rem;
   max-width: 42ch;
   font-size: 1.08rem;
   line-height: 1.55;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .hero__lead {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(232, 230, 225, 0.75);
+    padding: 0 0.5rem;
+    margin: 0.75rem 0 0;
+  }
 }
 
 .home-cta {
