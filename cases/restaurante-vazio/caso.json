@@ -81,6 +81,7 @@
           "id": "dep-garcom",
           "tipo": "depoimento",
           "titulo": "Depoimento — Felipe (Garçom antigo)",
+          "imagem": "cases/restaurante-vazio/images/retrato-felipe.png",
           "conteudo": "Cheguei para o turno da noite e passei pela despensa para pegar guardanapos. Vi o sous-chef André mexendo em caixas que normalmente ficam no alto — não era da rotina dele. Não disse nada porque não era meu lugar. Parecia nervoso."
         }
       ]
@@ -120,7 +121,8 @@
       "nome": "Felipe (Garçom antigo)",
       "motivo": "Conflitos com o chef por mudanças na equipe.",
       "alibi": "Chegou apenas para o turno da noite.",
-      "contradicoes": "Testemunhas o viram próximo à despensa antes do horário."
+      "contradicoes": "Testemunhas o viram próximo à despensa antes do horário.",
+      "retrato": "cases/restaurante-vazio/images/retrato-felipe.png"
     }
   ],
   "solucao": {
