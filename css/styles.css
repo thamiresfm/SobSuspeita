@@ -109,10 +109,12 @@ body {
 
 .hero {
   margin: 0 -1.5rem 1.5rem;
-  padding: 0 0 1.5rem;
+  padding: 2rem 2rem 2rem;
   border-radius: 0;
   border: none;
-  background: linear-gradient(180deg, #050506 0%, #050506 35%, #0d0d0f 100%);
+  background:
+    linear-gradient(180deg, rgba(5,5,8,0.65) 0%, rgba(5,5,8,0.85) 60%, #0d0d0f 100%),
+    url("../assets/hero-desk-placeholder.jpg") center/cover no-repeat;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -121,12 +123,12 @@ body {
 }
 
 .hero__logo {
-  width: 100%;
+  width: min(520px, 90%);
   max-width: none;
   height: auto;
   display: block;
-  margin: 0;
-  filter: none;
+  margin: 0 auto 0.5rem;
+  filter: drop-shadow(0 8px 32px rgba(0,0,0,0.9));
 }
 
 .kicker {
@@ -696,9 +698,10 @@ body {
 }
 
 .topbar-case__logo {
-  height: 38px;
+  height: 44px;
   width: auto;
   display: block;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.7));
 }
 
 .topbar-case__nav {
