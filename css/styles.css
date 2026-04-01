@@ -125,11 +125,11 @@ body {
   gap: 0;
 }
 
-/* Banner com fundo + logo por cima */
+/* Banner hero */
 .hero__banner {
-  position: relative;
   width: 100%;
   line-height: 0;
+  overflow: hidden;
 }
 
 .hero__bg {
@@ -138,14 +138,10 @@ body {
   height: auto;
 }
 
-.hero__logo-oficial {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  padding: 4%;
-  display: block;
+.hero__bg--banner {
+  height: 600px;
+  object-fit: cover;
+  object-position: center top;
 }
 
 .kicker {
