@@ -1392,27 +1392,7 @@ body {
   scrollbar-width: thin;
 }
 
-.case-nav__btn {
-  flex: 0 0 auto;
-  padding: 0.5rem 0.75rem;
-  min-height: var(--tap);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: var(--bg-elevated);
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.case-nav__btn.is-active {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: rgba(201, 162, 39, 0.08);
-}
+/* .case-nav__btn definido acima na secao topbar--case */
 
 .panels {
   min-height: 40vh;
