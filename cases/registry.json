@@ -76,13 +76,13 @@
       "id": "testemunha-invisivel",
       "arquivo": "testemunha-invisivel/caso.json",
       "titulo": "A Testemunha Invisível",
-      "descricao": "Uma pessoa afirma ter visto tudo, mas não aparece em nenhuma gravação.",
+      "descricao": "Um assassinato em escritório monitorado — ninguém aparece nas câmeras. Log adulterado, cartões de acesso e um pagamento revelam a conspiração.",
       "dificuldade": "Difícil",
       "nivel": "Avançado",
       "capitulo": 7,
       "categoria": "Conspiração",
       "duracaoEstimada": "35–45 min",
-      "imagemCapa": ""
+      "imagemCapa": "cases/testemunha-invisivel/images/log-cameras.png"
     },
     {
       "id": "relatorio-17b",

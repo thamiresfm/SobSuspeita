@@ -3,21 +3,24 @@
   "descricao": "Um assassinato acontece em um escritório monitorado por câmeras, mas ninguém aparece entrando ou saindo.",
   "dificuldade": "Difícil",
   "duracaoEstimada": "35–45 min",
+  "imagemCapa": "cases/testemunha-invisivel/images/log-cameras.png",
   "fases": [
     {
       "nome": "Contexto",
       "resumo": "A cena impossível e os primeiros depoimentos.",
       "documentos": [
         {
-          "id": "laudo-vítima",
+          "id": "laudo-vitima",
           "tipo": "laudo",
-          "titulo": "Laudo Necroscópico — Vítima: Diretor Paulo Alencar",
+          "titulo": "Laudo Necroscópico — Diretor Paulo Alencar",
+          "imagem": "cases/testemunha-invisivel/images/laudo-vitima.png",
           "conteudo": "Causa mortis: estrangulamento manual. Horário estimado: entre 21h30 e 22h15. Vítima encontrada em sua sala no 12º andar. Nenhuma janela aberta. Porta principal do andar monitorada por câmera. Câmera de elevador sem interrupções no período."
         },
         {
-          "id": "dep-segurança",
+          "id": "dep-seguranca",
           "tipo": "depoimento",
           "titulo": "Depoimento — Roberto Feix (Segurança)",
+          "imagem": "cases/testemunha-invisivel/images/retrato-roberto.png",
           "conteudo": "Fiquei monitorando as telas das 20h às 23h. Tudo normal. Nenhuma pessoa subiu ao 12º andar fora do expediente. As câmeras estavam funcionando perfeitamente — não houve corte ou falha técnica registrada."
         },
         {
@@ -36,18 +39,21 @@
           "id": "log-sistema",
           "tipo": "laudo",
           "titulo": "Log do Sistema de Câmeras",
+          "imagem": "cases/testemunha-invisivel/images/log-cameras.png",
           "conteudo": "Análise forense do DVR: três arquivos de vídeo do período 21h00–22h30 foram substituídos por arquivos idênticos de uma semana anterior. Upload feito às 21h17 via terminal de acesso interno da central de segurança. Usuário logado: roberto.feix."
         },
         {
           "id": "acesso-cartao",
           "tipo": "laudo",
           "titulo": "Log de Cartões de Acesso — 12º Andar",
+          "imagem": "cases/testemunha-invisivel/images/log-acesso.png",
           "conteudo": "Cartão de acesso da funcionária Denise Cardoso registrado às 21h44 no 12º andar. Ela saiu às 21h52. Cartão de Roberto Feix registrado às 22h01 — subida fora do protocolo; seguranças não sobem em serviço sem autorização do supervisor."
         },
         {
           "id": "dep-funcionaria",
           "tipo": "depoimento",
           "titulo": "Depoimento — Denise Cardoso (Funcionária)",
+          "imagem": "cases/testemunha-invisivel/images/retrato-denise.png",
           "conteudo": "Saí antes do fim do expediente, por volta das 18h. Esqueci minha bolsa e voltei rapidamente para pegar. Entrei, peguei a bolsa da minha mesa e saí. Não passei perto da sala do diretor. Ouvi um barulho estranho mas achei que era a limpeza."
         }
       ]
@@ -90,7 +96,8 @@
       "nome": "Roberto Feix (Segurança)",
       "motivo": "Controle do sistema de câmeras e acesso interno.",
       "alibi": "Diz que monitorou as telas e nada viu de anormal.",
-      "contradicoes": "Log mostra upload de vídeo substituto com seu login; cartão usado no 12º andar fora do protocolo."
+      "contradicoes": "Log mostra upload de vídeo substituto com seu login; cartão usado no 12º andar fora do protocolo.",
+      "retrato": "cases/testemunha-invisivel/images/retrato-roberto.png"
     },
     {
       "nome": "Fábio Tavares (Sócio)",
@@ -102,7 +109,8 @@
       "nome": "Denise Cardoso (Funcionária)",
       "motivo": "Ameaça de demissão e pressões no trabalho.",
       "alibi": "Afirma ter saído antes do expediente acabar.",
-      "contradicoes": "Cartão de acesso confirma retorno às 21h44 — audaz confissão de presença no local."
+      "contradicoes": "Cartão de acesso confirma retorno às 21h44 — presença no local no horário do crime.",
+      "retrato": "cases/testemunha-invisivel/images/retrato-denise.png"
     }
   ],
   "solucao": {
