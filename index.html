@@ -205,50 +205,7 @@
               <div class="phase-tabs" id="phase-tabs" role="tablist" aria-label="Fases"></div>
               <ul id="doc-list" class="doc-list"></ul>
             </div>
-            <!-- painel anotações (lista) -->
-            <div id="panel-anotacoes" class="panel" hidden role="tabpanel">
-              <ul id="notes-list" class="notes-list"></ul>
-            </div>
-            <!-- painel timeline (lista) -->
-            <div id="panel-timeline" class="panel" hidden role="tabpanel">
-              <ol id="timeline-list" class="timeline-list"></ol>
-            </div>
-            <!-- painel suspeitos (lista) -->
-            <div id="panel-suspeitos" class="panel" hidden role="tabpanel">
-              <div id="suspects-grid" class="suspects-grid"></div>
-            </div>
-            <!-- painel resolução (form) -->
-            <div id="panel-resolucao" class="panel" hidden role="tabpanel">
-              <form id="resolution-form" class="resolution-form">
-                <fieldset class="fieldset">
-                  <legend>Quem cometeu o crime?</legend>
-                  <label class="field">
-                    <span class="field__label">Culpado</span>
-                    <select id="res-culpado" required></select>
-                  </label>
-                </fieldset>
-                <fieldset class="fieldset">
-                  <legend>Como aconteceu?</legend>
-                  <label class="field">
-                    <span class="field__label">Método</span>
-                    <textarea id="res-metodo" rows="3" required placeholder="Instrumento, acesso, sequência…"></textarea>
-                  </label>
-                </fieldset>
-                <fieldset class="fieldset">
-                  <legend>Qual o motivo?</legend>
-                  <label class="field">
-                    <span class="field__label">Motivo</span>
-                    <textarea id="res-motivo" rows="3" required></textarea>
-                  </label>
-                </fieldset>
-                <fieldset class="fieldset">
-                  <legend>Quem mentiu?</legend>
-                  <div id="res-mentiras" class="checkbox-grid"></div>
-                </fieldset>
-                <button type="submit" class="btn btn--primary btn--block">Submeter hipótese</button>
-              </form>
-              <div id="resolution-result" class="resolution-result" hidden></div>
-            </div>
+            <!-- painéis anotações/timeline/suspeitos/resolução são renderizados dinamicamente na coluna central -->
           </aside>
 
           <!-- Coluna central: conteúdo do documento/painel aberto -->

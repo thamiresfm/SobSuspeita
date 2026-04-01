@@ -168,7 +168,10 @@ function setActivePanel(name) {
         <p class="hint">Classifique cada pessoa conforme sua análise das provas.</p>
         <div id="suspects-grid" class="suspects-grid center-suspects-grid"></div>
       </div>`;
-    if (currentCase && state) renderSuspects(currentCase);
+    if (currentCase && state) {
+      const grid = center.querySelector("#suspects-grid");
+      if (grid) renderSuspectsInto(currentCase, grid);
+    }
     return;
   }
 
@@ -552,6 +555,45 @@ function renderTimeline(caso) {
       playClick();
     });
     ol.appendChild(li);
+  });
+}
+
+function renderSuspectsInto(caso, grid) {
+  if (!grid) return;
+  grid.innerHTML = "";
+  (caso.suspeitos || []).forEach((s) => {
+    const nome = s.nome;
+    const card = document.createElement("article");
+    card.className = "suspect-card";
+    const st = state.suspectStatus[nome] || "neutro";
+    const foto = s.retrato
+      ? `<img class="suspect-card__photo" src="${escapeHtml(s.retrato)}" alt="" loading="lazy" />`
+      : "";
+    card.innerHTML = `
+      ${foto}
+      <h3 class="suspect-card__name">${escapeHtml(nome)}</h3>
+      <dl>
+        <dt>Motivo para suspeita</dt><dd>${escapeHtml(s.motivo || "—")}</dd>
+        <dt>Álibi</dt><dd>${escapeHtml(s.alibi || "—")}</dd>
+        <dt>Contradições</dt><dd>${escapeHtml(s.contradicoes || "—")}</dd>
+      </dl>
+      <div class="suspect-card__status">
+        <label for="st-${hash(nome)}">Classificação</label>
+        <select id="st-${hash(nome)}" data-nome="${escapeHtml(nome)}">
+          <option value="neutro" ${st === "neutro" ? "selected" : ""}>Em análise</option>
+          <option value="principal" ${st === "principal" ? "selected" : ""}>Principal</option>
+          <option value="observacao" ${st === "observacao" ? "selected" : ""}>Sob observação</option>
+          <option value="descartado" ${st === "descartado" ? "selected" : ""}>Descartado</option>
+        </select>
+      </div>
+    `;
+    card.querySelector("select").addEventListener("change", (e) => {
+      state.suspectStatus[nome] = e.target.value;
+      persist();
+      playClick();
+      updateTopSuspect();
+    });
+    grid.appendChild(card);
   });
 }
 
