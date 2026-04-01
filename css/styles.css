@@ -1802,9 +1802,10 @@ textarea {
 .suspect-card__photo {
   width: 100%;
   max-width: 200px;
-  height: auto;
-  aspect-ratio: 3 / 4;
+  height: 180px;
+  aspect-ratio: unset;
   object-fit: cover;
+  object-position: center 15%;
   border-radius: 8px;
   border: 1px solid var(--border);
   margin-bottom: 0.75rem;

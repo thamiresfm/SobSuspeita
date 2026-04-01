@@ -20,12 +20,14 @@
           "id": "dep-clara",
           "tipo": "depoimento",
           "titulo": "Depoimento — Clara Vilela (Controladora)",
+          "imagem": "cases/ultimo-trem-aurora/images/retrato-clara.png",
           "conteudo": "Permaneci na sala de controle das 21h às 02h. Não há nada de incomum nos logs. O trem seguiu o cronograma normal até o túnel — depois do Km 12, perdi o sinal, o que é comum nessa faixa. Não vi ninguém entrar na sala de máquinas."
         },
         {
           "id": "dep-eduardo",
           "tipo": "depoimento",
           "titulo": "Depoimento — Eduardo Farias (Passageiro suspeito)",
+          "imagem": "cases/ultimo-trem-aurora/images/retrato-eduardo.png",
           "conteudo": "Não embarquei no TA-09 nessa noite. Estava em casa. Podem verificar minha passagem — comprei para o trem anterior, o TA-07."
         }
       ]
@@ -63,6 +65,7 @@
           "id": "dep-jonas",
           "tipo": "depoimento",
           "titulo": "Depoimento — Jonas Prado (Manutenção)",
+          "imagem": "cases/ultimo-trem-aurora/images/retrato-jonas.png",
           "conteudo": "Encerrei meu turno às 20h30. Deixei minhas ferramentas no armário padrão. Se apareceram próximas ao túnel, alguém as pegou sem minha autorização. Tenho registro de ponto para provar."
         },
         {
@@ -94,19 +97,22 @@
       "nome": "Clara Vilela",
       "motivo": "Controladora da estação, responsável pelos registros de passagem do trem.",
       "alibi": "Diz que permaneceu na sala de controle toda a noite.",
-      "contradicoes": "Omissão de logs e saída de 14 minutos sem registro de ocorrência."
+      "contradicoes": "Omissão de logs e saída de 14 minutos sem registro de ocorrência.",
+      "retrato": "cases/ultimo-trem-aurora/images/retrato-clara.png"
     },
     {
       "nome": "Jonas Prado",
       "motivo": "Técnico de manutenção com acesso ao sistema de freios.",
       "alibi": "Afirma ter encerrado o turno horas antes da última viagem.",
-      "contradicoes": "Ferramentas compatíveis encontradas próximas ao túnel."
+      "contradicoes": "Ferramentas compatíveis encontradas próximas ao túnel.",
+      "retrato": "cases/ultimo-trem-aurora/images/retrato-jonas.png"
     },
     {
       "nome": "Eduardo Farias",
       "motivo": "Passageiro envolvido com carga ilegal no trem.",
       "alibi": "Alega que não embarcou na última viagem.",
-      "contradicoes": "Câmeras internas registram sua presença no vagão de carga."
+      "contradicoes": "Câmeras internas registram sua presença no vagão de carga.",
+      "retrato": "cases/ultimo-trem-aurora/images/retrato-eduardo.png"
     }
   ],
   "solucao": {
