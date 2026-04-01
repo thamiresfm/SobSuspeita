@@ -66,42 +66,181 @@ function showHome() {
 }
 
 function setActivePanel(name) {
+  // Marca aba ativa
   document.querySelectorAll(".case-nav__btn").forEach((b) => {
     b.classList.toggle("is-active", b.dataset.panel === name);
   });
-  const map = {
-    documentos: el("panel-documentos"),
-    anotacoes: el("panel-anotacoes"),
-    timeline: el("panel-timeline"),
-    suspeitos: el("panel-suspeitos"),
-    resolucao: el("panel-resolucao"),
-  };
-  Object.entries(map).forEach(([k, node]) => {
+
+  // Painéis na coluna esquerda — só documentos usa a lista lateral
+  const leftPanels = ["panel-documentos","panel-anotacoes","panel-timeline","panel-suspeitos","panel-resolucao"];
+  leftPanels.forEach((id) => {
+    const node = el(id);
     if (!node) return;
-    node.hidden = k !== name;
-    node.classList.toggle("is-visible", k === name);
+    const panelName = id.replace("panel-", "");
+    node.hidden = panelName !== name;
+    node.classList.toggle("is-visible", panelName === name);
   });
 
-  // Coluna central: mostra viewer ou áreas auxiliares conforme painel
-  const viewer = el("doc-viewer");
-  const noteArea = el("note-quick-area");
-  const hintArea = el("panel-hint-area");
-  const hintText = el("panel-hint-text");
+  // Coluna central: mostra o conteúdo certo para cada aba
+  const center = el("case-col-center");
+  if (!center) return;
 
-  if (viewer) viewer.hidden = name !== "documentos";
-  if (noteArea) noteArea.hidden = name !== "anotacoes";
-  if (hintArea && hintText) {
-    if (name === "timeline") {
-      hintArea.hidden = false;
-      hintText.textContent = "Arraste ou use ↑↓ para ordenar os eventos. A ordem certa expõe contradições nos depoimentos.";
-    } else if (name === "suspeitos") {
-      hintArea.hidden = false;
-      hintText.textContent = "Classifique cada suspeito: Em análise, Principal, Sob observação ou Descartado.";
-    } else if (name === "resolucao") {
-      hintArea.hidden = false;
-      hintText.textContent = "Preencha o formulário com sua hipótese final e submeta quando estiver pronto.";
-    } else {
-      hintArea.hidden = true;
+  center.innerHTML = "";
+
+  if (name === "documentos") {
+    // Restaura o doc-viewer (pode estar vazio se nenhum doc selecionado)
+    const viewer = document.createElement("div");
+    viewer.id = "doc-viewer";
+    viewer.className = "doc-viewer";
+    viewer.innerHTML = `<div class="doc-viewer__empty"><p>Selecione um documento na lista à esquerda para ler.</p></div>`;
+    center.appendChild(viewer);
+    return;
+  }
+
+  if (name === "anotacoes") {
+    center.innerHTML = `
+      <div class="center-panel-wrap">
+        <h2 class="center-panel__title">Anotações da Investigação</h2>
+        <form id="note-form" class="note-form center-note-form">
+          <div class="center-note-form__row">
+            <label class="field" style="flex:1">
+              <span class="field__label">Nova anotação</span>
+              <textarea id="note-text" rows="3" placeholder="Ex.: o álibi de X conflita com o laudo…"></textarea>
+            </label>
+            <div class="center-note-form__actions">
+              <label class="field">
+                <span class="field__label">Marcação</span>
+                <select id="note-tag">
+                  <option value="fato">Fato confirmado</option>
+                  <option value="suspeita">Suspeita</option>
+                  <option value="duvida">Dúvida</option>
+                </select>
+              </label>
+              <button type="submit" class="btn btn--primary">Adicionar</button>
+            </div>
+          </div>
+        </form>
+        <ul id="notes-list" class="notes-list center-notes-list"></ul>
+        <div class="center-panel__section">
+          <h3 class="center-panel__subtitle">Fatos do caso</h3>
+          <ul id="facts-list" class="facts-list"></ul>
+        </div>
+        <div class="center-panel__section">
+          <h3 class="center-panel__subtitle">Hipótese rascunho</h3>
+          <label class="field">
+            <span class="field__label">Síntese antes de enviar na aba Resolução</span>
+            <textarea id="hypothesis-draft" rows="4" placeholder="Quem, como e por quê, em suas palavras…"></textarea>
+          </label>
+        </div>
+      </div>`;
+
+    // Re-renderiza notas e fatos
+    if (currentCase && state) {
+      renderNotes();
+      renderFacts(currentCase);
+      el("hypothesis-draft").value = state.hypothesisDraft || "";
+      el("hypothesis-draft").oninput = (e) => {
+        state.hypothesisDraft = e.target.value;
+        persist();
+        const prev = el("summary-hypothesis-preview");
+        if (prev) prev.textContent = e.target.value.trim() || "Nenhuma hipótese registrada ainda.";
+      };
+      el("note-form").onsubmit = (e) => {
+        e.preventDefault();
+        const texto = el("note-text").value.trim();
+        if (!texto) return;
+        const tipo = el("note-tag").value;
+        state.notes.push({ id: `n-${Date.now()}-${Math.random().toString(36).slice(2,7)}`, texto, tipo });
+        el("note-text").value = "";
+        persist();
+        renderNotes();
+        playClick();
+      };
+    }
+    return;
+  }
+
+  if (name === "timeline") {
+    center.innerHTML = `
+      <div class="center-panel-wrap">
+        <h2 class="center-panel__title">Linha do Tempo</h2>
+        <p class="hint">Arraste ou use ↑↓ para reordenar os eventos. A ordem correta expõe contradições nos depoimentos.</p>
+        <ol id="timeline-list" class="timeline-list"></ol>
+      </div>`;
+    if (currentCase && state) renderTimeline(currentCase);
+    return;
+  }
+
+  if (name === "suspeitos") {
+    center.innerHTML = `
+      <div class="center-panel-wrap">
+        <h2 class="center-panel__title">Painel de Suspeitos</h2>
+        <p class="hint">Classifique cada pessoa conforme sua análise das provas.</p>
+        <div id="suspects-grid" class="suspects-grid center-suspects-grid"></div>
+      </div>`;
+    if (currentCase && state) renderSuspects(currentCase);
+    return;
+  }
+
+  if (name === "resolucao") {
+    center.innerHTML = `
+      <div class="center-panel-wrap center-panel-wrap--resolucao">
+        <h2 class="center-panel__title">Encerramento do Caso</h2>
+        <p class="hint">Revise todas as evidências antes de submeter. Você só pode submeter uma vez por sessão.</p>
+        <form id="resolution-form" class="resolution-form">
+          <fieldset class="fieldset">
+            <legend>Quem cometeu o crime?</legend>
+            <label class="field">
+              <span class="field__label">Culpado</span>
+              <select id="res-culpado" required></select>
+            </label>
+          </fieldset>
+          <fieldset class="fieldset">
+            <legend>Como aconteceu?</legend>
+            <label class="field">
+              <span class="field__label">Método</span>
+              <textarea id="res-metodo" rows="3" required placeholder="Instrumento, acesso, sequência…"></textarea>
+            </label>
+          </fieldset>
+          <fieldset class="fieldset">
+            <legend>Qual o motivo?</legend>
+            <label class="field">
+              <span class="field__label">Motivo</span>
+              <textarea id="res-motivo" rows="3" required></textarea>
+            </label>
+          </fieldset>
+          <fieldset class="fieldset">
+            <legend>Quem mentiu?</legend>
+            <p class="hint">Marque todos que tiveram declarações falsas ou omitiram fatos relevantes.</p>
+            <div id="res-mentiras" class="checkbox-grid"></div>
+          </fieldset>
+          <button type="submit" class="btn btn--primary btn--block">Submeter hipótese</button>
+        </form>
+        <div id="resolution-result" class="resolution-result" hidden></div>
+      </div>`;
+
+    if (currentCase && state) {
+      renderResolutionForm(currentCase);
+      el("resolution-form").onsubmit = (e) => {
+        e.preventDefault();
+        const mentiras = [];
+        el("res-mentiras").querySelectorAll('input[type="checkbox"]').forEach((cb) => {
+          if (cb.checked) mentiras.push(cb.value);
+        });
+        const answers = {
+          culpado: el("res-culpado").value,
+          metodo: el("res-metodo").value,
+          motivo: el("res-motivo").value,
+          mentiras,
+        };
+        const evalRes = evaluateResolution(currentCase, answers, state.timelineOrder);
+        const elapsed = Date.now() - (state.startedAt || Date.now());
+        state.resolutionSubmitted = true;
+        persist();
+        showResolutionResult(evalRes, elapsed);
+        playClick();
+        toast("Hipótese registrada.");
+      };
     }
   }
 }

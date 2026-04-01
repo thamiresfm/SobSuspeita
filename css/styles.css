@@ -1139,7 +1139,64 @@ body {
 /* Coluna central — viewer */
 .case-col--center {
   background: var(--bg);
+  padding: 0;
+}
+
+.center-panel-wrap {
   padding: 1.5rem 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.center-panel-wrap--resolucao {
+  max-width: 600px;
+}
+
+.center-panel__title {
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  color: var(--text);
+}
+
+.center-panel__subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 0.5rem;
+}
+
+.center-panel__section {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+.center-note-form__row {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+.center-note-form__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  width: 160px;
+}
+
+.center-notes-list {
+  margin-top: 1rem;
+}
+
+.center-suspects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
 }
 
 .doc-viewer {
